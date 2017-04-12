@@ -387,50 +387,50 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         recitationDataPane = new GridPane();
         recitationLabel = new Label();
-        recitationLabel.setText("Recitation");
+        recitationLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_LABEL_TEXT.toString()));
         recitationDataPane.add(recitationLabel, 0, 0);
         recitations = new TableView();
         recitationDataPane.add(recitations, 0, 1);
         section = new TableColumn();
-        section.setText("");
+        section.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_SECTIONCOLUMN_TEXT.toString()));
         instructor = new TableColumn();
-        instructor.setText("");
+        instructor.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_INSTRUCTORCOLUMN_TEXT.toString()));
         dayAndTime = new TableColumn();
-        dayAndTime.setText("");
+        dayAndTime.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_DAYANDTIMECOLUMN_TEXT.toString()));
         location = new TableColumn();
-        location.setText("");
+        location.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_LOCATIONCOLUMN_TEXT.toString()));
         firstTA = new TableColumn();
-        firstTA.setText("");
+        firstTA.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_FIRSTTACOLUMN_TEXT.toString()));
         secondTA = new TableColumn();
-        secondTA.setText("");
+        secondTA.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_SECONDTACOLUMN_TEXT.toString()));
         recitations.getColumns().addAll(section, instructor, dayAndTime, location, firstTA, secondTA);
         addEditLabel = new Label();
-        addEditLabel.setText("Add/Edit");
+        addEditLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_ADDEDITLABEL_TEXT.toString()));
         recitationDataPane.add(addEditLabel, 0, 2);
         sectionLabel = new Label();
-        sectionLabel.setText("Section: ");
+        sectionLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_SECTIONLABEL_TEXT.toString()));
         recitationDataPane.add(sectionLabel, 0 , 3);
         sectionTextField = new TextField();
         recitationDataPane.add(sectionTextField, 1, 3);
         instructorLabel = new Label();
-        instructorLabel.setText("Instructor: ");
+        instructorLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_INSTRUCTORLABEL_TEXT.toString()));
         recitationDataPane.add(instructorLabel, 0 , 4);
         instructorTextField = new TextField();
         recitationDataPane.add(instructorTextField, 1, 4);
         dayAndTimeLabel = new Label();
-        dayAndTimeLabel.setText("Day/Time");
+        dayAndTimeLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_DAYANDTIMELABEL_TEXT.toString()));
         dayAndTimeTextField = new TextField();
         recitationDataPane.add(dayAndTimeTextField, 1, 5);
         recitationDataPane.add(dayAndTimeLabel, 0 , 5);
         locationLabel = new Label();
-        locationLabel.setText("Location:");
+        locationLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_LOCATIONLABEL_TEXT.toString()));
         locationTextField = new TextField();
         recitationDataPane.add(locationTextField, 1, 6);
         recitationDataPane.add(locationLabel, 0 , 6);
         supervisingTALabel = new Label();
-        supervisingTALabel.setText("Supervising TA");
+        supervisingTALabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_FIRSTTALABEL_TEXT.toString()));
         secondSupervisingTALabel = new Label();
-        secondSupervisingTALabel.setText("Supervising TA");
+        secondSupervisingTALabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_SECONDTALABEL_TEXT.toString()));
         recitationDataPane.add(supervisingTALabel, 0 , 7);
         recitationDataPane.add(secondSupervisingTALabel, 0 , 8);
         firstTAComboBox = new ComboBox();
@@ -439,9 +439,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         recitationDataPane.add(secondTAComboBox, 1, 8); 
         
         recitationAddUpdateButton = new Button();
-        recitationAddUpdateButton.setText("Add/Update");
+        recitationAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_ADDEDITBUTTON_TEXT.toString()));
         recitationClearButton = new Button();
-        recitationClearButton.setText("Clear");
+        recitationClearButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_CLEARBUTTON_TEXT.toString()));
         recitationDataPane.add(recitationAddUpdateButton, 0, 9);
         recitationDataPane.add(recitationClearButton, 1, 9);
     
@@ -456,11 +456,11 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        scheduleItemsPane = new GridPane();
        
        calendarBoundariesLabel = new Label();
-       calendarBoundariesLabel.setText("Calendar Boundaries");
+       calendarBoundariesLabel.setText(props.getProperty(CourseSiteGeneratorProp.CALENDAR_HEADER_TEXT.toString()));
        startingMondayLabel = new Label();
-       startingMondayLabel.setText("Starting Monday: ");
+       startingMondayLabel.setText(props.getProperty(CourseSiteGeneratorProp.CALENDAR_MONDAYLABEL_TEXT.toString()));
        endingFridayLabel = new Label();
-       endingFridayLabel.setText("Ending Friday: ");
+       endingFridayLabel.setText(props.getProperty(CourseSiteGeneratorProp.CALENDAR_FRIDAYLABEL_TEXT.toString()));
        mondayDate = new DatePicker();
        fridayDate = new DatePicker();
        calendarBoundariesPane.add(calendarBoundariesLabel,0,0);
@@ -471,13 +471,13 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        
        //Schedule Items section
        scheduleItemsLabel = new Label();
-       scheduleItemsLabel.setText("Schedule Items");
+       scheduleItemsLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_HEADER_TEXT.toString()));
        //SET UP THE TABLE
        scheduleItemsTable = new TableView();
-       typeColumn = new TableColumn("Type");
-       dateColumn = new TableColumn("Date");
-       titleColumn = new TableColumn("Title");
-       topicColumn = new TableColumn("Topic");
+       typeColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TYPECOLUMN_TEXT.toString()));
+       dateColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_DATECOLUMN_TEXT.toString()));
+       titleColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TITLECOLUMN_TEXT.toString()));
+       topicColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TOPICCOLUMN_TEXT.toString()));
        scheduleItemsTable.getColumns().add(typeColumn);
        scheduleItemsTable.getColumns().add(dateColumn);
        scheduleItemsTable.getColumns().add(titleColumn);
@@ -486,30 +486,33 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        scheduleItemsPane.add(scheduleItemsTable, 0, 1);
        
        scheduleAddEditLabel = new Label();
-       scheduleAddEditLabel.setText("ADD/EDIT");
+       scheduleAddEditLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_ADDEDITLABEL_TEXT.toString()));
        typeLabel = new Label();
-       typeLabel.setText("Type: ");
+       typeLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TYPELABEL_TEXT.toString()));
        dateLabel = new Label();
        typeComboBox = new ComboBox();
        scheduleItemsPane.add(scheduleAddEditLabel, 0, 2);
-       dateLabel.setText("Date: ");
+       dateLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_DATELABEL_TEXT.toString()));
        timeLabel = new Label();
-       timeLabel.setText("Time: ");
+       timeLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TIMELABEL_TEXT.toString()));
        titleLabel = new Label();
-       titleLabel.setText("Title: ");
+       titleLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TITLELABEL_TEXT.toString()));
        topicLabel = new Label();
-       topicLabel.setText("Topic: ");
+       topicLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TOPICLABEL_TEXT.toString()));
        linkLabel = new Label();
-       linkLabel.setText("Link: ");
+       linkLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_LINKLABEL_TEXT.toString()));
        criteriaLabel = new Label();
-       criteriaLabel.setText("Criteria: ");
+       criteriaLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_CRITERIALABEL_TEXT.toString()));
        scheduleDate = new DatePicker();
        scheduleTimeTextField = new TextField();
        scheduleTitleTextField = new TextField();
        scheduleTopicTextField = new TextField();
        scheduleLinkTextField = new TextField();
        scheduleCriteriaTextField = new TextField();
-       
+       scheduleAddUpdateButton = new Button();
+       scheduleAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_ADDUPDATEBUTTON_TEXT.toString()));
+       scheduleClearButton = new Button();
+       scheduleClearButton.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_CLEARBUTTON_TEXT.toString()));
        
        
        
@@ -527,7 +530,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        scheduleItemsPane.add(scheduleTopicTextField, 1,7);
        scheduleItemsPane.add(scheduleLinkTextField, 1,8);
        scheduleItemsPane.add(scheduleCriteriaTextField, 1,9);
-       
+       scheduleItemsPane.add(scheduleAddUpdateButton,0,10);
+       scheduleItemsPane.add(scheduleClearButton,1,10);
        schedulePagePane.getChildren().add(calendarBoundariesPane);
        schedulePagePane.getChildren().add(scheduleItemsPane);
        scheduleTab.setContent(schedulePagePane);
@@ -540,20 +544,20 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        studentsPane = new GridPane();
        
        projectsHeader = new Label();
-       projectsHeader.setText("Projects");
+       projectsHeader.setText(props.getProperty(CourseSiteGeneratorProp.PROJECTS_HEADER_TEXT.toString()));
        projectsPane.getChildren().add(projectsHeader);
        
        teamsHeaderLabel = new Label();
-       teamsHeaderLabel.setText("Teams");
+       teamsHeaderLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_TEAMSLABEL_TEXT.toString()));
        teamsTable = new TableView();
        teamsNameColumn = new TableColumn();
-       teamsNameColumn.setText("Name");
+       teamsNameColumn.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_NAMECOLUMN_TEXT.toString()));
        teamsColorColumn = new TableColumn();
-       teamsColorColumn.setText("Color (hex#)");
+       teamsColorColumn.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_COLORCOLUMN_TEXT.toString()));
        teamsTextColorColumn = new TableColumn();
-       teamsTextColorColumn.setText("Text Color (hex#)");
+       teamsTextColorColumn.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_TEXTCOLORCOLUMN_TEXT.toString()));
        teamsLinkColumn = new TableColumn();
-       teamsLinkColumn.setText("Link");
+       teamsLinkColumn.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_LINKCOLUMN_TEXT.toString()));
        teamsTable.getColumns().addAll(teamsNameColumn,
                teamsColorColumn, 
                teamsTextColorColumn,
@@ -561,22 +565,22 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        teamsPane.add(teamsHeaderLabel,0,0);
        teamsPane.add(teamsTable,0,1);
        teamsAddEditLabel = new Label();
-       teamsAddEditLabel.setText("Add/Edit");
+       teamsAddEditLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_ADDEDITLABEL_TEXT.toString()));
        teamsNameLabel = new Label();
-       teamsNameLabel.setText("Name: ");
+       teamsNameLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_NAMELABEL_TEXT.toString()));
        teamsColorLabel = new Label();
-       teamsColorLabel.setText("Color: ");
+       teamsColorLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_COLORLABEL_TEXT.toString()));
        teamsColorColorPicker = new ColorPicker();
        teamsTextColorPicker = new ColorPicker();
        teamsTextColorLabel = new Label();
-       teamsTextColorLabel.setText("Text Color: ");
+       teamsTextColorLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_TEXTCOLORLABEL_TEXT.toString()));
        teamsLinkLabel = new Label();
-       teamsLinkLabel.setText("Link");
+       teamsLinkLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_LINKLABEL_TEXT.toString()));
        teamsLinkTextField = new TextField();
        teamsAddUpdateButton = new Button();
-       teamsAddUpdateButton.setText("Add/Update");
+       teamsAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_ADDUPDATEBUTTON_TEXT.toString()));
        teamsClearButton = new Button();
-       teamsClearButton.setText("Clear");
+       teamsClearButton.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_CLEARBUTTON_TEXT.toString()));
        teamsPane.add(teamsAddEditLabel, 0,2);
        teamsPane.add(teamsNameLabel,0,3);
        teamsNameTextField = new TextField();
@@ -592,16 +596,16 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        //////Students pane
        
        studentsHeaderLabel = new Label();
-       studentsHeaderLabel.setText("Students");
+       studentsHeaderLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_HEADER_TEXT.toString()));
        studentsTable = new TableView();
        studentsFirstNameColumn = new TableColumn();
-       studentsFirstNameColumn.setText("First Name");
+       studentsFirstNameColumn.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_FIRSTNAMECOLUMN_TEXT.toString()));
        studentsLastNameColumn = new TableColumn();
-       studentsLastNameColumn.setText("Last Name");
+       studentsLastNameColumn.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_LASTNAMECOLUMN_TEXT.toString()));
        studentsTeamColumn = new TableColumn();
-       studentsTeamColumn.setText("Team");
+       studentsTeamColumn.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_TEAMCOLUMN_TEXT.toString()));
        studentsRoleColumn = new TableColumn();
-       studentsRoleColumn.setText("Role");
+       studentsRoleColumn.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ROLECOLUMN_TEXT.toString()));
        studentsTable.getColumns().addAll(
             studentsFirstNameColumn,
             studentsLastNameColumn,
@@ -610,23 +614,23 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        studentsPane.add(studentsHeaderLabel,0,0);
        studentsPane.add(studentsTable,0,1);
        studentsAddEditLabel = new Label();
-       studentsAddEditLabel.setText("Add/Edit");
+       studentsAddEditLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ADDEDITLABEL_TEXT.toString()));
        studentsFirstNameLabel = new Label();
-       studentsFirstNameLabel.setText("First Name:");
+       studentsFirstNameLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_FIRSTNAMELABEL_TEXT.toString()));
        studentsLastNameLabel = new Label();
-       studentsLastNameLabel.setText("Last Name: ");
+       studentsLastNameLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_LASTNAMELABEL_TEXT.toString()));
        studentsTeamLabel= new Label();
-       studentsTeamLabel.setText("Team: ");
+       studentsTeamLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_TEAMLABEL_TEXT.toString()));
        studentsRoleLabel = new Label();
-       studentsRoleLabel.setText("Role: ");
+       studentsRoleLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ROLELABEL_TEXT.toString()));
        studentsFirstNameTextField = new TextField();
        studentsLastNameTextField = new TextField();
        studentsTeamComboBox = new ComboBox();
        studentsRoleTextField = new TextField();
        studentsAddUpdateButton = new Button();
-       studentsAddUpdateButton.setText("Add/Update");
+       studentsAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ADDUPDATEBUTTON_TEXT.toString()));
        studentsClearButton = new Button();
-       studentsClearButton.setText("Clear");
+       studentsClearButton.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_CLEARBUTTON_TEXT.toString()));
        studentsPane.add(studentsAddEditLabel,0,2);
        studentsPane.add(studentsFirstNameLabel,0,3);
        studentsPane.add(studentsFirstNameTextField,1,3);
