@@ -11,6 +11,7 @@ import djf.components.AppWorkspaceComponent;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
 import csg.CourseSiteGeneratorApp;
+import csg.CourseSiteGeneratorProp;
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_MESSAGE;
@@ -239,11 +240,11 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         projectTab = new Tab();
         scheduleTab = new Tab();
         courseTab = new Tab();
-        taTab.setText("TA Data");
-        courseTab.setText("Course Details");
-        scheduleTab.setText("Schedule Data");
-        projectTab.setText("Project Data");
-        recitationTab.setText("Recitation Data");
+        taTab.setText(props.getProperty(CourseSiteGeneratorProp.TA_TAB_HEADER_TEXT.toString()));
+        courseTab.setText(props.getProperty(CourseSiteGeneratorProp.COURSE_TAB_HEADER_TEXT.toString()));
+        scheduleTab.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULE_TAB_HEADER_TEXT.toString()));
+        projectTab.setText(props.getProperty(CourseSiteGeneratorProp.PROJECT_TAB_HEADER_TEXT.toString()));
+        recitationTab.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_TAB_HEADER_TEXT.toString()));
         
         tabPane.getTabs().addAll(courseTab, taTab, recitationTab,scheduleTab, projectTab);
         AppGUI gui = app.getGUI();
@@ -254,15 +255,15 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         //First Line
         courseInfoLabel = new Label();
-        courseInfoLabel.setText("Course Info");
+        courseInfoLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_HEADER_TEXT.toString()));
         courseInfoPane.add(courseInfoLabel, 0, 0);
         
         //Second Line
         subjectLabel = new Label();
-        subjectLabel.setText("Subject: ");
+        subjectLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_SUBJECT_TEXT.toString()));
         subjectComboBox = new ComboBox();
         numberLabel = new Label();
-        numberLabel.setText("Number: ");
+        numberLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_NUMBER_TEXT.toString()));
         numberComboBox = new ComboBox();
         courseInfoPane.add(subjectLabel, 0, 1);
         courseInfoPane.add(subjectComboBox, 1,1);
@@ -271,10 +272,10 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        
         //Third Line
         semesterLabel = new Label();
-        semesterLabel.setText("Semester: ");
+        semesterLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_SEMESTER_TEXT.toString()));
         semesterComboBox = new ComboBox();
         yearLabel = new Label();
-        yearLabel.setText("Year: ");
+        yearLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_YEAR_TEXT.toString()));
         yearComboBox = new ComboBox();
         courseInfoPane.add(semesterLabel, 0, 2);
         courseInfoPane.add(semesterComboBox, 1, 2);
@@ -283,21 +284,21 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         //Fourth Line
         titleLabel = new Label();
-        titleLabel.setText("Title: ");
+        titleLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_TITLE_TEXT.toString()));
         titleTextField = new TextField();
         courseInfoPane.add(titleLabel, 0, 3);
         courseInfoPane.add(titleTextField, 1, 3);
         
         //Fifth Line
         instructorNameLabel = new Label();
-        instructorNameLabel.setText("Instructor Name: ");
+        instructorNameLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_INSTRUCTORNAME_TEXT.toString()));
         instructorNameTextField = new TextField();
         courseInfoPane.add(instructorNameLabel, 0, 4);
         courseInfoPane.add(instructorNameTextField, 1, 4);
         
         //Sixth Line
         instructorHomeLabel = new Label();
-        instructorHomeLabel.setText("Intructor Home:");
+        instructorHomeLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_INSTRUCTORHOME_TEXT.toString()));
         instructorHomeTextField = new TextField();
         courseInfoPane.add(instructorHomeLabel, 0, 5);
         courseInfoPane.add(instructorHomeTextField, 1, 5);
@@ -305,9 +306,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         //SeventhLine
         exportDirectoryLabel = new Label();
         exportDirectoryLinkLabel = new Label();
-        exportDirectoryLabel.setText("Export Directory: ");
+        exportDirectoryLabel.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_EXPORTDIRECTORY_TEXT.toString()));
         exportChangeButton = new Button();
-        exportChangeButton.setText("Change");
+        exportChangeButton.setText(props.getProperty(CourseSiteGeneratorProp.COURSEINFO_CHANGEBUTTON_TEXT.toString()));
         courseInfoPane.add(exportDirectoryLabel, 0, 6);
         courseInfoPane.add(exportDirectoryLinkLabel, 1, 6);
         courseInfoPane.add(exportChangeButton, 2, 6);
@@ -315,28 +316,28 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         //Site Template Section
         siteTemplatePane = new GridPane();
         siteTemplateLabel = new Label();
-        siteTemplateLabel.setText("Site Template");
+        siteTemplateLabel.setText(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_HEADER_TEXT.toString()));
         siteTemplatePane.add(siteTemplateLabel, 0, 0);
         siteTemplateInfoLabel = new Label();
-        siteTemplateInfoLabel.setText("The selected directory should containthe full site template, including the HTML files");
+        siteTemplateInfoLabel.setText(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_INFOLABEL_TEXT.toString()));
         siteTemplatePane.add(siteTemplateInfoLabel, 0, 1);
         siteTemplateDirectory = new Label();
-        siteTemplateDirectory.setText(".templatescse219");
+        siteTemplateDirectory.setText(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_DIRECTORY_TEXT.toString()));
         siteTemplatePane.add(siteTemplateDirectory, 0, 2);
         selectTemplateDirectoryButton = new Button();
-        selectTemplateDirectoryButton.setText("Select Template Directory");
+        selectTemplateDirectoryButton.setText(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_DIRECTORYBUTTON_TEXT.toString()));
         siteTemplatePane.add(selectTemplateDirectoryButton, 0, 3);
         sitePagesLabel = new Label();
-        sitePagesLabel.setText("Site Pages: ");
+        sitePagesLabel.setText(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_PAGES_TEXT.toString()));
         siteTemplatePane.add(sitePagesLabel, 0 , 4);
         sitePages = new TableView();
         sitePages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         siteTemplatePane.add(sitePages, 0, 5);
         //Set up Table
-        useColumn = new TableColumn("Use");
-        navbarTitleColumn = new TableColumn("Navbar Title");
-        fileNameColumn = new TableColumn("File Name");
-        scriptColumn = new TableColumn("Script");
+        useColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_USECOLUMN_TEXT.toString()));
+        navbarTitleColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_NAVBARCOLUMN_TEXT.toString()));
+        fileNameColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_FILENAMECOLUMN_TEXT.toString()));
+        scriptColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SITETEMPLATE_SCRIPTCOLUMN_TEXT.toString()));
         sitePages.getColumns().add(useColumn);
         sitePages.getColumns().add(navbarTitleColumn);
         sitePages.getColumns().add(fileNameColumn);
@@ -347,34 +348,33 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         //Page Style Section
         pageStylePane = new GridPane();
         pageStyleLabel = new Label();
-        pageStyleLabel.setText("Page Style");
+        pageStyleLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_HEADERLABEL_TEXT.toString()));
         pageStylePane.add(pageStyleLabel, 0, 0);
         bannerSchoolImageLabel = new Label();
-        bannerSchoolImageLabel.setText("Banner School Image");
+        bannerSchoolImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_BANNERLABEL_TEXT.toString()));
         pageStylePane.add(bannerSchoolImageLabel, 0, 1);
         bannerChange = new Button();
-        bannerChange.setText("Change");
+        bannerChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_BANNERBUTTON_TEXT.toString()));
         pageStylePane.add(bannerChange, 2, 1);
         leftFooterImageLabel = new Label();
-        leftFooterImageLabel.setText("Left Footer Image");
+        leftFooterImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_LEFTFOOTERLABEL_TEXT.toString()));
         leftFooterChange = new Button();
-        leftFooterChange.setText("Change");
+        leftFooterChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_LEFTBUTTON_TEXT.toString()));
         pageStylePane.add(leftFooterChange, 2, 2);
         pageStylePane.add(leftFooterImageLabel, 0, 2);
         rightFooterImageLabel = new Label();
-        rightFooterImageLabel.setText("Right Footer Image");
+        rightFooterImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_RIGHTFOOTERLABEL_TEXT.toString()));
         rightFooterChange = new Button();
-        rightFooterChange.setText("Change");
+        rightFooterChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_RIGHTBUTTON_TEXT.toString()));
         pageStylePane.add(rightFooterChange, 2, 3);
         pageStylePane.add(rightFooterImageLabel, 0, 3);
         stylesheetLabel = new Label();
-        stylesheetLabel.setText("Stylesheet");
+        stylesheetLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_STYLESHEETLABEL_TEXT.toString()));
         stylesheetComboBox = new ComboBox();
         pageStylePane.add(stylesheetLabel, 0, 4);
         pageStylePane.add(stylesheetComboBox, 1, 4);
         noteLabel = new Label();
-        noteLabel.setText("New stylesheets may be placed "
-                + "in work/css to be selectable");
+        noteLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_NOTE_TEXT.toString()));
         pageStylePane.add(noteLabel, 0 , 5);
         
         
@@ -383,7 +383,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         courseDetailsPane.getChildren().add(siteTemplatePane);
         courseDetailsPane.getChildren().add(pageStylePane);
        // courseTab.setContent(courseDetailsPane);
-        
+        ////////////////////recitation//////////////////////
         
         recitationDataPane = new GridPane();
         recitationLabel = new Label();
@@ -391,6 +391,19 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         recitationDataPane.add(recitationLabel, 0, 0);
         recitations = new TableView();
         recitationDataPane.add(recitations, 0, 1);
+        section = new TableColumn();
+        section.setText("");
+        instructor = new TableColumn();
+        instructor.setText("");
+        dayAndTime = new TableColumn();
+        dayAndTime.setText("");
+        location = new TableColumn();
+        location.setText("");
+        firstTA = new TableColumn();
+        firstTA.setText("");
+        secondTA = new TableColumn();
+        secondTA.setText("");
+        recitations.getColumns().addAll(section, instructor, dayAndTime, location, firstTA, secondTA);
         addEditLabel = new Label();
         addEditLabel.setText("Add/Edit");
         recitationDataPane.add(addEditLabel, 0, 2);
