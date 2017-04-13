@@ -85,8 +85,11 @@
         <property name="EMAIL_PROMPT_TEXT"              value="Email"></property>
         <property name="ADD_BUTTON_TEXT"                value="Add TA"></property>
         <property name="OFFICE_HOURS_SUBHEADER"         value="Office Hours Grid"></property>
-        
-        
+        <property name="START_HOUR_PROMPT_TEXT"         value="Start Hour"></property>
+        <property name="END_HOUR_PROMPT_TEXT"           value="End Hour "></property>
+        <property name="UPDATE_TA_BUTTON_TEXT"          value="Update TA"></property>
+        <property name="CLEAR_BUTTON_TEXT"                value="Clear"></property>
+        <property name="CHANGE_TIME_BUTTON_TEXT"        value="Update Time"></property>
         <!-- WORKSPACE TAB PANE CONTROLS STUFF -->
         <property name="COURSE_TAB_HEADER_TEXT"                value="Course Details"></property>
         <property name="TA_TAB_HEADER_TEXT"                value="TA Data"></property>
@@ -99,7 +102,7 @@
         <property name="COURSEINFO_HEADER_TEXT"                value="Course Info"></property>
         <property name="COURSEINFO_SUBJECT_TEXT"                value="Subject: "></property>
         <property name="COURSEINFO_NUMBER_TEXT"                value="Number: "></property>
-        <property name="COURSEINFO_SEMESTER__TEXT"                value="Semester: "></property>
+        <property name="COURSEINFO_SEMESTER_TEXT"                value="Semester: "></property>
         <property name="COURSEINFO_YEAR_TEXT"                value="Year: "></property>
         <property name="COURSEINFO_TITLE_TEXT"                value="Title: "></property>
         <property name="COURSEINFO_INSTRUCTORNAME_TEXT"                value="Instructor Name: "></property>
@@ -107,7 +110,7 @@
         <property name="COURSEINFO_EXPORTDIRECTORY_TEXT"                value="Export Dir: "></property>
         <property name="COURSEINFO_CHANGEBUTTON_TEXT"                value="Change"></property>
         
-        <property name="SITETEMPLATE_HEADER_TEXT"                value="Change"></property>
+        <property name="SITETEMPLATE_HEADER_TEXT"                value="Site Template"></property>
         <property name="SITETEMPLATE_INFOLABEL_TEXT"                value="The selected directory should containthe full site template, including the HTML files"></property>
         <property name="SITETEMPLATE_DIRECTORY_TEXT"                value=".templatescse219"></property>
         <property name="SITETEMPLATE_DIRECTORYBUTTON_TEXT"       value="Select Template Directory"></property>
@@ -173,7 +176,7 @@
         
           <!-- WORKSPACE PROJECTS DATA CONTROLS STUFF -->
           
-        <property name="PROJECTS_HEADER_TEXT"                value="Projects ="></property>
+        <property name="PROJECTS_HEADER_TEXT"                value="Projects"></property>
         <property name="TEAMS_TEAMSLABEL_TEXT"                value="Teams"></property>
         <property name="TEAMS_NAMECOLUMN_TEXT"                value="Name "></property>
         <property name="TEAMS_COLORCOLUMN_TEXT"                value="Color (hex#) "></property>

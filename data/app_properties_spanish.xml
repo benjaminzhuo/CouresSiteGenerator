@@ -198,7 +198,7 @@
         <property name="STUDENTS_LASTNAMELABEL_TEXT"                value="Apellido: "></property>
         <property name="STUDENTS_TEAMLABEL_TEXT"                value="Equipo:"></property>
         <property name="STUDENTS_ROLELABEL_TEXT"                value="Papel:"></property>
-        <property name="STUDENTS_ADDUPDATEBUTTON_TEXT"                value="Añadir / actualizar"></property>
+        <property name="STUDENTS_ADDUPDATEBUTTON_TEXT"                value="ñadir / actualizar"></property>
         <property name="STUDENTS_CLEARBUTTON_TEXT"                value="Claro"></property>
         
 

@@ -165,7 +165,12 @@ public enum CourseSiteGeneratorProp {
     TIME_8PM,
     TIME_9PM,
     TIME_10PM,
-    TIME_11PM
+    TIME_11PM, 
+    START_HOUR_PROMPT_TEXT, 
+    END_HOUR_PROMPT_TEXT,
+    UPDATE_TA_BUTTON_TEXT, 
+    CLEAR_BUTTON_TEXT, 
+    CHANGE_TIME_BUTTON_TEXT
         
 
 
