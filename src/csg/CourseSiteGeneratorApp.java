@@ -35,7 +35,7 @@ public class CourseSiteGeneratorApp extends AppTemplate
         scheduleDataComponent = new ScheduleData(this);
         taDataComponent = new TAData(this);
         */
-        dataComponent = new CourseSiteGeneratorData(this);
+        dataComponent = new TAData(this);
         workspaceComponent = new CourseSiteGeneratorWorkspace(this);      
         fileComponent = new CourseSiteGeneratorFiles(this);
        /* courseFileComponent = new CourseFiles(this);

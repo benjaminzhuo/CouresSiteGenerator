@@ -8,6 +8,7 @@
 
 .tab_pane_style{
      -fx-background-color:#0097A7;
+     -fx-border-width: 2px;
 }
 
 .header_style{
@@ -17,20 +18,22 @@
 }
 
 .vbox_pane_style{
-    -fx-padding: 10px 15px 10px 15px;
+    -fx-padding: 5;
     -fx-border-color: black;
+    -fx-border-width: 2px;
     -fx-background-color:#B2EBF2;
 }
 .grid_pane_style{
     -fx-background-color:#E0F7FA;
     -fx-border: 2px;
     -fx-border-color: black;
+    -fx-border-width: 2px;
     -fx-vgap:5px;
     -fx-hgap:5px;
-    -fx-border-radius: 10 10 0 0;
-    -fx-background-radius: 10 10 0 0;
+    -fx-padding:7;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
 
-    
 }
 
 
@@ -61,12 +64,12 @@
 }
 
 .bordered_pane {
-    -fx-background-color: #aaaaff;
+  
     -fx-background-radius: 5.0;
     -fx-padding: 15;
     -fx-spacing: 10;
     -fx-border-width: 2px;
-    -fx-border-color: #7777dd;
+    -fx-border-color: black;
 }
 
 .header_pane{
@@ -99,8 +102,8 @@
 
 .add_ta_button{
    
-    -fx-font-size: 12pt;
-    -fx-font-weight: bold;
+  -fx-font-size: 12pt;
+  -fx-font-weight: bold;
   -fx-border-radius: 10 10 10 10;
   -fx-background-radius: 10 10 10 10;    
 }

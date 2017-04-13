@@ -271,7 +271,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     HashMap<String, Label> officeHoursGridTimeCellLabels;
     HashMap<String, Pane> officeHoursGridTACellPanes;
     HashMap<String, Label> officeHoursGridTACellLabels;
-
+    
+    CourseSiteGeneratorController controller;
 
 
     
@@ -742,6 +743,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        projectTab.setContent(projectsScrollPane);
        
        ///////////////////////////TA DATA////////////////////////////////////////////
+       
         tasHeaderBox = new HBox();
         String tasHeaderText = props.getProperty(CourseSiteGeneratorProp.TAS_HEADER_TEXT.toString());
         tasHeaderLabel = new Label(tasHeaderText);
@@ -750,7 +752,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         // MAKE THE TABLE AND SETUP THE DATA MODEL
         taTable = new TableView();
         taTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        /*TAData data = (TAData) app.getDataComponent();
+        
+        TAData data = (TAData) app.getDataComponent();
+        
         ObservableList<TeachingAssistant> tableData = data.getTeachingAssistants();
         taTable.setItems(tableData);
         String nameColumnText = props.getProperty(CourseSiteGeneratorProp.NAME_COLUMN_TEXT.toString());
@@ -844,7 +848,14 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
 
         // BOTH PANES WILL NOW GO IN A SPLIT PANE
         SplitPane sPane = new SplitPane(leftPane, new ScrollPane(rightPane));
+       
         taTab.setContent(sPane);
+        
+        
+        
+        
+        
+        
         //workspace = new BorderPane();
 
         // AND PUT EVERYTHING IN THE WORKSPACE
@@ -852,10 +863,11 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
 
         // MAKE SURE THE TABLE EXTENDS DOWN FAR ENOUGH
        // taTable.prefHeightProperty().bind(workspace.heightProperty().multiply(1.9));
-        /*
-        // NOW LET'S SETUP THE EVENT HANDLING
+        
+         //NOW LET'S SETUP THE EVENT HANDLING
+         
         controller = new CourseSiteGeneratorController(app);
-
+        
         // CONTROLS FOR ADDING TAs
         nameTextField.setOnAction(e -> {
             controller.handleAddTA();
@@ -895,7 +907,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             emailTextField.setPromptText(emailPromptText);
         });
 
-        workspace.setOnKeyPressed(e -> {
+        sPane.setOnKeyPressed(e -> {
             if (e.isControlDown() && e.getCode() == (KeyCode.Y)) {
                 System.out.println("Workspace Control Y");
                 controller.handleReDoTransaction();
@@ -912,10 +924,10 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         });
         taTable.setOnMousePressed(e -> {
             addBox.getChildren().clear();
-            controller.handleTaClicked(workspace, addBox);
+            controller.handleTaClicked(gui.getAppPane(), addBox);
             System.out.println("Clicked TA");
         });
-        */
+        
    }
     
    public Label getCalendarBoundariesLabel(){
@@ -1208,7 +1220,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         }
 
         // CONTROLS FOR TOGGLING TA OFFICE HOURS
-       /* for (Pane p : officeHoursGridTACellPanes.values()) {
+       for (Pane p : officeHoursGridTACellPanes.values()) {
             p.setFocusTraversable(true);
             p.setOnKeyPressed(e -> {
                 controller.handleKeyPress(e.getCode());
@@ -1222,7 +1234,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             p.setOnMouseEntered(e -> {
                 controller.handleGridCellMouseEntered((Pane) e.getSource());
             });
-        }*/
+        }
 
         // AND MAKE SURE ALL THE COMPONENTS HAVE THE PROPER STYLE
         CourseSiteGeneratorStyle taStyle = (CourseSiteGeneratorStyle) app.getStyleComponent();

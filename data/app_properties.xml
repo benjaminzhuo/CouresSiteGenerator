@@ -205,6 +205,15 @@
 
         
         <!-- WORKSPACE ERROR MESSAGES -->
+        <property name="NO_UPDATE_TITLE"                 value="No Change"></property>
+        <property name="NO_UPDATE_MESSAGE"               value="No Data Updated"></property>
+        <property name="INVALID_TIME_INPUT_TITLE"               value="Invalid Time"></property>
+        <property name="INVALID_TIME_INPUT_MESSAGE"               value="Invalid Time Selected"></property>
+         <property name="UPDATE_TIME_TITLE"          value="Update Time "></property>
+          <property name="UPDATE_TIME_MESSAGE"        value="Are you sure you want to continue? Updating Time may delete TA's from Grid."></property>
+
+         <property name="INVALID_TA_EMAIL_TITLE"          value="Invalid Email Format"></property>
+           <property name="INVALID_TA_EMAIL_MESSAGE"        value="You Must Use A Correct Email Format"></property>
         <property name="MISSING_TA_NAME_TITLE"          value="Missing TA Name"></property>
         <property name="MISSING_TA_NAME_MESSAGE"        value="You must provide a TA Name"></property>
         <property name="MISSING_TA_EMAIL_TITLE"         value="Missing TA Email"></property>

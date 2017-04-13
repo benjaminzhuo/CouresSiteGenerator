@@ -3,8 +3,9 @@ package csg.workspace;
 import djf.ui.AppGUI;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
-import static tam.TAManagerProp.*;
-import djf.ui.AppYesNoDialogSingleton;
+import static csg.CourseSiteGeneratorProp.*;
+import djf.ui.AppMessageDialogSingleton;
+import djf.ui.AppYesNoCancelDialogSingleton;
 import java.util.Collections;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
@@ -16,14 +17,14 @@ import javafx.scene.layout.Pane;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import properties_manager.PropertiesManager;
-import tam.TAManagerApp;
-import tam.data.TAData;
-import tam.data.TeachingAssistant;
-import tam.style.TAStyle;
-import static tam.style.TAStyle.CLASS_HIGHLIGHTED_GRID_CELL;
-import static tam.style.TAStyle.CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN;
-import static tam.style.TAStyle.CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE;
-import tam.workspace.TAWorkspace;
+import csg.CourseSiteGeneratorApp;
+import csg.data.TAData;
+import csg.data.TeachingAssistant;
+import csg.style.CourseSiteGeneratorStyle;
+import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_CELL;
+import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN;
+import static csg.style.CourseSiteGeneratorStyle.CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE;
+import csg.workspace.CourseSiteGeneratorWorkspace;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -32,16 +33,16 @@ import tam.workspace.TAWorkspace;
  * @author Richard McKenna
  * @version 1.0
  */
-public class TAController {
+public class CourseSiteGeneratorController {
 
     // THE APP PROVIDES ACCESS TO OTHER COMPONENTS AS NEEDED
-    TAManagerApp app;
+    CourseSiteGeneratorApp app;
     static jTPS jTPS = new jTPS();
 
     /**
      * Constructor, note that the app must already be constructed.
      */
-    public TAController(TAManagerApp initApp) {
+    public CourseSiteGeneratorController(CourseSiteGeneratorApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
     }
@@ -62,7 +63,7 @@ public class TAController {
      */
     public void handleAddTA() {
         // WE'LL NEED THE WORKSPACE TO RETRIEVE THE USER INPUT VALUES
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TextField nameTextField = workspace.getNameTextField();
         TextField emailTextField = workspace.getEmailTextField();
         String name = nameTextField.getText();
@@ -122,7 +123,7 @@ public class TAController {
 
         if (code == KeyCode.DELETE) {
             // GET THE TABLE
-            TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
             TableView taTable = workspace.getTATable();
 
             // IS A TA SELECTED IN THE TABLE?
@@ -173,7 +174,7 @@ public class TAController {
      */
     public void handleCellToggle(Pane pane) {
         // GET THE TABLE
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TableView taTable = workspace.getTATable();
 
         // IS A TA SELECTED IN THE TABLE?
@@ -198,7 +199,7 @@ public class TAController {
 
     public void handleTaClicked(Pane pane, Pane addBox) {
         // GET THE TABLE
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TableView taTable = workspace.getTATable();
 
         // IS A TA SELECTED IN THE TABLE?
@@ -234,7 +235,7 @@ public class TAController {
     }
 
     public void handleUpdateTA() {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TableView taTable = workspace.getTATable();
         Object selectedItem = taTable.getSelectionModel().getSelectedItem();
         TeachingAssistant ta = (TeachingAssistant) selectedItem;
@@ -309,14 +310,14 @@ public class TAController {
     }
 
     public void handleTaTableRefresh() {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TableView taTable = workspace.getTATable();
         taTable.refresh();
     }
 
     public void handleUpdateTaGrid(String taName, String newName) {
 
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
         TAData data = (TAData) app.getDataComponent();
         //data.removeTA(taName);
 
@@ -343,7 +344,7 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
 
         Pane mousedOverPane = workspace.getTACellPane(data.getCellKey(column, row));
         mousedOverPane.getStyleClass().clear();
@@ -381,7 +382,7 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
 
         // THE MOUSED OVER PANE
         Pane mousedOverPane = workspace.getTACellPane(data.getCellKey(column, row));
@@ -416,12 +417,13 @@ public class TAController {
     void handleChangeTime(String startTime, String endTime) {
         //TAWorkspace workspace = (TAWorkspace)app.getWorkspaceComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        AppYesNoDialogSingleton yesNoDialog = AppYesNoDialogSingleton.getSingleton();
+        
+        AppYesNoCancelDialogSingleton yesNoDialog = AppYesNoCancelDialogSingleton.getSingleton();
         yesNoDialog.show(props.getProperty(UPDATE_TIME_TITLE), props.getProperty(UPDATE_TIME_MESSAGE));
 
         // AND NOW GET THE USER'S SELECTION
         String selection = yesNoDialog.getSelection();
-        if (selection.equals(AppYesNoDialogSingleton.YES)) {
+        if (selection.equals(AppYesNoCancelDialogSingleton.YES)) {
 
             int start = convertToMilitaryTime(startTime);
             int end = convertToMilitaryTime(endTime);

@@ -104,9 +104,10 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
         
         
         
-         workspaceComponent.getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
+        workspaceComponent.getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
 
+        
         // LEFT SIDE - THE TABLE
         TableView<TeachingAssistant> taTable = workspaceComponent.getTATable();
         taTable.getStyleClass().add(CLASS_TA_TABLE);
@@ -124,7 +125,7 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
         // RIGHT SIDE - THE HEADER
         workspaceComponent.getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
-    
+       
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
