@@ -9,6 +9,6 @@ package csg.workspace;
  *
  * @author benjaminzhuo
  */
-public class CourseSiteGeneratorHandler {
+public class CourseSiteGeneratorController {
     
 }

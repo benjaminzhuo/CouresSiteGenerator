@@ -1,165 +1,22 @@
-/* 
-    This style sheet stylizes the controls inside our
-    TA Manager JavaFX application. Note that controls
-    in the UI must have the same class as those below in 
-    order to be rendered using those properties.
 
-    Note that it may seem overwhelming to see so many different
-    style classes, even though our application doesn't have that
-    many controls, but what this allows us to do is easily
-    control and update the style of the entire user interface
-    via a stylesheet without having the change Java code.
 
-    Author:	Richard McKenna
-    Version:	1.0
-*/
-.root{
-    -fx-font-family: "Courier New";
-   
+
+
+.course_info_pane{
+    -fx-background-color:#E7FEFF;
+    -fx-border: 2px;
+    -fx-border-color: black;
 }
 
-.dialog_pane {
-    -fx-padding:15;
-}
-
-.dialog_heading {
-    -fx-font-size: 24pt;
-    -fx-color:red;
-}
-
-.dialog_prompt {
-    -fx-font-size: 16pt;
-    -fx-font-weight: bold;
-    -fx-padding: 10;
-}
-
-.plain_pane{
-    
-}
-
-.bordered_pane {
-    -fx-background-color: #aaaaff;
-    -fx-background-radius: 5.0;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-    -fx-border-width: 2px;
-    -fx-border-color: #7777dd;
-}
-
-.header_pane{
-    -fx-background-color: rgb(204,204,255);
-    -fx-color: white;
-    -fx-font-weight:900;
-    -fx-font-size: 14pt;
-    
-}
-
-.header_label {
-   
-}
-
-.start_hour_label
-{
-    -fx-text-align:center;
-    -fx-font-size: 9pt;
-    -fx-font-weight:900;
-}
-
-.end_hour_label
-{
-    -fx-text-align:center;
-    -fx-font-size: 9pt;
-    -fx-font-weight:900;
-}
-
-.update_hour_button
-{
-    
-}
-
-.ta_table{
-    
-}
-
-.table-view .column-header.ta_table_column_header .label {
-    -fx-background-color: rgb(0,0,102);
-    -fx-text-fill:white;
-    -fx-font-weight:900;
-    -fx-padding: 7;
-    -fx-font-size: 9pt;
-    
-}
-
-.add_ta_pane{
-    
-}
-
-.add_ta_text_field{
+.workspace_pane{
+     -fx-background-color:#CCCDFE;
      
 }
-
-.add_ta_button{
--fx-font-size: 14pt;
--fx-font-weight: bold;
--fx-border-radius: 10 10 10 10;
--fx-background-radius: 10 10 10 10; 
-  
+.site_template_pane{
+     -fx-background-color:#E7FEFF;
+     -fx-border-color: black;
 }
-
-.clear_ta_button{
-  -fx-font-size: 14pt;
-  -fx-font-weight: 900;
-  -fx-border-radius: 10 10 10 10;
-  -fx-background-radius: 10 10 10 10; 
-}
-
-.office_hours_grid{
-    -fx-text-align:center;
-    -fx-font-size: 9pt;
-    
-}
-
-.office_hours_grid_time_column_header_pane{
-    -fx-background-color: rgb(0,0,102);
-    -fx-padding: 7.5;
-}
-
-.office_hours_grid_time_column_header_label{
-    -fx-text-fill:white;
-    -fx-font-weight:900;
-    
-}
-
-.office_hours_grid_day_column_header_pane {
-    -fx-background-color: rgb(0,0,102); 
-}
-
-.office_hours_grid_day_column_header_label{
-    -fx-text-fill:white;
-    -fx-font-weight:900;
-    -fx-set-width:50px;
-}
-
-.office_hours_grid_time_cell_pane {
-    -fx-background-color: rgb(0,0,153);
-    -fx-border-color: white;
-    -fx-border-style: dashed;
-    -fx-padding: 10;
-}
-
-.office_hours_grid_time_cell_label{
-    -fx-text-fill:white;
-    -fx-font-weight:900;
-}
-
-.office_hours_grid_ta_cell_pane{
-    -fx-background-color: rgb(171,171,120);
-    -fx-border-color:black;
-    -fx-min-width:150px;
-    -fx-min-height:50px;
-    -fx-font-weight:bold;
-}
-
-.office_hours_grid_ta_cell_label{
-    
+.page_style_pane{
+     -fx-background-color:#E7FEFF;
+     -fx-border-color: black;
 }

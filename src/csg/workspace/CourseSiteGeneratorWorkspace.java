@@ -12,6 +12,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
 import csg.CourseSiteGeneratorApp;
 import csg.CourseSiteGeneratorProp;
+import csg.data.TAData;
+import csg.data.TeachingAssistant;
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_MESSAGE;
@@ -218,7 +220,45 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     TextField studentsRoleTextField;
     Button studentsAddUpdateButton;
     Button studentsClearButton;
+    ////////////////////////////////TA DATA////////////////////////////
+     CourseSiteGeneratorController controller;
+
+    // NOTE THAT EVERY CONTROL IS PUT IN A BOX TO HELP WITH ALIGNMENT
     
+    // FOR THE HEADER ON THE LEFT
+    HBox tasHeaderBox;
+    Label tasHeaderLabel;
+    
+    // FOR THE TA TABLE
+    TableView<TeachingAssistant> taTable;
+    TableColumn<TeachingAssistant, String> nameColumn;
+    TableColumn<TeachingAssistant, String> emailColumn;
+
+    // THE TA INPUT
+    HBox addBox;
+    TextField nameTextField;
+    TextField emailTextField;
+    Button addButton;
+    Button clearButton;
+
+    // THE HEADER ON THE RIGHT
+    HBox officeHoursHeaderBox;
+    Label officeHoursHeaderLabel;
+    
+    ObservableList<String> time_options;
+    ComboBox comboBox1;
+    ComboBox comboBox2;
+    
+    // THE OFFICE HOURS GRID
+    GridPane officeHoursGridPane;
+    HashMap<String, Pane> officeHoursGridTimeHeaderPanes;
+    HashMap<String, Label> officeHoursGridTimeHeaderLabels;
+    HashMap<String, Pane> officeHoursGridDayHeaderPanes;
+    HashMap<String, Label> officeHoursGridDayHeaderLabels;
+    HashMap<String, Pane> officeHoursGridTimeCellPanes;
+    HashMap<String, Label> officeHoursGridTimeCellLabels;
+    HashMap<String, Pane> officeHoursGridTACellPanes;
+    HashMap<String, Label> officeHoursGridTACellLabels;
     
     
     
@@ -246,9 +286,15 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         projectTab.setText(props.getProperty(CourseSiteGeneratorProp.PROJECT_TAB_HEADER_TEXT.toString()));
         recitationTab.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_TAB_HEADER_TEXT.toString()));
         
-        tabPane.getTabs().addAll(courseTab, taTab, recitationTab,scheduleTab, projectTab);
         AppGUI gui = app.getGUI();
-        gui.getAppPane().setCenter(tabPane);    
+       
+        tabPane.setTabMinWidth(gui.getAppPane().getWidth()/6);
+        
+        tabPane.getTabs().addAll(courseTab, taTab, recitationTab,scheduleTab, projectTab);
+        
+        gui.getAppPane().setCenter(tabPane);
+        
+        
         
         //Course Info section
         courseInfoPane = new GridPane();
@@ -647,15 +693,164 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        projectsPane.getChildren().add(studentsPane);
        projectTab.setContent(projectsPane);
        
+       ///////////////////////////TA DATA////////////////////////////////////////////
+       // INIT THE HEADER ON THE LEFT
+       /*
+        tasHeaderBox = new HBox();
+        String tasHeaderText = props.getProperty(CourseSiteGeneratorProp.TAS_HEADER_TEXT.toString());
+        tasHeaderLabel = new Label(tasHeaderText);
+        tasHeaderBox.getChildren().add(tasHeaderLabel);
+
+        // MAKE THE TABLE AND SETUP THE DATA MODEL
+        taTable = new TableView();
+        taTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        TAData data = (TAData) app.getDataComponent();
+        ObservableList<TeachingAssistant> tableData = data.getTeachingAssistants();
+        taTable.setItems(tableData);
+        String nameColumnText = props.getProperty(CourseSiteGeneratorProp.NAME_COLUMN_TEXT.toString());
+        String emailColumnText = props.getProperty(CourseSiteGeneratorProp.EMAIL_COLUMN_TEXT.toString());
+        nameColumn = new TableColumn(nameColumnText);
+        emailColumn = new TableColumn(emailColumnText);
+        nameColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("name")
+        );
+        emailColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("email")
+        );
+        taTable.getColumns().add(nameColumn);
+        taTable.getColumns().add(emailColumn);
+
+        // ADD BOX FOR ADDING A TA
+        String namePromptText = props.getProperty(CourseSiteGeneratorProp.NAME_PROMPT_TEXT.toString());
+        String emailPromptText = props.getProperty(CourseSiteGeneratorProp.EMAIL_PROMPT_TEXT.toString());
+        String addButtonText = props.getProperty(CourseSiteGeneratorProp.ADD_BUTTON_TEXT.toString());
+        String clearButtonText = props.getProperty(CourseSiteGeneratorProp.CLEAR_BUTTON_TEXT.toString());
+        nameTextField = new TextField();
+        emailTextField = new TextField();
+        nameTextField.setPromptText(namePromptText);
+        emailTextField.setPromptText(emailPromptText);
+        addButton = new Button(addButtonText);
+        clearButton = new Button(clearButtonText);
+        addBox = new HBox();
+        nameTextField.prefWidthProperty().bind(addBox.widthProperty().multiply(.4));
+        emailTextField.prefWidthProperty().bind(addBox.widthProperty().multiply(.4));
+        addButton.prefWidthProperty().bind(addBox.widthProperty().multiply(.1));
+        clearButton.prefWidthProperty().bind(addBox.widthProperty().multiply(.1));
+        addBox.getChildren().add(nameTextField);
+        addBox.getChildren().add(emailTextField);
+        addBox.getChildren().add(addButton);
+        addBox.getChildren().add(clearButton);
+
+        // INIT THE HEADER ON THE RIGHT
+        officeHoursHeaderBox = new HBox();
+        String officeHoursGridText = props.getProperty(CourseSiteGeneratorProp.OFFICE_HOURS_SUBHEADER.toString());
+        officeHoursHeaderLabel = new Label(officeHoursGridText);
+        officeHoursHeaderBox.getChildren().add(officeHoursHeaderLabel);
+        
+        // THESE WILL STORE PANES AND LABELS FOR OUR OFFICE HOURS GRID
+        officeHoursGridPane = new GridPane();
+        officeHoursGridTimeHeaderPanes = new HashMap();
+        officeHoursGridTimeHeaderLabels = new HashMap();
+        officeHoursGridDayHeaderPanes = new HashMap();
+        officeHoursGridDayHeaderLabels = new HashMap();
+        officeHoursGridTimeCellPanes = new HashMap();
+        officeHoursGridTimeCellLabels = new HashMap();
+        officeHoursGridTACellPanes = new HashMap();
+        officeHoursGridTACellLabels = new HashMap();
+
+        // ORGANIZE THE LEFT AND RIGHT PANES
+        VBox leftPane = new VBox();
+        leftPane.getChildren().add(tasHeaderBox);        
+        leftPane.getChildren().add(taTable);        
+        leftPane.getChildren().add(addBox);
+        VBox rightPane = new VBox();
+        rightPane.getChildren().add(officeHoursHeaderBox);
+        
+        time_options = FXCollections.observableArrayList(
+        props.getProperty(CourseSiteGeneratorProp.TIME_12AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_1AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_2AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_3AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_4AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_5AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_6AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_7AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_8AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_9AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_10AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_11AM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_12PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_1PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_2PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_3PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_4PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_5PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_6PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_7PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_8PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_9PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_10PM.toString()),
+        props.getProperty(CourseSiteGeneratorProp.TIME_11PM.toString())
+        );
+        comboBox1 = new ComboBox(time_options);
+        comboBox2 = new ComboBox(time_options);
+        
+        officeHoursHeaderBox.getChildren().add(comboBox1);
+        comboBox1.setPrefHeight(42);
+        comboBox1.setPrefWidth(150);
+        comboBox1.getSelectionModel().select(data.getStartHour());
+        comboBox1.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if(t != null && t1 != null)
+                    if(comboBox1.getSelectionModel().getSelectedIndex() != data.getStartHour())
+                        controller.changeTime();
+            }
+        });
+        officeHoursHeaderBox.getChildren().add(comboBox2);
+        comboBox2.setPrefHeight(42);
+        comboBox2.setPrefWidth(150);
+        comboBox2.getSelectionModel().select(data.getEndHour());
+        comboBox2.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if(t != null && t1 != null)
+                    if(comboBox2.getSelectionModel().getSelectedIndex() != data.getEndHour())
+                        controller.changeTime();
+            }    
+        });
+        rightPane.getChildren().add(officeHoursGridPane);
+        
+        // BOTH PANES WILL NOW GO IN A SPLIT PANE
+        SplitPane sPane = new SplitPane(leftPane, new ScrollPane(rightPane));
+        
+        taTab.setContent(sPane);
        
-       
-       
+       */
        
        
     }
 
+    public GridPane getCourseInfoPane(){
+        return courseInfoPane;
+    }
+    
+    public GridPane getSiteTemplatePane(){
+        return siteTemplatePane;
+    }
+    
+    public GridPane getPageStylePane(){
+        return pageStylePane;
+    }
+    
+    public VBox getCourseDetailsPane(){
+        return courseDetailsPane;
+    }
+    
+    public Pane getWorkspacePane(){
+        return app.getGUI().getAppPane();
+    }
     @Override
     public void resetWorkspace() {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

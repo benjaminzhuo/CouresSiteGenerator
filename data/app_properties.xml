@@ -86,6 +86,121 @@
         <property name="ADD_BUTTON_TEXT"                value="Add TA"></property>
         <property name="OFFICE_HOURS_SUBHEADER"         value="Office Hours Grid"></property>
         
+        
+        <!-- WORKSPACE TAB PANE CONTROLS STUFF -->
+        <property name="COURSE_TAB_HEADER_TEXT"                value="Course Details"></property>
+        <property name="TA_TAB_HEADER_TEXT"                value="TA Data"></property>
+        <property name="RECITATION_TAB_HEADER_TEXT"                value="Recitation Data"></property>
+        <property name="PROJECT_TAB_HEADER_TEXT"                value="Project Data"></property>
+        <property name="SCHEDULE_TAB_HEADER_TEXT"                value="Schedule Data"></property>
+
+        
+        <!-- WORKSPACE COURSE DETAILS CONTROLS STUFF -->
+        <property name="COURSEINFO_HEADER_TEXT"                value="Course Info"></property>
+        <property name="COURSEINFO_SUBJECT_TEXT"                value="Subject: "></property>
+        <property name="COURSEINFO_NUMBER_TEXT"                value="Number: "></property>
+        <property name="COURSEINFO_SEMESTER__TEXT"                value="Semester: "></property>
+        <property name="COURSEINFO_YEAR_TEXT"                value="Year: "></property>
+        <property name="COURSEINFO_TITLE_TEXT"                value="Title: "></property>
+        <property name="COURSEINFO_INSTRUCTORNAME_TEXT"                value="Instructor Name: "></property>
+        <property name="COURSEINFO_INSTRUCTORHOME_TEXT"                value="Instructor Home: "></property>
+        <property name="COURSEINFO_EXPORTDIRECTORY_TEXT"                value="Export Dir: "></property>
+        <property name="COURSEINFO_CHANGEBUTTON_TEXT"                value="Change"></property>
+        
+        <property name="SITETEMPLATE_HEADER_TEXT"                value="Change"></property>
+        <property name="SITETEMPLATE_INFOLABEL_TEXT"                value="The selected directory should containthe full site template, including the HTML files"></property>
+        <property name="SITETEMPLATE_DIRECTORY_TEXT"                value=".templatescse219"></property>
+        <property name="SITETEMPLATE_DIRECTORYBUTTON_TEXT"       value="Select Template Directory"></property>
+        <property name="SITETEMPLATE_PAGES_TEXT"                value="Site Pages: "></property>
+        <property name="SITETEMPLATE_USECOLUMN_TEXT"                value="Use"></property>
+        <property name="SITETEMPLATE_NAVBARCOLUMN_TEXT"                value="Navbar Title"></property>
+        <property name="SITETEMPLATE_FILENAMECOLUMN_TEXT"                value="File Name"></property>
+        <property name="SITETEMPLATE_SCRIPTCOLUMN_TEXT"                value="Script"></property>
+        
+        <property name="PAGESTYLE_HEADERLABEL_TEXT"                value="Page Style"></property>
+        <property name="PAGESTYLE_BANNERLABEL_TEXT"                value="Banner School Image"></property>
+        <property name="PAGESTYLE_LEFTFOOTERLABEL_TEXT"                value="Left Footer Image"></property>
+        <property name="PAGESTYLE_RIGHTFOOTERLABEL_TEXT"                value="Right Footer Image"></property>
+        <property name="PAGESTYLE_BANNERBUTTON_TEXT"                value="Change"></property>
+        <property name="PAGESTYLE_LEFTBUTTON_TEXT"                value="Change"></property>
+        <property name="PAGESTYLE_RIGHTBUTTON_TEXT"                value="Change"></property>
+        <property name="PAGESTYLE_STYLESHEETLABEL_TEXT"                value="Stylesheet"></property>
+        <property name="PAGESTYLE_NOTE_TEXT" value="New stylesheets may be placed in work/css to be selectable"></property>
+        
+        <!-- WORKSPACE TA DATA CONTROLS STUFF -->
+          
+        <!-- WORKSPACE RECITATION DATA CONTROLS STUFF -->
+        
+        <property name="RECITATION_LABEL_TEXT"                value="Recitation"></property>
+        <property name="RECITATION_SECTIONCOLUMN_TEXT"                value="Section"></property>
+        <property name="RECITATION_INSTRUCTORCOLUMN_TEXT"                value="Instructor"></property>
+        <property name="RECITATION_DAYANDTIMECOLUMN_TEXT"                value="Day and Time"></property>
+        <property name="RECITATION_LOCATIONCOLUMN_TEXT"                value="Location"></property>
+        <property name="RECITATION_FIRSTTACOLUMN_TEXT"                value="TA"></property>
+        <property name="RECITATION_SECONDTACOLUMN_TEXT"                value="TA"></property>
+        <property name="RECITATION_ADDEDITLABEL_TEXT"                value="Add/Edit"></property>
+        <property name="RECITATION_SECTIONLABEL_TEXT"                value="Section: "></property>
+        <property name="RECITATION_INSTRUCTORLABEL_TEXT"                value="Instructor: "></property>
+        <property name="RECITATION_DAYANDTIMELABEL_TEXT"                value="Day/Time"></property>
+        <property name="RECITATION_LOCATIONLABEL_TEXT"                value="Location: "></property>
+        <property name="RECITATION_FIRSTTALABEL_TEXT"                value="Supervising TA"></property>
+        <property name="RECITATION_SECONDTALABEL_TEXT"                value="Supervising TA"></property>
+        <property name="RECITATION_ADDEDITBUTTON_TEXT"                value="Add/Update"></property>
+        <property name="RECITATION_CLEARBUTTON_TEXT"                value="Clear"></property>
+           
+        <!-- WORKSPACE SCHEDULE DATA CONTROLS STUFF -->
+        
+        
+        <property name="CALENDAR_HEADER_TEXT"                value="Calendar Boundaries"></property>
+        <property name="CALENDAR_MONDAYLABEL_TEXT"                value="Starting Monday: "></property>
+        <property name="CALENDAR_FRIDAYLABEL_TEXT"                value="Starting Friday: "></property>
+        
+        <property name="SCHEDULEITEM_HEADER_TEXT"                value="Schedule Items"></property>
+        <property name="SCHEDULEITEM_TYPECOLUMN_TEXT"                value="Type"></property>
+        <property name="SCHEDULEITEM_DATECOLUMN_TEXT"                value="Date"></property>
+        <property name="SCHEDULEITEM_TITLECOLUMN_TEXT"                value="Title"></property>
+        <property name="SCHEDULEITEM_TOPICCOLUMN_TEXT"                value="Topic"></property>
+        <property name="SCHEDULEITEM_ADDEDITLABEL_TEXT"                value="ADD/EDIT "></property>
+        <property name="SCHEDULEITEM_TYPELABEL_TEXT"                value="Type: "></property>
+        <property name="SCHEDULEITEM_DATELABEL_TEXT"                value="Date: "></property>
+        <property name="SCHEDULEITEM_TIMELABEL_TEXT"                value="Time: "></property>
+        <property name="SCHEDULEITEM_TITLELABEL_TEXT"                value="Title: "></property>
+        <property name="SCHEDULEITEM_TOPICLABEL_TEXT"                value="Topic: "></property>
+        <property name="SCHEDULEITEM_LINKLABEL_TEXT"                value="Link: "></property>
+        <property name="SCHEDULEITEM_CRITERIALABEL_TEXT"                value="Criteria: "></property>
+        <property name="SCHEDULEITEM_ADDUPDATEBUTTON_TEXT"                value="Add/Update"></property>
+        <property name="SCHEDULEITEM_CLEARBUTTON_TEXT"                value="Clear"></property>
+        
+          <!-- WORKSPACE PROJECTS DATA CONTROLS STUFF -->
+          
+        <property name="PROJECTS_HEADER_TEXT"                value="Projects ="></property>
+        <property name="TEAMS_TEAMSLABEL_TEXT"                value="Teams"></property>
+        <property name="TEAMS_NAMECOLUMN_TEXT"                value="Name "></property>
+        <property name="TEAMS_COLORCOLUMN_TEXT"                value="Color (hex#) "></property>
+        <property name="TEAMS_TEXTCOLORCOLUMN_TEXT"                value="Text Color (hex#) "></property>
+        <property name="TEAMS_LINKCOLUMN_TEXT"                value="Link "></property>
+        <property name="TEAMS_ADDEDITLABEL_TEXT"                value="Add/Edit "></property>
+        <property name="TEAMS_NAMELABEL_TEXT"                value="Name:  "></property>
+        <property name="TEAMS_COLORLABEL_TEXT"                value="Color:  "></property>
+        <property name="TEAMS_TEXTCOLORLABEL_TEXT"                value="Text Color:  "></property>
+        <property name="TEAMS_LINKLABEL_TEXT"                value="Link:  "></property>
+        <property name="TEAMS_ADDUPDATEBUTTON_TEXT"                value="Add/Update "></property>
+        <property name="TEAMS_CLEARBUTTON_TEXT"                value="Clear"></property>
+        <property name="STUDENTS_HEADER_TEXT"                value="Students  "></property>
+        <property name="STUDENTS_FIRSTNAMECOLUMN_TEXT"                value="First Name"></property>
+        <property name="STUDENTS_LASTNAMECOLUMN_TEXT"                value="Last Name"></property>
+        <property name="STUDENTS_TEAMCOLUMN_TEXT"                value="Team"></property>
+        <property name="STUDENTS_ROLECOLUMN_TEXT"                value="Role"></property>
+        <property name="STUDENTS_ADDEDITLABEL_TEXT"                value="Add/Edit"></property>
+        <property name="STUDENTS_FIRSTNAMELABEL_TEXT"                value="First Name: "></property>
+        <property name="STUDENTS_LASTNAMELABEL_TEXT"                value="Last Name: "></property>
+        <property name="STUDENTS_TEAMLABEL_TEXT"                value="Team: "></property>
+        <property name="STUDENTS_ROLELABEL_TEXT"                value="Role: "></property>
+        <property name="STUDENTS_ADDUPDATEBUTTON_TEXT"                value="Add/Update"></property>
+        <property name="STUDENTS_CLEARBUTTON_TEXT"                value="Clear"></property>
+        
+
+        
         <!-- WORKSPACE ERROR MESSAGES -->
         <property name="MISSING_TA_NAME_TITLE"          value="Missing TA Name"></property>
         <property name="MISSING_TA_NAME_MESSAGE"        value="You must provide a TA Name"></property>
