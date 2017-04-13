@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import jtps.jTPS_Transaction;
+
 import csg.data.TAData;
 import csg.data.TeachingAssistant;
 

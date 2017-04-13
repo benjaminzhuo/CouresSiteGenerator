@@ -852,17 +852,13 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         taTab.setContent(sPane);
         
         
-        
-        
-        
-        
         //workspace = new BorderPane();
 
         // AND PUT EVERYTHING IN THE WORKSPACE
         //((BorderPane) workspace).setCenter(sPane);
 
         // MAKE SURE THE TABLE EXTENDS DOWN FAR ENOUGH
-       // taTable.prefHeightProperty().bind(workspace.heightProperty().multiply(1.9));
+        taTable.prefHeightProperty().bind(gui.getAppPane().heightProperty().multiply(1.9));
         
          //NOW LET'S SETUP THE EVENT HANDLING
          
@@ -1073,9 +1069,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         return officeHoursHeaderBox;
     }
 
-    /*public CourseSiteGeneratorController getController() {
+    public CourseSiteGeneratorController getController() {
         return controller;
-    }*/
+    }
 
     public Label getOfficeHoursSubheaderLabel() {
         return officeHoursHeaderLabel;

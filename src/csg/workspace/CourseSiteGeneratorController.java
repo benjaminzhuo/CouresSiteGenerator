@@ -14,8 +14,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import jtps.jTPS;
-import jtps.jTPS_Transaction;
+import csg.workspace.jTPS;
+import csg.workspace.jTPS_Transaction;
 import properties_manager.PropertiesManager;
 import csg.CourseSiteGeneratorApp;
 import csg.data.TAData;
@@ -121,7 +121,7 @@ public class CourseSiteGeneratorController {
     public void handleKeyPress(KeyCode code) {
         // DID THE USER PRESS THE DELETE KEY?
 
-        if (code == KeyCode.DELETE) {
+        if (code == KeyCode.DELETE || code == KeyCode.BACK_SPACE) {
             // GET THE TABLE
             CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
             TableView taTable = workspace.getTATable();

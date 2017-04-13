@@ -12,7 +12,8 @@ import csg.workspace.CourseSiteGeneratorWorkspace;
 import djf.components.AppStyleComponent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+import java.util.HashMap;
+import javafx.scene.Node;
 /**
  *
  * @author benjaminzhuo
@@ -56,6 +57,9 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
     public static String CLASS_OFFICE_HOURS_GRID_TIME_CELL_LABEL = "office_hours_grid_time_cell_label";
     public static String CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE = "office_hours_grid_ta_cell_pane";
     public static String CLASS_OFFICE_HOURS_GRID_TA_CELL_LABEL = "office_hours_grid_ta_cell_label";
+     public static String CLASS_OFFICE_HOURS_GRID_NEW_START_TIME="office_hours_grid_new_start_time"; 
+    public static String CLASS_OFFICE_HOURS_GRID_NEW_END_TIME="office_hours_grid_new_end_time";   
+    public static String CLASS_OFFICE_HOURS_GRID_UPDATE_TIME_BUTTON="office_hours_grid_update_time_button";
 
     // FOR HIGHLIGHTING CELLS, COLUMNS, AND ROWS
     public static String CLASS_HIGHLIGHTED_GRID_CELL = "highlighted_grid_cell";
@@ -129,8 +133,32 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void initOfficeHoursGridStyle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      public void initOfficeHoursGridStyle() {
+        // RIGHT SIDE - THE OFFICE HOURS GRID TIME HEADERS
+        CourseSiteGeneratorWorkspace workspaceComponent = (CourseSiteGeneratorWorkspace)app.getWorkspaceComponent();
+        workspaceComponent.getOfficeHoursGridPane().getStyleClass().add(CLASS_OFFICE_HOURS_GRID);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeHeaderPanes(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_PANE);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeHeaderLabels(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_LABEL);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridDayHeaderPanes(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_PANE);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridDayHeaderLabels(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_LABEL);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeCellPanes(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_PANE);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeCellLabels(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_LABEL);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTACellPanes(), CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
+        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTACellLabels(), CLASS_OFFICE_HOURS_GRID_TA_CELL_LABEL);
+        workspaceComponent.getNewEndBox().getStyleClass().add(CLASS_OFFICE_HOURS_GRID_NEW_END_TIME); 
+        workspaceComponent.getNewStartBox().getStyleClass().add(CLASS_OFFICE_HOURS_GRID_NEW_START_TIME);
+        workspaceComponent.getChangeTimeButton().getStyleClass().add( CLASS_OFFICE_HOURS_GRID_UPDATE_TIME_BUTTON); 
+    }
+    
+    /**
+     * This helper method initializes the style of all the nodes in the nodes
+     * map to a common style, styleClass.
+     */
+    private void setStyleClassOnAll(HashMap nodes, String styleClass) {
+        for (Object nodeObject : nodes.values()) {
+            Node n = (Node)nodeObject;
+            n.getStyleClass().add(styleClass);
+        }
     }
     
 }

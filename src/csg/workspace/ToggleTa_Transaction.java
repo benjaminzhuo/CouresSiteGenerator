@@ -6,7 +6,7 @@
 package csg.workspace;
 
 import javafx.scene.layout.Pane;
-import jtps.jTPS_Transaction;
+import csg.workspace.jTPS_Transaction;
 import csg.CourseSiteGeneratorApp;
 import csg.data.TAData;
 import csg.data.TeachingAssistant;

@@ -73,7 +73,7 @@
 }
 
 .header_pane{
-    -fx-background-color:#ccccff;
+    -fx-background-color:#B2EBF2;
 }
 
 .header_label {
@@ -84,12 +84,12 @@
 
 .ta_table{
     -fx-font-size:16pt;
-    -fx-background-color:#000066;
+    -fx-background-color:#E0F7FA;
 }
 
 .table-view .column-header.ta_table_column_header .label {
     -fx-text-fill:white;
-    -fx-background-color:#000066;
+    -fx-background-color:#E5E5E5;
 }
 
 .add_ta_pane{
@@ -113,7 +113,7 @@
 }
 
 .office_hours_grid_time_column_header_pane{
-    -fx-background-color:#000066;
+    -fx-background-color:#E0F7FA;
     -fx-border: 1px;    
 }
 
@@ -125,9 +125,9 @@
 }
 
 .office_hours_grid_day_column_header_pane{
-    -fx-background-color:#000066;
+    -fx-background-color:#E0F7FA;
     -fx-border: 1px;
-    -fx-border-color: #000066;
+    -fx-border-color: #E0F7FA;
 }
 
 .office_hours_grid_day_column_header_label{

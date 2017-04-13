@@ -8,7 +8,7 @@ package csg.workspace;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
-import jtps.jTPS_Transaction;
+import csg.workspace.jTPS_Transaction;
 import csg.data.TAData;
 import csg.data.TeachingAssistant;
 
