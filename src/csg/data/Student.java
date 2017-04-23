@@ -11,4 +11,29 @@ package csg.data;
  */
 public class Student {
     
+    protected String firstName;
+    protected String lastName;
+    protected String team;
+    protected String role;
+    public Student(String initFirstName, String initLastName, String initTeam, String initRole){
+        firstName = initFirstName;
+        lastName = initLastName;
+        team = initTeam;
+        role = initRole;
+    }
+    
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public String getTeam(){
+        return team;
+    }
+    public String getRole(){
+        return role;
+    }
 }
+
+

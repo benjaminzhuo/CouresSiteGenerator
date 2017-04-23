@@ -12,7 +12,9 @@
 	<property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
 	<property name="APP_PATH_CSS"	    value="style/"></property>
 	<property name="APP_CSS"	    value="csg_style.css"></property>
-        
+    
+    
+        <property name="GRID_BUTTON_TEXT"	value="-"></property>
         <!-- PROGRAM ICON FILES -->
         <property name="NEW_ICON"	    value="New.png"></property>
         <property name="LOAD_ICON"	    value="Load.png"></property>
@@ -23,6 +25,8 @@
 		<property name="UNDO_ICON"	value="Undo.png"></property>
 		<property name="REDO_ICON"	value="Redo.png"></property>
 		<property name="ABOUT_ICON"	value="About.png"></property>
+    
+
         
         <!-- TOOLTIPS FOR BUTTONS -->
         <property name="NEW_TOOLTIP"		value="Build a new TA Grid"></property>
@@ -163,7 +167,7 @@
         <property name="SCHEDULEITEM_DATECOLUMN_TEXT"                value="Date"></property>
         <property name="SCHEDULEITEM_TITLECOLUMN_TEXT"                value="Title"></property>
         <property name="SCHEDULEITEM_TOPICCOLUMN_TEXT"                value="Topic"></property>
-        <property name="SCHEDULEITEM_ADDEDITLABEL_TEXT"                value="ADD/EDIT "></property>
+        <property name="SCHEDULEITEM_ADDEDITLABEL_TEXT"                value="Add/Edit "></property>
         <property name="SCHEDULEITEM_TYPELABEL_TEXT"                value="Type: "></property>
         <property name="SCHEDULEITEM_DATELABEL_TEXT"                value="Date: "></property>
         <property name="SCHEDULEITEM_TIMELABEL_TEXT"                value="Time: "></property>

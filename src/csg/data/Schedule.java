@@ -5,10 +5,34 @@
  */
 package csg.data;
 
+import java.util.Date;
+
 /**
  *
  * @author benjaminzhuo
  */
 public class Schedule {
+    
+    protected String type;
+    protected String date;
+    protected String time;
+    protected String title;
+    protected String topic;
+    protected String link;
+    protected String criteria;
+    
+    
+    
+    
+    public Schedule(String initType, String initDate, String initTime, String initTitle, String initTopic, String initLink, String initCriteria)
+    {
+        type = initType;
+        date = initDate;
+        time = initTime;
+        title = initTitle;
+        topic = initTopic;
+        link = initLink;
+        criteria = initCriteria;
+    }
     
 }

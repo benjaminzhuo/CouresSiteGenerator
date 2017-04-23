@@ -11,4 +11,28 @@ package csg.data;
  */
 public class Team {
     
+    protected String name;
+    protected String color;
+    protected String textColor;
+    protected String link;
+    public Team(String initName, String initColor, String initTextColor, String initLink)
+    {
+        name = initName;
+        color = initColor;
+        textColor = initTextColor;
+        link = initLink;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    public String getColor(){
+        return color;
+    }
+    public String getTextColor(){
+        return textColor;
+    }
+    public String getLink(){
+        return link;
+    }
 }

@@ -30,6 +30,7 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
     public static String COURSE_DETAILS_PANE = "course_details_pane";
     public static String HEADER_STYLE = "header_style";
     public static String TAB_PANE_STYLE = "tab_pane_style";
+    public static String LABEL_TEXT_STYLE = "label_text_style";
     
     
     
@@ -80,6 +81,14 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
         workspaceComponent.getWorkspacePane().getStyleClass().add(WORKSPACE_PANE);
         workspaceComponent.getTabPane().getStyleClass().add(TAB_PANE_STYLE);
         
+        workspaceComponent.getRecitationAddEditLabel().getStyleClass().add(HEADER_STYLE);
+        workspaceComponent.getScheduleAddEditLabel().getStyleClass().add(HEADER_STYLE);
+        workspaceComponent.getTeamsAddEditLabel().getStyleClass().add(HEADER_STYLE);
+        workspaceComponent.getStudentsAddEditLabel().getStyleClass().add(HEADER_STYLE);
+        
+        
+        
+        
         workspaceComponent.getCourseInfoPane().getStyleClass().add(GRID_PANE_STYLE);
         workspaceComponent.getSiteTemplatePane().getStyleClass().add(GRID_PANE_STYLE);
         workspaceComponent.getPageStylePane().getStyleClass().add(GRID_PANE_STYLE);
@@ -105,11 +114,10 @@ public class CourseSiteGeneratorStyle extends AppStyleComponent
         workspaceComponent.getScheduleItemsLabel().getStyleClass().add(HEADER_STYLE);
         workspaceComponent.getCalendarBoundariesLabel().getStyleClass().add(HEADER_STYLE);
         
-        
-        
-        
         workspaceComponent.getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+        
+        
 
         
         // LEFT SIDE - THE TABLE

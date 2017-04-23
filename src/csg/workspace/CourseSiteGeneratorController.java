@@ -18,6 +18,7 @@ import csg.workspace.jTPS;
 import csg.workspace.jTPS_Transaction;
 import properties_manager.PropertiesManager;
 import csg.CourseSiteGeneratorApp;
+import csg.data.CourseSiteGeneratorData;
 import csg.data.TAData;
 import csg.data.TeachingAssistant;
 import csg.style.CourseSiteGeneratorStyle;
@@ -71,7 +72,7 @@ public class CourseSiteGeneratorController {
         EmailValidator checkEmail = new EmailValidator();
 
         // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
 
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -131,7 +132,7 @@ public class CourseSiteGeneratorController {
             if (selectedItem != null) {
                 TeachingAssistant ta = (TeachingAssistant) selectedItem;
                 String taName = ta.getName();
-                TAData data = (TAData) app.getDataComponent();
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
                 HashMap<String, StringProperty> officeHours = data.getOfficeHours();
                 jTPS_Transaction transaction1 = new DeleteTA_Transaction(ta, data, officeHours);
                 jTPS.addTransaction(transaction1);
@@ -221,7 +222,7 @@ public class CourseSiteGeneratorController {
             // GET THE TA
             String taName = ta.getName();
             String taEmail = ta.getEmail();
-            TAData data = (TAData) app.getDataComponent();
+            CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
 
             // SET TextField To TA NAME 
             workspace.nameTextField.setText(taName);
@@ -249,7 +250,7 @@ public class CourseSiteGeneratorController {
         String email = emailTextField.getText();
         EmailValidator checkEmail = new EmailValidator();
 
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
 
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -318,7 +319,7 @@ public class CourseSiteGeneratorController {
     public void handleUpdateTaGrid(String taName, String newName) {
 
         CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
         //data.removeTA(taName);
 
         // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
@@ -341,7 +342,7 @@ public class CourseSiteGeneratorController {
 
     void handleGridCellMouseExited(Pane pane) {
         String cellKey = pane.getId();
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
         CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
@@ -379,7 +380,7 @@ public class CourseSiteGeneratorController {
 
     void handleGridCellMouseEntered(Pane pane) {
         String cellKey = pane.getId();
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
         CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
@@ -443,7 +444,7 @@ public class CourseSiteGeneratorController {
                 dialog.show(props.getProperty(INVALID_TIME_INPUT_TITLE), props.getProperty(INVALID_TIME_INPUT_MESSAGE));       //REMEMBER TO CHANGE TO PROPER ERROR MESSAGE                              
 
             } else {    //At this point the time varialbes are good to go. 
-                TAData data = (TAData) app.getDataComponent();
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
 
                 jTPS_Transaction transaction = new updateTime_Transaction(start, end, data);
                 jTPS.addTransaction(transaction);

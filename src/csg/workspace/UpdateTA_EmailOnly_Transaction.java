@@ -5,6 +5,7 @@
  */
 package csg.workspace;
 
+import csg.data.CourseSiteGeneratorData;
 import javafx.scene.control.TableView;
 import csg.workspace.jTPS_Transaction;
 import csg.data.TAData;
@@ -20,9 +21,9 @@ public class UpdateTA_EmailOnly_Transaction implements jTPS_Transaction{
     
     private String orgEmail;
     private String newEmail;
-    private TAData taData;
+    private CourseSiteGeneratorData taData;
     private CourseSiteGeneratorWorkspace workspace;
-   public  UpdateTA_EmailOnly_Transaction(String oldName, String oldEmail, String email, TAData data, CourseSiteGeneratorWorkspace workspace )
+   public  UpdateTA_EmailOnly_Transaction(String oldName, String oldEmail, String email, CourseSiteGeneratorData data, CourseSiteGeneratorWorkspace workspace )
     {
         orgName=oldName;
         orgEmail=oldEmail;

@@ -5,6 +5,7 @@
  */
 package csg.workspace;
 
+import csg.data.CourseSiteGeneratorData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
@@ -21,12 +22,12 @@ public class updateTime_Transaction implements jTPS_Transaction {
     private int end;
     private int orgStart;
     private int orgEnd;
-    private TAData data;    
+    private CourseSiteGeneratorData data;    
     private HashMap<String, String> stringMap;    
     
     private HashMap<String, StringProperty> officeHours;    
     
-    public updateTime_Transaction(int start, int end, TAData data) {
+    public updateTime_Transaction(int start, int end, CourseSiteGeneratorData data) {
         
         stringMap = new HashMap();        
         this.start = start;

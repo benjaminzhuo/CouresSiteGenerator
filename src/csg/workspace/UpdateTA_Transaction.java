@@ -8,6 +8,7 @@ package csg.workspace;
 
 import csg.workspace.jTPS_Transaction;
 import csg.CourseSiteGeneratorApp;
+import csg.data.CourseSiteGeneratorData;
 import csg.data.TAData;
 import csg.data.TeachingAssistant;
 
@@ -22,12 +23,12 @@ public class UpdateTA_Transaction implements jTPS_Transaction {
     private String newName;
     private String oldEmail;
     private String newEmail;
-    private TAData taData;
+    private CourseSiteGeneratorData taData;
     private TeachingAssistant ta;
     private CourseSiteGeneratorApp app; 
     private CourseSiteGeneratorWorkspace transWorkspace; 
 
-    public UpdateTA_Transaction(String orgName, String name, String orgEmail, String email, TAData data, CourseSiteGeneratorApp taApp, CourseSiteGeneratorWorkspace workspace) {
+    public UpdateTA_Transaction(String orgName, String name, String orgEmail, String email, CourseSiteGeneratorData data, CourseSiteGeneratorApp taApp, CourseSiteGeneratorWorkspace workspace) {
         oldName = orgName;
         newName = name;
         oldEmail = orgEmail;

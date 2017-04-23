@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
 import csg.workspace.jTPS_Transaction;
-import csg.data.TAData;
+import csg.data.CourseSiteGeneratorData;
 import csg.data.TeachingAssistant;
 
 /**
@@ -19,11 +19,11 @@ import csg.data.TeachingAssistant;
 public class DeleteTA_Transaction implements jTPS_Transaction {
 
     private TeachingAssistant ta;
-    private TAData data;
+    private CourseSiteGeneratorData data;
     private ArrayList<String> keyArray;
     private final HashMap<String, StringProperty> officeHours;
 
-    public DeleteTA_Transaction(TeachingAssistant ta, TAData data, HashMap<String, StringProperty> officeHours) {
+    public DeleteTA_Transaction(TeachingAssistant ta, CourseSiteGeneratorData data, HashMap<String, StringProperty> officeHours) {
         keyArray = new ArrayList<String>();
         this.data = data;
         this.officeHours = officeHours;

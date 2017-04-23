@@ -8,6 +8,7 @@ package csg.workspace;
 import javafx.scene.layout.Pane;
 import csg.workspace.jTPS_Transaction;
 import csg.CourseSiteGeneratorApp;
+import csg.data.CourseSiteGeneratorData;
 import csg.data.TAData;
 import csg.data.TeachingAssistant;
 
@@ -38,7 +39,7 @@ public class ToggleTa_Transaction implements jTPS_Transaction {
     public void doTransaction() {
         TeachingAssistant ta = (TeachingAssistant) selectedItem;
         String taName = ta.getName();
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
         String cellKey = pane.getId();
 
         // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL
@@ -50,7 +51,7 @@ public class ToggleTa_Transaction implements jTPS_Transaction {
     public void undoTransaction() {
         TeachingAssistant ta = (TeachingAssistant) selectedItem;
         String taName = ta.getName();
-        TAData data = (TAData) app.getDataComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
         String cellKey = pane.getId();
 
         // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL

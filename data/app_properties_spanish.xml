@@ -12,7 +12,7 @@
 	<property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
 	<property name="APP_PATH_CSS"	    value="style/"></property>
 	<property name="APP_CSS"	    value="csg_style.css"></property>
-        
+          <property name="GRID_BUTTON_TEXT"	value="-"></property>
         <!-- PROGRAM ICON FILES -->
         <property name="NEW_ICON"	    value="New.png"></property>
         <property name="LOAD_ICON"	    value="Load.png"></property>
@@ -87,6 +87,11 @@
         <property name="EMAIL_PROMPT_TEXT"              value="Email"></property>
         <property name="ADD_BUTTON_TEXT"                value="Añadir TA"></property>
         <property name="OFFICE_HOURS_SUBHEADER"         value="Horario de oficina"></property>
+        <property name="START_HOUR_PROMPT_TEXT"         value="Hora de inicio"></property>
+        <property name="END_HOUR_PROMPT_TEXT"           value="Hora del fin"></property>
+        <property name="UPDATE_TA_BUTTON_TEXT"          value="Actualización TA"></property>
+        <property name="CLEAR_BUTTON_TEXT"                value="Claro"></property>
+        <property name="CHANGE_TIME_BUTTON_TEXT"        value="Tiempo de actualizacion"></property>
         
         
         <!-- WORKSPACE TAB PANE CONTROLS STUFF -->
@@ -162,7 +167,7 @@
         <property name="SCHEDULEITEM_DATECOLUMN_TEXT"                value="Fecha"></property>
         <property name="SCHEDULEITEM_TITLECOLUMN_TEXT"                value="Título"></property>
         <property name="SCHEDULEITEM_TOPICCOLUMN_TEXT"                value="Tema"></property>
-        <property name="SCHEDULEITEM_ADDEDITLABEL_TEXT"                value="ADD/EDIT "></property>
+        <property name="SCHEDULEITEM_ADDEDITLABEL_TEXT"                value="Add/Edit "></property>
         <property name="SCHEDULEITEM_TYPELABEL_TEXT"                value="Tipo: "></property>
         <property name="SCHEDULEITEM_DATELABEL_TEXT"                value="Fecha: "></property>
         <property name="SCHEDULEITEM_TIMELABEL_TEXT"                value="Hora: "></property>
@@ -204,6 +209,15 @@
 
         
         <!-- WORKSPACE ERROR MESSAGES -->
+        <property name="NO_UPDATE_TITLE"                 value="Ningún cambio"></property>
+        <property name="NO_UPDATE_MESSAGE"               value="No hay datos actualizados"></property>
+        <property name="INVALID_TIME_INPUT_TITLE"               value="Tiempo no válido"></property>
+        <property name="INVALID_TIME_INPUT_MESSAGE"               value="Tiempo no válido seleccionado"></property>
+        <property name="UPDATE_TIME_TITLE"          value="Tiempo de actualizacion "></property>
+        <property name="UPDATE_TIME_MESSAGE"        value="Estás seguro de que quieres continuar? Actualizar el tiempo puede eliminar TA de la cuadrícula."></property>
+        
+        <property name="INVALID_TA_EMAIL_TITLE"          value="Formato de correo inválido"></property>
+        <property name="INVALID_TA_EMAIL_MESSAGE"        value="Debe utilizar un formato de correo electrónico correcto"></property>
         <property name="MISSING_TA_NAME_TITLE"          value="Missing TA Name"></property>
         <property name="MISSING_TA_NAME_MESSAGE"        value="You must provide a TA Name"></property>
         <property name="MISSING_TA_EMAIL_TITLE"         value="Missing TA Email"></property>

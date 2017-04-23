@@ -5,6 +5,7 @@
  */
 package csg.workspace;
 
+import csg.data.CourseSiteGeneratorData;
 import java.util.Collections;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
@@ -21,9 +22,9 @@ public class AddTA_Transaction implements jTPS_Transaction {
 
     private String taEmail;
     private String taName;
-    private TAData data;
+    private CourseSiteGeneratorData data;
 
-    public AddTA_Transaction(String name, String email, TAData taData) {
+    public AddTA_Transaction(String name, String email, CourseSiteGeneratorData taData) {
         taEmail = email;
         taName = name;
         data = taData;

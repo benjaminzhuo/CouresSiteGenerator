@@ -4,7 +4,7 @@ package csg;
 import csg.data.CourseData;
 import csg.data.CourseSiteGeneratorData;
 import csg.data.ProjectData;
-import csg.data.RecitationData;
+
 import csg.data.ScheduleData;
 import csg.data.TAData;
 import csg.file.CourseFiles;
@@ -35,7 +35,7 @@ public class CourseSiteGeneratorApp extends AppTemplate
         scheduleDataComponent = new ScheduleData(this);
         taDataComponent = new TAData(this);
         */
-        dataComponent = new TAData(this);
+        dataComponent = new CourseSiteGeneratorData(this);
         workspaceComponent = new CourseSiteGeneratorWorkspace(this);      
         fileComponent = new CourseSiteGeneratorFiles(this);
        /* courseFileComponent = new CourseFiles(this);
