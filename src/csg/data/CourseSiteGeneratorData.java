@@ -9,6 +9,7 @@ package csg.data;
 import djf.components.AppDataComponent;
 import csg.CourseSiteGeneratorApp;
 import csg.CourseSiteGeneratorProp;
+import csg.file.TimeSlot;
 import csg.workspace.CourseSiteGeneratorWorkspace;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,12 @@ import properties_manager.PropertiesManager;
  */
 public class CourseSiteGeneratorData implements AppDataComponent
 {
+    String calendarMonday;
+    String calendarFriday;
+    String bannerPath;
+    String leftFooterPath;
+    String rightFooterPath;
+    String styleSheet;
     // WE'LL NEED ACCESS TO THE APP TO NOTIFY THE GUI WHEN DATA CHANGES
     CourseSiteGeneratorApp app;
 
@@ -34,6 +41,7 @@ public class CourseSiteGeneratorData implements AppDataComponent
     ObservableList<Schedule> scheduleItems;
     ObservableList<Student> students;
     ObservableList<Team> teams;
+    CourseInfo courseInfo;
     
 
     // THIS WILL STORE ALL THE OFFICE HOURS GRID DATA, WHICH YOU
@@ -41,6 +49,7 @@ public class CourseSiteGeneratorData implements AppDataComponent
     // TO UI LABELS, WHICH MEANS IF WE CHANGE VALUES IN THESE
     // PROPERTIES IT CHANGES WHAT APPEARS IN THOSE LABELS
     HashMap<String, StringProperty> officeHours;
+    ArrayList<TimeSlot> testOfficeHours;
 
     // THESE ARE THE LANGUAGE-DEPENDENT VALUES FOR
     // THE OFFICE HOURS GRID HEADERS. NOTE THAT WE
@@ -71,6 +80,9 @@ public class CourseSiteGeneratorData implements AppDataComponent
         app = initApp;
 
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
+        courseInfo = new CourseInfo();
+        students = FXCollections.observableArrayList();
+        teams = FXCollections.observableArrayList();
         recitations = FXCollections.observableArrayList();
         teachingAssistants = FXCollections.observableArrayList();
         scheduleItems = FXCollections.observableArrayList();
@@ -80,6 +92,7 @@ public class CourseSiteGeneratorData implements AppDataComponent
 
         //THIS WILL STORE OUR OFFICE HOURS
         officeHours = new HashMap();
+        testOfficeHours = new ArrayList<TimeSlot>();
         
 
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
@@ -96,13 +109,75 @@ public class CourseSiteGeneratorData implements AppDataComponent
      * data structures such that they can be used for new values.
      */
     @Override
+    
     public void resetData() {
         startHour = MIN_START_HOUR;
         endHour = MAX_END_HOUR;
         teachingAssistants.clear();
         officeHours.clear();
     }
-
+    
+    public void setMonday(String a){
+        calendarMonday = a;
+    }
+    
+    public void setFriday(String a){
+        calendarFriday = a;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public ObservableList<Schedule> getScheduleItems(){
+        return scheduleItems;
+    }
+    public String getMonday(){
+        return calendarMonday;
+    }
+    public String getFriday(){
+        return calendarFriday;
+    }
+    
+    public void addTestTimeSlot(String initDay, String initTime, String initName){
+        TimeSlot ts = new TimeSlot(initDay, initTime, initName);
+        testOfficeHours.add(ts);
+    }
+    
+    public ArrayList<TimeSlot> getTestOfficeHours(){
+        return testOfficeHours;
+    }
+    
+    public void addPageStyle(String a, String b, String c, String d){
+        bannerPath = a;
+        leftFooterPath = b;
+        rightFooterPath = c;
+        styleSheet = d;
+    }
+    
+    public String getBannerPath(){
+        return bannerPath;
+    }
+    public String getLeftFooterPath(){
+        return leftFooterPath;
+    }
+    public String getRightFooterPath(){
+        return rightFooterPath;
+    }
+    public String getStylesheet(){
+        return styleSheet;
+    }
+    
+    public void setCourseInfo(String a, String b, String c, String d, String e, String f, String g, String h){
+        courseInfo = new CourseInfo(a,b,c,d,e,f,g,h);
+    }
+    
+    public CourseInfo getCourseInfo(){
+        return courseInfo;
+    }
     // ACCESSOR METHODS
     public int getStartHour() {
         return startHour;

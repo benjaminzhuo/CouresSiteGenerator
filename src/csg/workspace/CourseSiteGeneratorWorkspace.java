@@ -14,8 +14,10 @@ import csg.CourseSiteGeneratorApp;
 import csg.CourseSiteGeneratorProp;
 import csg.data.CourseSiteGeneratorData;
 import csg.data.Recitation;
-import csg.data.TAData;
+import csg.data.Schedule;
+import csg.data.Student;
 import csg.data.TeachingAssistant;
+import csg.data.Team;
 import csg.style.CourseSiteGeneratorStyle;
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
@@ -570,6 +572,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        scheduleItemsLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_HEADER_TEXT.toString()));
        //SET UP THE TABLE
        scheduleItemsTable = new TableView();
+       ObservableList<Schedule> scheduleTableData = data.getScheduleItems();
+       scheduleItemsTable.setItems(scheduleTableData);
        typeColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TYPECOLUMN_TEXT.toString()));
        dateColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_DATECOLUMN_TEXT.toString()));
        titleColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TITLECOLUMN_TEXT.toString()));
@@ -653,6 +657,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        teamsHeaderLabel = new Label();
        teamsHeaderLabel.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_TEAMSLABEL_TEXT.toString()));
        teamsTable = new TableView();
+       ObservableList<Team> teamTableData = data.getTeams();
+       teamsTable.setItems(teamTableData);
        teamsNameColumn = new TableColumn();
        teamsNameColumn.setText(props.getProperty(CourseSiteGeneratorProp.TEAMS_NAMECOLUMN_TEXT.toString()));
        teamsColorColumn = new TableColumn();
@@ -704,6 +710,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        studentsHeaderLabel = new Label();
        studentsHeaderLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_HEADER_TEXT.toString()));
        studentsTable = new TableView();
+       ObservableList<Student> studentsTableData = data.getStudents();
+       studentsTable.setItems(studentsTableData);
        studentsFirstNameColumn = new TableColumn();
        studentsFirstNameColumn.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_FIRSTNAMECOLUMN_TEXT.toString()));
        studentsLastNameColumn = new TableColumn();

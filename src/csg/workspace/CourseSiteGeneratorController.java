@@ -19,7 +19,6 @@ import csg.workspace.jTPS_Transaction;
 import properties_manager.PropertiesManager;
 import csg.CourseSiteGeneratorApp;
 import csg.data.CourseSiteGeneratorData;
-import csg.data.TAData;
 import csg.data.TeachingAssistant;
 import csg.style.CourseSiteGeneratorStyle;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_CELL;

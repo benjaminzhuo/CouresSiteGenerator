@@ -8,7 +8,6 @@ package csg.workspace;
 import csg.data.CourseSiteGeneratorData;
 import javafx.scene.control.TableView;
 import csg.workspace.jTPS_Transaction;
-import csg.data.TAData;
 import csg.data.TeachingAssistant;
 
 /**

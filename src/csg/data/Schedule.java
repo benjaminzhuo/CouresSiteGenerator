@@ -35,4 +35,16 @@ public class Schedule {
         criteria = initCriteria;
     }
     
+    public String getType(){
+        return type;
+    }
+    public String getDate(){
+        return date;
+    }
+    public String getTitle(){
+        return title;
+    }
+    public String getTopic(){
+        return topic;
+    }
 }

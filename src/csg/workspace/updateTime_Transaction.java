@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
 import csg.workspace.jTPS_Transaction;
-import csg.data.TAData;
 
 /**
  *

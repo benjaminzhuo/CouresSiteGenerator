@@ -8,7 +8,10 @@ package csg.test_bed;
 import csg.CourseSiteGeneratorApp;
 import csg.data.CourseSiteGeneratorData;
 import csg.data.Recitation;
+import csg.data.Schedule;
+import csg.data.Student;
 import csg.data.TeachingAssistant;
+import csg.data.Team;
 import csg.file.CourseSiteGeneratorFiles;
 import csg.file.TimeSlot;
 import csg.style.CourseSiteGeneratorStyle;
@@ -54,6 +57,35 @@ public class TestSave {
     static final String JSON_RECITATION_LOCATION = "recitation_location";
     static final String JSON_RECITATION_TA = "recitation_ta";
     static final String JSON_RECITATION_SECOND_TA = "recitation_secondta";
+    static final String JSON_TEAM_NAME = "team_name";
+    static final String JSON_TEAM_COLOR = "team_color";
+    static final String JSON_TEAM_TEXTCOLOR = "team_textcolor";
+    static final String JSON_TEAM_LINK = "team_link";
+    static final String JSON_TEAMS = "teams";
+    static final String JSON_STUDENT_FIRSTNAME = "student_firstname";
+    static final String JSON_STUDENT_LASTNAME = "student_lastname";
+    static final String JSON_STUDENT_TEAM = "student_team";
+    static final String JSON_STUDENT_ROLE = "student_role";
+    static final String JSON_STUDENTS = "students";
+    static final String JSON_COURSE_INFO = "course_info";
+    static final String JSON_COURSE_SUBJECT = "course_subject";
+    static final String JSON_COURSE_NUMBER = "course_number";
+    static final String JSON_COURSE_SEMESTER = "course_semester";
+    static final String JSON_COURSE_TITLE = "course_title";
+    static final String JSON_COURSE_INSTRUCTORNAME = "course_instructorname";
+    static final String JSON_COURSE_INSTRUCTORHOME = "course_instructorhome";
+    static final String JSON_COURSE_YEAR = "course_year";
+    static final String JSON_COURSE_EXPORT = "course_export";
+    static final String JSON_PAGESTYLE_BANNER = "pagestyle_banner";
+    static final String JSON_PAGESTYLE_LEFTFOOTER = "pagestyle_leftfooter";
+    static final String JSON_PAGESTLYE_RIGHTFOOTER = "pagestyle_rightfooter";
+    static final String JSON_PAGESTLYE_STYLESHEET = "pagestyle_stylesheet";
+    static final String JSON_PAGESTYLE = "pagestyle";
+    static final String JSON_SCHEDULE_TYPE = "schedule_type";
+    static final String JSON_SCHEDULE_DATE = "schedule_date";
+    static final String JSON_SCHEDULE_TITLE = "schedule_title";
+    static final String JSON_SCHEDULE_TOPIC = "schedule_topic";
+    static final String JSON_SCHEDULE = "schedules";
     public static void main(String[] args){
       
         
@@ -61,17 +93,20 @@ public class TestSave {
         app.loadProperties(APP_PROPERTIES_FILE_NAME);
         CourseSiteGeneratorData data = new CourseSiteGeneratorData(app);
         //CourseSiteGeneratorFiles files = new CourseSiteGeneratorFiles(app);
- 
         
+        data.addTestTimeSlot("MONDAY","3:00PM","Dan");
         data.addTA("Dan","dan@gmail.com");
-        
+        data.setCourseInfo("CSE","219,","Fall","2017","CS","McKenna","www.cs.stonybrook.edu","/courses219");
+        //All objects acquired from Observable lists that are linked with tables
+        data.addPageStyle("/file/yale.png", "/file/yale.png", "/file/yale.png", "sea_wolf.css");
         data.addRecitation("RO2", "McKenna","Wed 3:30pm-4:23pm","Old CS 2114","Jane Doe", "Joe Schmo");
         data.addScheduleItem("Holiday","2/9/207","3:00pm","SNOWDAY","Event Programming","asdfa.com","criteria");
         data.addTeam("Atomic Comic","552211","ffffff","atomic.com");
         data.addStudent("Jane","Doe","Atomic Comic","Data Designer");
+     
         
         try{
-        saveData(data, "/Users/benjaminzhuo/NetBeansProjects/jsonsavefiles/TestFileName.json");
+        saveData(data, "/Users/benjaminzhuo/NetBeansProjects/jsonsavefiles/SiteSaveTest.json");
         }
         catch(IOException e){
             e.printStackTrace();
@@ -81,6 +116,27 @@ public class TestSave {
     public static void saveData(AppDataComponent data, String filePath) throws IOException {
 	// GET THE DATA
 	CourseSiteGeneratorData dataManager = (CourseSiteGeneratorData)data;
+
+        
+      	    
+	JsonObject courseStyleJson = Json.createObjectBuilder()
+		    .add(JSON_PAGESTYLE_BANNER, dataManager.getBannerPath())
+		    .add(JSON_PAGESTYLE_LEFTFOOTER, dataManager.getLeftFooterPath())
+                    .add(JSON_PAGESTLYE_RIGHTFOOTER, dataManager.getRightFooterPath())
+                    .add(JSON_PAGESTLYE_STYLESHEET, dataManager.getStylesheet())
+                   
+                .build();
+	
+        JsonObject courseInfoJson = Json.createObjectBuilder()
+		    .add(JSON_COURSE_SUBJECT, dataManager.getCourseInfo().getSubject())
+		    .add(JSON_COURSE_NUMBER, dataManager.getCourseInfo().getNumber())
+                    .add(JSON_COURSE_SEMESTER, dataManager.getCourseInfo().getSemester())
+                    .add(JSON_COURSE_YEAR, dataManager.getCourseInfo().getYear())
+                    .add(JSON_COURSE_TITLE, dataManager.getCourseInfo().getTitle())
+                    .add(JSON_COURSE_INSTRUCTORNAME, dataManager.getCourseInfo().getInstructorName())
+                    .add(JSON_COURSE_INSTRUCTORHOME, dataManager.getCourseInfo().getInstructorHome())
+                    .add(JSON_COURSE_EXPORT, dataManager.getCourseInfo().getDirectory())
+                .build();
 
         
         // NOW BUILD THE TA JSON OBJCTS TO SAVE
@@ -94,7 +150,6 @@ public class TestSave {
 	}
 	JsonArray undergradTAsArray = taArrayBuilder.build();
 
-        
         
         
 	// NOW BUILD THE RECITATION JSON OBJCTS TO SAVE
@@ -113,10 +168,51 @@ public class TestSave {
 	}
 	JsonArray recitationItemsArray = recitationsArrayBuilder.build();
 
+        
+        JsonArrayBuilder scheduleArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Schedule> schedules = dataManager.getScheduleItems();
+	for (Schedule schedule : schedules) {	    
+            
+	    JsonObject scheduleJson = Json.createObjectBuilder()
+		    .add(JSON_SCHEDULE_TYPE, schedule.getType())
+		    .add(JSON_SCHEDULE_DATE, schedule.getDate())
+                    .add(JSON_SCHEDULE_TITLE, schedule.getTitle())
+                    .add(JSON_SCHEDULE_TOPIC, schedule.getTopic()).build();
+	    scheduleArrayBuilder.add(scheduleJson);
+	}
+	JsonArray scheduleItemsArray = scheduleArrayBuilder.build();
+        
+        // NOW BUILD THE TEAMS JSON OBJCTS TO SAVE
+	JsonArrayBuilder teamsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Team> teams = dataManager.getTeams();
+	for (Team team : teams) {	    
+            
+	    JsonObject teamsJson = Json.createObjectBuilder()
+		    .add(JSON_TEAM_NAME, team.getName())
+		    .add(JSON_TEAM_COLOR, team.getColor())
+                    .add(JSON_TEAM_TEXTCOLOR, team.getTextColor())
+                    .add(JSON_TEAM_LINK, team.getLink()).build();
+	    teamsArrayBuilder.add(teamsJson);
+	}
+	JsonArray teamsArray = teamsArrayBuilder.build();
+        
+        JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Student> students = dataManager.getStudents();
+	for (Student student : students) {	    
+            
+	    JsonObject studentsJson = Json.createObjectBuilder()
+		    .add(JSON_STUDENT_FIRSTNAME, student.getFirstName())
+		    .add(JSON_STUDENT_LASTNAME, student.getLastName())
+                    .add(JSON_STUDENT_TEAM, student.getTeam())
+                    .add(JSON_STUDENT_ROLE, student.getRole()).build();
+	    studentsArrayBuilder.add(studentsJson);
+	}
+	JsonArray studentsArray = studentsArrayBuilder.build();
+        
 	// NOW BUILD THE TIME SLOT JSON OBJCTS TO SAVE
-        /*
+        
 	JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
-	ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
+	ArrayList<TimeSlot> officeHours = dataManager.getTestOfficeHours();
 	for (TimeSlot ts : officeHours) {	    
 	    JsonObject tsJson = Json.createObjectBuilder()
 		    .add(JSON_DAY, ts.getDay())
@@ -125,14 +221,19 @@ public class TestSave {
 	    timeSlotArrayBuilder.add(tsJson);
 	}
 	JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
-        */
+        
 	// THEN PUT IT ALL TOGETHER IN A JsonObject
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
+                .add(JSON_COURSE_INFO, "" + courseInfoJson)
+                .add(JSON_PAGESTYLE,""+courseStyleJson)
 		.add(JSON_START_HOUR, "" + dataManager.getStartHour())
 		.add(JSON_END_HOUR, "" + dataManager.getEndHour())
-                .add(JSON_RECITATION_ITEMS, recitationItemsArray)
                 .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
-              //  .add(JSON_OFFICE_HOURS, timeSlotsArray)
+                .add(JSON_OFFICE_HOURS, timeSlotsArray)
+                .add(JSON_RECITATION_ITEMS, recitationItemsArray)
+                .add(JSON_SCHEDULE, scheduleItemsArray)
+                .add(JSON_TEAMS, teamsArray)
+                .add(JSON_STUDENTS, studentsArray)
 		.build();
 	
 	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING

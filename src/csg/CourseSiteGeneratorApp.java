@@ -1,18 +1,8 @@
 
 package csg;
 
-import csg.data.CourseData;
 import csg.data.CourseSiteGeneratorData;
-import csg.data.ProjectData;
-
-import csg.data.ScheduleData;
-import csg.data.TAData;
-import csg.file.CourseFiles;
 import csg.file.CourseSiteGeneratorFiles;
-import csg.file.ProjectFiles;
-import csg.file.RecitationFiles;
-import csg.file.ScheduleFiles;
-import csg.file.TAFiles;
 import csg.style.CourseSiteGeneratorStyle;
 import csg.workspace.CourseSiteGeneratorWorkspace;
 import djf.AppTemplate;

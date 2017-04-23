@@ -9,7 +9,6 @@ package csg.workspace;
 import csg.workspace.jTPS_Transaction;
 import csg.CourseSiteGeneratorApp;
 import csg.data.CourseSiteGeneratorData;
-import csg.data.TAData;
 import csg.data.TeachingAssistant;
 
 

@@ -23,7 +23,7 @@ import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
 import csg.CourseSiteGeneratorApp;
 import csg.data.CourseSiteGeneratorData;
-import csg.data.TAData;
+
 import csg.file.TimeSlot;
 import csg.data.TeachingAssistant;
 
