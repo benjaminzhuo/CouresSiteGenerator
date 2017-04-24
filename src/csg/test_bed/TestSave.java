@@ -17,8 +17,10 @@ import csg.file.TimeSlot;
 import csg.style.CourseSiteGeneratorStyle;
 import djf.components.AppDataComponent;
 import static djf.settings.AppStartupConstants.APP_PROPERTIES_FILE_NAME;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -31,6 +33,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
@@ -84,6 +87,9 @@ public class TestSave {
     static final String JSON_SCHEDULE_TYPE = "schedule_type";
     static final String JSON_SCHEDULE_DATE = "schedule_date";
     static final String JSON_SCHEDULE_TITLE = "schedule_title";
+    static final String JSON_SCHEDULE_TIME = "schedule_time";
+    static final String JSON_SCHEDULE_LINK = "schedule_link";
+    static final String JSON_SCHEDULE_CRITERIA = "schedule_criteria";
     static final String JSON_SCHEDULE_TOPIC = "schedule_topic";
     static final String JSON_SCHEDULE = "schedules";
     public static void main(String[] args){
@@ -111,6 +117,7 @@ public class TestSave {
         catch(IOException e){
             e.printStackTrace();
         }
+       
     }
     
     public static void saveData(AppDataComponent data, String filePath) throws IOException {
@@ -176,8 +183,11 @@ public class TestSave {
 	    JsonObject scheduleJson = Json.createObjectBuilder()
 		    .add(JSON_SCHEDULE_TYPE, schedule.getType())
 		    .add(JSON_SCHEDULE_DATE, schedule.getDate())
+                    .add(JSON_SCHEDULE_TIME, schedule.getTime())
                     .add(JSON_SCHEDULE_TITLE, schedule.getTitle())
-                    .add(JSON_SCHEDULE_TOPIC, schedule.getTopic()).build();
+                    .add(JSON_SCHEDULE_TOPIC, schedule.getTopic())
+                    .add(JSON_SCHEDULE_LINK, schedule.getLink())
+                    .add(JSON_SCHEDULE_CRITERIA, schedule.getCriteria()).build();
 	    scheduleArrayBuilder.add(scheduleJson);
 	}
 	JsonArray scheduleItemsArray = scheduleArrayBuilder.build();
@@ -256,6 +266,103 @@ public class TestSave {
     }
     
     
-    
+    public static void loadData(AppDataComponent data, String filePath) throws IOException {
+	// CLEAR THE OLD DATA OUT
+	CourseSiteGeneratorData dataManager = (CourseSiteGeneratorData)data;
+
+	// LOAD THE JSON FILE WITH ALL THE DATA
+	JsonObject json = loadJSONFile(filePath);
+
+	// LOAD THE START AND END HOURS
+	String startHour = json.getString(JSON_START_HOUR);
+        String endHour = json.getString(JSON_END_HOUR);
+        //dataManager.initHours(startHour, endHour);
+        dataManager.setStartHour(Integer.parseInt(startHour));
+        dataManager.setEndHour(Integer.parseInt(endHour));
+
+        
+
+        // NOW LOAD ALL THE UNDERGRAD TAs
+        JsonArray jsonTAArray = json.getJsonArray(JSON_UNDERGRAD_TAS);
+        for (int i = 0; i < jsonTAArray.size(); i++) {
+            JsonObject jsonTA = jsonTAArray.getJsonObject(i);
+            String name = jsonTA.getString(JSON_NAME);
+            String email = jsonTA.getString(JSON_EMAIL);
+            dataManager.addTA(name, email);
+        }
+
+        // AND THEN ALL THE OFFICE HOURS
+        JsonArray jsonOfficeHoursArray = json.getJsonArray(JSON_OFFICE_HOURS);
+        for (int i = 0; i < jsonOfficeHoursArray.size(); i++) {
+            JsonObject jsonOfficeHours = jsonOfficeHoursArray.getJsonObject(i);
+            String day = jsonOfficeHours.getString(JSON_DAY);
+            String time = jsonOfficeHours.getString(JSON_TIME);
+            String name = jsonOfficeHours.getString(JSON_NAME);
+         // dataManager.addOfficeHoursReservation(day, time, name);
+        }
+        
+        // NOW LOAD ALL THE RECITATIONS
+        JsonArray jsonRecitationArray = json.getJsonArray(JSON_RECITATION_ITEMS);
+        for (int i = 0; i < jsonRecitationArray.size(); i++) {
+            JsonObject jsonRecitation = jsonRecitationArray.getJsonObject(i);
+            String section = jsonRecitation.getString(JSON_RECITATION_SECTION);
+            String instructor = jsonRecitation.getString(JSON_RECITATION_INSTRUCTOR);
+            String daytime = jsonRecitation.getString(JSON_RECITATION_DAYTIME);
+            String location = jsonRecitation.getString(JSON_RECITATION_LOCATION);
+            String ta = jsonRecitation.getString(JSON_RECITATION_TA);
+            String secondta = jsonRecitation.getString(JSON_RECITATION_SECOND_TA);
+            dataManager.addRecitation(section, instructor, daytime, location, ta, secondta);
+        }
+
+        // NOW LOAD ALL THE SCHEDULES
+        JsonArray jsonScheduleArray = json.getJsonArray(JSON_SCHEDULE);
+        for (int i = 0; i < jsonScheduleArray.size(); i++) {
+            JsonObject jsonSchedule = jsonScheduleArray.getJsonObject(i);
+            String type = jsonSchedule.getString(JSON_SCHEDULE_TYPE);
+            String date = jsonSchedule.getString(JSON_SCHEDULE_DATE);
+            String time = jsonSchedule.getString(JSON_SCHEDULE_TIME);
+            String title = jsonSchedule.getString(JSON_SCHEDULE_TITLE);
+            String topic = jsonSchedule.getString(JSON_SCHEDULE_TOPIC);
+            String link = jsonSchedule.getString(JSON_SCHEDULE_LINK);
+            String criteria = jsonSchedule.getString(JSON_SCHEDULE_CRITERIA);
+            dataManager.addScheduleItem(type, date, time, title, topic, link, criteria);
+        }
+
+        // NOW LOAD ALL THE TEAMS
+        JsonArray jsonTeamsArray = json.getJsonArray(JSON_TEAMS);
+        for (int i = 0; i < jsonTeamsArray.size(); i++) {
+            JsonObject jsonTeam = jsonTeamsArray.getJsonObject(i);
+            String teamName = jsonTeam.getString(JSON_TEAM_NAME);
+            String teamColor = jsonTeam.getString(JSON_TEAM_COLOR);
+            String teamTextColor = jsonTeam.getString(JSON_TEAM_TEXTCOLOR);
+            String teamLink = jsonTeam.getString(JSON_TEAM_LINK);
+            dataManager.addTeam(teamName, teamColor, teamTextColor, teamLink);
+        }
+
+        // NOW LOAD ALL THE STUDENTS
+        JsonArray jsonStudentsArray = json.getJsonArray(JSON_STUDENTS);
+        for (int i = 0; i < jsonStudentsArray.size(); i++) {
+            JsonObject jsonStudent = jsonStudentsArray.getJsonObject(i);
+            String firstName = jsonStudent.getString(JSON_STUDENT_FIRSTNAME);
+            String lastName = jsonStudent.getString(JSON_STUDENT_LASTNAME);
+            String team = jsonStudent.getString(JSON_STUDENT_TEAM);
+            String role = jsonStudent.getString(JSON_STUDENT_ROLE);
+            dataManager.addStudent(firstName, lastName, team, role);
+        }
+
+        
+        
+        
+    }
+      
+    // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
+    private static JsonObject loadJSONFile(String jsonFilePath) throws IOException {
+	InputStream is = new FileInputStream(jsonFilePath);
+	JsonReader jsonReader = Json.createReader(is);
+	JsonObject json = jsonReader.readObject();
+	jsonReader.close();
+	is.close();
+	return json;
+    }
     
 }

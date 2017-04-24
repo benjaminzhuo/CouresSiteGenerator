@@ -47,4 +47,13 @@ public class Schedule {
     public String getTopic(){
         return topic;
     }
+    public String getTime(){
+        return time;
+    }
+    public String getLink(){
+        return link;
+    }
+    public String getCriteria(){
+        return criteria;
+    }
 }

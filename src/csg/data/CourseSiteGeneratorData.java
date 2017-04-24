@@ -127,11 +127,6 @@ public class CourseSiteGeneratorData implements AppDataComponent
     
     
     
-    
-    
-    
-    
-    
     public ObservableList<Schedule> getScheduleItems(){
         return scheduleItems;
     }

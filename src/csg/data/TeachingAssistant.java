@@ -12,6 +12,7 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     // THE TABLE WILL STORE TA NAMES AND EMAILS
     private final StringProperty name;
     private final StringProperty email;
+    private boolean undergrad = false;
 
     /**
      * Constructor initializes both the TA name and email.
@@ -22,6 +23,9 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     }
 
     // ACCESSORS AND MUTATORS FOR THE PROPERTIES
+    public void setUndergrad(){
+        undergrad = true;
+    }
 
     public String getName() {
         return name.get();
