@@ -115,6 +115,10 @@ public class CourseSiteGeneratorData implements AppDataComponent
         endHour = MAX_END_HOUR;
         teachingAssistants.clear();
         officeHours.clear();
+        recitations.clear();
+        students.clear();
+        scheduleItems.clear();
+        teams.clear();
     }
     
     public void setMonday(String a){

@@ -2,6 +2,7 @@ package csg.data;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.CheckBox;
 
 /**
  * This class represents a Teaching Assistant for the table of TAs.
@@ -13,18 +14,24 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     private final StringProperty name;
     private final StringProperty email;
     private boolean undergrad = false;
-
+    private CheckBox undergradBox;
     /**
      * Constructor initializes both the TA name and email.
      */
     public TeachingAssistant(String initName, String initEmail) {
         name = new SimpleStringProperty(initName);
         email = new SimpleStringProperty(initEmail);
+        undergradBox = new CheckBox();
+        undergradBox.setIndeterminate(false);
     }
 
     // ACCESSORS AND MUTATORS FOR THE PROPERTIES
     public void setUndergrad(){
         undergrad = true;
+    }
+    
+    public CheckBox getCheckBox(){
+        return undergradBox;
     }
 
     public String getName() {

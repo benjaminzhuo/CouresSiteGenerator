@@ -81,8 +81,8 @@ public class TestSave {
     static final String JSON_COURSE_EXPORT = "course_export";
     static final String JSON_PAGESTYLE_BANNER = "pagestyle_banner";
     static final String JSON_PAGESTYLE_LEFTFOOTER = "pagestyle_leftfooter";
-    static final String JSON_PAGESTLYE_RIGHTFOOTER = "pagestyle_rightfooter";
-    static final String JSON_PAGESTLYE_STYLESHEET = "pagestyle_stylesheet";
+    static final String JSON_PAGESTYLE_RIGHTFOOTER = "pagestyle_rightfooter";
+    static final String JSON_PAGESTYLE_STYLESHEET = "pagestyle_stylesheet";
     static final String JSON_PAGESTYLE = "pagestyle";
     static final String JSON_SCHEDULE_TYPE = "schedule_type";
     static final String JSON_SCHEDULE_DATE = "schedule_date";
@@ -92,6 +92,8 @@ public class TestSave {
     static final String JSON_SCHEDULE_CRITERIA = "schedule_criteria";
     static final String JSON_SCHEDULE_TOPIC = "schedule_topic";
     static final String JSON_SCHEDULE = "schedules";
+    static final String JSON_MONDAY = "starting_monday";
+    static final String JSON_FRIDAY = "starting_friday";
     public static void main(String[] args){
       
         
@@ -109,7 +111,8 @@ public class TestSave {
         data.addScheduleItem("Holiday","2/9/207","3:00pm","SNOWDAY","Event Programming","asdfa.com","criteria");
         data.addTeam("Atomic Comic","552211","ffffff","atomic.com");
         data.addStudent("Jane","Doe","Atomic Comic","Data Designer");
-     
+        data.setMonday("4/22/2012");
+        data.setFriday("4/22/2012");
         
         try{
         saveData(data, "/Users/benjaminzhuo/NetBeansProjects/jsonsavefiles/SiteSaveTest.json");
@@ -129,8 +132,8 @@ public class TestSave {
 	JsonObject courseStyleJson = Json.createObjectBuilder()
 		    .add(JSON_PAGESTYLE_BANNER, dataManager.getBannerPath())
 		    .add(JSON_PAGESTYLE_LEFTFOOTER, dataManager.getLeftFooterPath())
-                    .add(JSON_PAGESTLYE_RIGHTFOOTER, dataManager.getRightFooterPath())
-                    .add(JSON_PAGESTLYE_STYLESHEET, dataManager.getStylesheet())
+                    .add(JSON_PAGESTYLE_RIGHTFOOTER, dataManager.getRightFooterPath())
+                    .add(JSON_PAGESTYLE_STYLESHEET, dataManager.getStylesheet())
                    
                 .build();
 	
@@ -234,8 +237,18 @@ public class TestSave {
         
 	// THEN PUT IT ALL TOGETHER IN A JsonObject
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
-                .add(JSON_COURSE_INFO, "" + courseInfoJson)
-                .add(JSON_PAGESTYLE,""+courseStyleJson)
+                .add(JSON_COURSE_SUBJECT,"" + dataManager.getCourseInfo().getSubject())
+                .add(JSON_COURSE_NUMBER,"" + dataManager.getCourseInfo().getNumber())
+                .add(JSON_COURSE_SEMESTER,"" + dataManager.getCourseInfo().getSemester())
+                .add(JSON_COURSE_YEAR,"" + dataManager.getCourseInfo().getYear())
+                .add(JSON_COURSE_TITLE,"" + dataManager.getCourseInfo().getTitle())
+                .add(JSON_COURSE_INSTRUCTORNAME,"" + dataManager.getCourseInfo().getInstructorName())
+                .add(JSON_COURSE_INSTRUCTORHOME,"" + dataManager.getCourseInfo().getInstructorHome())
+                .add(JSON_COURSE_EXPORT,"" + dataManager.getCourseInfo().getDirectory())
+                .add(JSON_PAGESTYLE_BANNER,""+ dataManager.getBannerPath())
+                .add(JSON_PAGESTYLE_LEFTFOOTER,""+ dataManager.getLeftFooterPath())
+                .add(JSON_PAGESTYLE_RIGHTFOOTER,""+ dataManager.getRightFooterPath())
+                .add(JSON_PAGESTYLE_STYLESHEET,""+ dataManager.getStylesheet())
 		.add(JSON_START_HOUR, "" + dataManager.getStartHour())
 		.add(JSON_END_HOUR, "" + dataManager.getEndHour())
                 .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
@@ -244,6 +257,8 @@ public class TestSave {
                 .add(JSON_SCHEDULE, scheduleItemsArray)
                 .add(JSON_TEAMS, teamsArray)
                 .add(JSON_STUDENTS, studentsArray)
+                .add(JSON_MONDAY, dataManager.getMonday())
+                .add(JSON_FRIDAY, dataManager.getFriday())
 		.build();
 	
 	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
@@ -280,8 +295,31 @@ public class TestSave {
         dataManager.setStartHour(Integer.parseInt(startHour));
         dataManager.setEndHour(Integer.parseInt(endHour));
 
+        //LOAD STARTING MONDAY AND ENDING FRIDAY
+        String monday = json.getString(JSON_MONDAY);
+        String friday = json.getString(JSON_FRIDAY);
+        dataManager.setMonday(monday);
+        dataManager.setFriday(friday);
+        // LOAD THE COURSE INFO
         
+        String subject = json.getString(JSON_COURSE_SUBJECT);
+        String number = json.getString(JSON_COURSE_NUMBER);
+        String semester = json.getString(JSON_COURSE_SEMESTER);
+        String year = json.getString(JSON_COURSE_YEAR);
+        String title = json.getString(JSON_COURSE_TITLE);
+        String instname = json.getString(JSON_COURSE_INSTRUCTORNAME);
+        String insthome = json.getString(JSON_COURSE_INSTRUCTORHOME);
+        String exportdir = json.getString(JSON_COURSE_EXPORT);
+        
+        dataManager.setCourseInfo(subject, number, semester, year, title, instname, insthome, exportdir);
 
+        String banner = json.getString(JSON_PAGESTYLE_BANNER);
+        String leftFooter = json.getString(JSON_PAGESTYLE_LEFTFOOTER);
+        String rightFooter = json.getString(JSON_PAGESTYLE_RIGHTFOOTER);
+        String stylesheet = json.getString(JSON_PAGESTYLE_STYLESHEET);
+        
+        dataManager.addPageStyle(banner, leftFooter, rightFooter, stylesheet);
+        
         // NOW LOAD ALL THE UNDERGRAD TAs
         JsonArray jsonTAArray = json.getJsonArray(JSON_UNDERGRAD_TAS);
         for (int i = 0; i < jsonTAArray.size(); i++) {
@@ -321,11 +359,11 @@ public class TestSave {
             String type = jsonSchedule.getString(JSON_SCHEDULE_TYPE);
             String date = jsonSchedule.getString(JSON_SCHEDULE_DATE);
             String time = jsonSchedule.getString(JSON_SCHEDULE_TIME);
-            String title = jsonSchedule.getString(JSON_SCHEDULE_TITLE);
+            String schedTitle = jsonSchedule.getString(JSON_SCHEDULE_TITLE);
             String topic = jsonSchedule.getString(JSON_SCHEDULE_TOPIC);
             String link = jsonSchedule.getString(JSON_SCHEDULE_LINK);
             String criteria = jsonSchedule.getString(JSON_SCHEDULE_CRITERIA);
-            dataManager.addScheduleItem(type, date, time, title, topic, link, criteria);
+            dataManager.addScheduleItem(type, date, time, schedTitle, topic, link, criteria);
         }
 
         // NOW LOAD ALL THE TEAMS

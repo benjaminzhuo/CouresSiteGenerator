@@ -36,6 +36,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -317,7 +318,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         projectTab.setClosable(false);
         tabPane.getTabs().addAll(courseTab, taTab, recitationTab,scheduleTab, projectTab);
         
-        gui.getAppPane().setCenter(tabPane);
+        //gui.getAppPane().setCenter(tabPane);
         
         
         
@@ -789,13 +790,15 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         nameColumn = new TableColumn(nameColumnText);
         gradCheckList = new TableColumn("Undergrad");
         emailColumn = new TableColumn(emailColumnText);
+        
+        
         nameColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("name")
         );
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("email")
         );
-        //taTable.getColumns().add(gradCheckList);
+       // taTable.getColumns().add(gradCheckList);
         taTable.getColumns().add(nameColumn);
         taTable.getColumns().add(emailColumn);
 
@@ -881,10 +884,10 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         taTab.setContent(sPane);
         
         
-        //workspace = new BorderPane();
+        workspace = new BorderPane();
 
         // AND PUT EVERYTHING IN THE WORKSPACE
-        //((BorderPane) workspace).setCenter(sPane);
+        ((BorderPane) workspace).setCenter(tabPane);
 
         // MAKE SURE THE TABLE EXTENDS DOWN FAR ENOUGH
         taTable.prefHeightProperty().bind(gui.getAppPane().heightProperty().multiply(1.9));
@@ -1015,7 +1018,16 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     public VBox getProjectsPane(){
         return projectsPane;
     }
-            
+    /*
+    @Override
+    public void activateWorkspace(BorderPane appPane) {
+        if (!workspaceActivated) {
+            // PUT THE WORKSPACE IN THE GUI
+            appPane.setCenter(tabPane);
+            workspaceActivated = true;
+        }
+    }
+            */
     public Label getRecitationLabel(){
         return recitationLabel;
     }
