@@ -1,0 +1,45 @@
+
+{
+    "course_subject":"null",
+    "course_number":"null",
+    "course_semester":"null",
+    "course_year":"null",
+    "course_title":"null",
+    "course_instructorname":"null",
+    "course_instructorhome":"null",
+    "course_export":"null",
+    "pagestyle_banner":"null",
+    "pagestyle_leftfooter":"null",
+    "pagestyle_rightfooter":"null",
+    "pagestyle_stylesheet":"null",
+    "startHour":"9",
+    "endHour":"20",
+    "undergrad_tas":[
+        {
+            "name":"sadfsadf",
+            "email":"asdfas@gmail.com"
+        }
+    ],
+    "officeHours":[
+        {
+            "day":"MONDAY",
+            "time":"10_30am",
+            "name":"sadfsadf"
+        },
+        {
+            "day":"TUESDAY",
+            "time":"11_30am",
+            "name":"sadfsadf"
+        }
+    ],
+    "recitation_items":[
+    ],
+    "schedules":[
+    ],
+    "teams":[
+    ],
+    "students":[
+    ],
+    "starting_monday":"",
+    "starting_friday":""
+}

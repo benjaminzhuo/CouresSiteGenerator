@@ -5,34 +5,37 @@
  */
 package csg.data;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author benjaminzhuo
  */
 public class Team {
     
-    protected String name;
-    protected String color;
-    protected String textColor;
-    protected String link;
+    private final StringProperty name;
+    private final StringProperty color;
+    private final StringProperty textColor;
+    private final StringProperty link;
     public Team(String initName, String initColor, String initTextColor, String initLink)
     {
-        name = initName;
-        color = initColor;
-        textColor = initTextColor;
-        link = initLink;
+        name = new SimpleStringProperty(initName);
+        color = new SimpleStringProperty(initColor);
+        textColor = new SimpleStringProperty(initTextColor);
+        link = new SimpleStringProperty(initLink);
     }
     
     public String getName(){
-        return name;
+        return name.get();
     }
     public String getColor(){
-        return color;
+        return color.get();
     }
     public String getTextColor(){
-        return textColor;
+        return textColor.get();
     }
     public String getLink(){
-        return link;
+        return link.get();
     }
 }

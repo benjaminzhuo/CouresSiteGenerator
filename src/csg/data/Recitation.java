@@ -5,74 +5,78 @@
  */
 package csg.data;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author benjaminzhuo
  */
 public class Recitation {
     
-    protected String section;
-    protected String instructor;
-    protected String dayTime;
-    protected String firstTA;
-    protected String secondTA;
-    protected String location;
+   
+    private final StringProperty section;
+    private final StringProperty instructor;
+    private final StringProperty dayTime;
+    private final StringProperty firstTA;
+    private final StringProperty secondTA;
+    private final StringProperty location;
     
     public Recitation(String initSection, String initInstructor, String initDayTime, String initLocation, String initTA, String initSecondTA){
         
-        section = initSection;
-        instructor = initInstructor;
-        dayTime = initDayTime;
-        location = initLocation;
-        firstTA = initTA;
-        secondTA = initSecondTA;
+        section = new SimpleStringProperty(initSection);
+        instructor = new SimpleStringProperty(initInstructor);
+        dayTime = new SimpleStringProperty(initDayTime);
+        location = new SimpleStringProperty(initLocation);
+        firstTA = new SimpleStringProperty(initTA);
+        secondTA = new SimpleStringProperty(initSecondTA);
     }
     
     public void setLocation(String a){
-        location = a;
+        location.set(a);
     }
     public void setSection(String a){
-        section = a;
+        section.set(a);
     }
     
     public void setInstructor(String a){
-        instructor = a;
+        instructor.set(a);
     }
     
     public void setDayTime(String a){
-        dayTime = a;
+        dayTime.set(a);
     }
     
     public void setFirstTA(String a){
-        firstTA = a;
+        firstTA.set(a);
     }
     
     public void setSecondTA(String a){
-        secondTA = a;
+        secondTA.set(a);
     }
     
     public String getSection(){
-        return section;
+        return section.get();
     }
     
     public String getInstructor(){
-        return instructor;
+        return instructor.get();
     }
     
     public String getDayTime(){
-        return dayTime;
+        return dayTime.get();
     }
     
     public String getLocation(){
-        return location;
+        return location.get();
     }
     
     public String getFirstTA(){
-        return firstTA;
+        return firstTA.get();
     }
     
     public String getSecondTA(){
-        return secondTA;
+        return secondTA.get();
     }
     
     

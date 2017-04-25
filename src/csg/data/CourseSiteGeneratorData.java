@@ -25,8 +25,7 @@ import properties_manager.PropertiesManager;
  */
 public class CourseSiteGeneratorData implements AppDataComponent
 {
-    String calendarMonday;
-    String calendarFriday;
+   
     String bannerPath;
     String leftFooterPath;
     String rightFooterPath;
@@ -41,6 +40,7 @@ public class CourseSiteGeneratorData implements AppDataComponent
     ObservableList<Schedule> scheduleItems;
     ObservableList<Student> students;
     ObservableList<Team> teams;
+    ObservableList<SitePage> sitePages;
     CourseInfo courseInfo;
     
 
@@ -64,6 +64,9 @@ public class CourseSiteGeneratorData implements AppDataComponent
     int startHour;
     int endHour;
 
+    String calendarMonday = "";
+    String calendarFriday = "";
+    
     // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
     public static final int MAX_END_HOUR = 20;
@@ -81,6 +84,13 @@ public class CourseSiteGeneratorData implements AppDataComponent
 
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
         courseInfo = new CourseInfo();
+        sitePages = FXCollections.observableArrayList();
+        SitePage homeBuilder = new SitePage("","Home","index.html","HomeBuilder.js");
+        SitePage syllabusBuilder = new SitePage("","Syllabus","syllabus.html","SyllabusBuilder.js");
+        SitePage scheduleBuilder = new SitePage("","Schedule","schedule.html","ScheduleBuilder.js");
+        SitePage hwsBuilder = new SitePage("","HWs","hws.html","HWsBuilder.js");
+        SitePage projectsBuilder = new SitePage("","Projects","projects.html","ProjectsBuilder.js");
+        sitePages.addAll(homeBuilder, syllabusBuilder, scheduleBuilder, hwsBuilder, projectsBuilder);
         students = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
         recitations = FXCollections.observableArrayList();
@@ -120,7 +130,9 @@ public class CourseSiteGeneratorData implements AppDataComponent
         scheduleItems.clear();
         teams.clear();
     }
-    
+    public ObservableList getSitePages(){
+        return sitePages;
+    }
     public void setMonday(String a){
         calendarMonday = a;
     }
@@ -129,7 +141,9 @@ public class CourseSiteGeneratorData implements AppDataComponent
         calendarFriday = a;
     }
     
-    
+    public void addTestTimeSlot(TimeSlot a){
+        testOfficeHours.add(a);
+    }
     
     public ObservableList<Schedule> getScheduleItems(){
         return scheduleItems;
@@ -388,8 +402,21 @@ public class CourseSiteGeneratorData implements AppDataComponent
         }
     }
     
+    public void showCourseInfo(){
+        CourseSiteGeneratorWorkspace workspaceComponent = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        workspaceComponent.showCourseInfo(courseInfo);
+        
+    }
   
+    public void showDates(){
+        CourseSiteGeneratorWorkspace workspaceComponent = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        workspaceComponent.showDates(calendarMonday, calendarFriday);
+    }
     
+    public void showHours(){
+        CourseSiteGeneratorWorkspace workspaceComponent = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        workspaceComponent.showHours(startHour, endHour);
+    }
     
     
     

@@ -14,15 +14,15 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     private final StringProperty name;
     private final StringProperty email;
     private boolean undergrad = false;
-    private CheckBox undergradBox;
+  //  private CheckBox undergradBox;
     /**
      * Constructor initializes both the TA name and email.
      */
     public TeachingAssistant(String initName, String initEmail) {
         name = new SimpleStringProperty(initName);
         email = new SimpleStringProperty(initEmail);
-        undergradBox = new CheckBox();
-        undergradBox.setIndeterminate(false);
+//        undergradBox = new CheckBox();
+       // undergradBox.setIndeterminate(false);
     }
 
     // ACCESSORS AND MUTATORS FOR THE PROPERTIES
@@ -30,9 +30,7 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
         undergrad = true;
     }
     
-    public CheckBox getCheckBox(){
-        return undergradBox;
-    }
+   
 
     public String getName() {
         return name.get();

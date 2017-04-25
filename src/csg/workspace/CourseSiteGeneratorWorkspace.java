@@ -12,9 +12,11 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
 import csg.CourseSiteGeneratorApp;
 import csg.CourseSiteGeneratorProp;
+import csg.data.CourseInfo;
 import csg.data.CourseSiteGeneratorData;
 import csg.data.Recitation;
 import csg.data.Schedule;
+import csg.data.SitePage;
 import csg.data.Student;
 import csg.data.TeachingAssistant;
 import csg.data.Team;
@@ -57,6 +59,8 @@ import javafx.scene.layout.FlowPane;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 /**
  *
  * @author benjaminzhuo
@@ -115,6 +119,10 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Label bannerSchoolImageLabel;
     Label leftFooterImageLabel;
     Label rightFooterImageLabel;
+    ImageView bannerImage;
+    ImageView leftFooterImage;
+    ImageView rightFooterImage;
+    
     Button bannerChange;
     Button leftFooterChange;
     Button rightFooterChange;
@@ -422,8 +430,21 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         sitePages.getColumns().add(navbarTitleColumn);
         sitePages.getColumns().add(fileNameColumn);
         sitePages.getColumns().add(scriptColumn);
-        
-        
+        ObservableList<SitePage> sitePageData = data.getSitePages();
+        sitePages.setItems(sitePageData);
+        useColumn.setCellValueFactory(
+                new PropertyValueFactory<SitePage, String>("use")
+        );
+        navbarTitleColumn.setCellValueFactory(
+                new PropertyValueFactory<SitePage, String>("navbarTitle")
+        );
+        fileNameColumn.setCellValueFactory(
+                new PropertyValueFactory<SitePage, String>("fileName")
+        );
+        scriptColumn.setCellValueFactory(
+                new PropertyValueFactory<SitePage, String>("script")
+        );
+       
        
         //Page Style Section
         pageStylePane = new GridPane();
@@ -436,17 +457,20 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         bannerChange = new Button();
         bannerChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_BANNERBUTTON_TEXT.toString()));
         pageStylePane.add(bannerChange, 2, 1);
+       
         leftFooterImageLabel = new Label();
         leftFooterImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_LEFTFOOTERLABEL_TEXT.toString()));
         leftFooterChange = new Button();
         leftFooterChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_LEFTBUTTON_TEXT.toString()));
         pageStylePane.add(leftFooterChange, 2, 2);
+       
         pageStylePane.add(leftFooterImageLabel, 0, 2);
         rightFooterImageLabel = new Label();
         rightFooterImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_RIGHTFOOTERLABEL_TEXT.toString()));
         rightFooterChange = new Button();
         rightFooterChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_RIGHTBUTTON_TEXT.toString()));
         pageStylePane.add(rightFooterChange, 2, 3);
+        
         pageStylePane.add(rightFooterImageLabel, 0, 3);
         stylesheetLabel = new Label();
         stylesheetLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_STYLESHEETLABEL_TEXT.toString()));
@@ -457,6 +481,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         noteLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_NOTE_TEXT.toString()));
         pageStylePane.add(noteLabel, 0 , 5);
        
+        
         
         courseDetailsPane = new VBox();
        // courseInfoPane.setAlignment(Pos.CENTER);
@@ -493,6 +518,28 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         firstTA.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_FIRSTTACOLUMN_TEXT.toString()));
         secondTA = new TableColumn();
         secondTA.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_SECONDTACOLUMN_TEXT.toString()));
+        
+        
+        section.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("section")
+        );
+        instructor.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("instructor")
+        );
+        dayAndTime.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("dayTime")
+        );
+        location.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("location")
+        );
+        firstTA.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("firstTA")
+        );
+        secondTA.setCellValueFactory(
+                new PropertyValueFactory<Recitation, String>("secondTA")
+        );
+        
+        
         recitations.getColumns().addAll(section, instructor, dayAndTime, location, firstTA, secondTA);
         recitationAddEditLabel = new Label();
         recitationAddEditLabel.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_ADDEDITLABEL_TEXT.toString()));
@@ -584,6 +631,22 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        scheduleItemsTable.getColumns().add(titleColumn);
        scheduleItemsTable.getColumns().add(topicColumn);
        
+       typeColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("type")
+        );
+       dateColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("date")
+        );
+       titleColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("title")
+        );
+       topicColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("topic")
+        );
+       
+       
+       
+       
        scheduleItemsPane.add(scheduleItemsLabel, 0, 0);
        scheduleItemsPane.add(scheduleItemsTable, 0, 1,5,1);
        
@@ -672,6 +735,19 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
                teamsColorColumn, 
                teamsTextColorColumn,
                teamsLinkColumn);
+       
+        teamsNameColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("name")
+        );
+        teamsColorColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("color")
+        );
+        teamsTextColorColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("textColor")
+        );
+        teamsLinkColumn.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, String>("link")
+        );
        teamsGridButton = new Button(props.getProperty(CourseSiteGeneratorProp.GRID_BUTTON_TEXT.toString()));
        
        teamsPane.add(teamsHeaderLabel,0,0);
@@ -726,6 +802,18 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             studentsLastNameColumn,
             studentsTeamColumn,
             studentsRoleColumn);
+       studentsFirstNameColumn.setCellValueFactory(
+                new PropertyValueFactory<Student, String>("firstName")
+        );
+       studentsLastNameColumn.setCellValueFactory(
+                new PropertyValueFactory<Student, String>("lastName")
+        );
+       studentsTeamColumn.setCellValueFactory(
+                new PropertyValueFactory<Student, String>("team")
+        );
+       studentsRoleColumn.setCellValueFactory(
+                new PropertyValueFactory<Student, String>("role")
+        );
        studentsGridButton = new Button(props.getProperty(CourseSiteGeneratorProp.GRID_BUTTON_TEXT.toString()));
        studentsPane.add(studentsGridButton,1,0);
        studentsPane.add(studentsHeaderLabel,0,0);
@@ -790,7 +878,6 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         nameColumn = new TableColumn(nameColumnText);
         gradCheckList = new TableColumn("Undergrad");
         emailColumn = new TableColumn(emailColumnText);
-        
         
         nameColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("name")
@@ -962,6 +1049,29 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         });
         
    }
+    
+   public void showCourseInfo(CourseInfo initInfo){
+       
+       subjectComboBox.setPromptText(initInfo.getSubject());
+       numberComboBox.setPromptText(initInfo.getNumber());
+       semesterComboBox.setPromptText(initInfo.getSemester());
+       yearComboBox.setPromptText(initInfo.getYear());
+       titleTextField.setPromptText(initInfo.getTitle());
+       instructorHomeTextField.setPromptText(initInfo.getInstructorHome());
+       instructorNameTextField.setPromptText(initInfo.getInstructorName());
+       exportDirectoryLinkLabel.setText(initInfo.getDirectory());
+       
+   }
+   
+   public void showDates(String a, String b){
+       mondayDate.setPromptText(a);
+       fridayDate.setPromptText(b);
+   }
+   public void showHours(int a, int b){
+     
+       newStartTime.setPromptText(""+a);
+       newEndTime.setPromptText(""+b);
+   }
    
    public Label getRecitationAddEditLabel(){
        return recitationAddEditLabel;
@@ -985,6 +1095,21 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
    
    public Label getScheduleItemsLabel(){
        return scheduleItemsLabel;
+   }
+   
+   public void setBannerImage(String path)
+   {
+       bannerImage.setImage(new Image(path));
+   }
+   
+   public void setLeftFooterImage(String path)
+   {
+       leftFooterImage.setImage(new Image(path));
+   }
+   
+   public void setRightFooterImage(String path)
+   {
+       rightFooterImage.setImage(new Image(path));
    }
 
     public VBox getSchedulePagePane(){

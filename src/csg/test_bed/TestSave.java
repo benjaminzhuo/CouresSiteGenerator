@@ -102,7 +102,8 @@ public class TestSave {
         CourseSiteGeneratorData data = new CourseSiteGeneratorData(app);
         //CourseSiteGeneratorFiles files = new CourseSiteGeneratorFiles(app);
         
-        data.addTestTimeSlot("MONDAY","3:00PM","Dan");
+        
+        data.addTestTimeSlot("MONDAY","10_00am","Dan");
         data.addTA("Dan","dan@gmail.com");
         data.setCourseInfo("CSE","219,","Fall","2017","CS","McKenna","www.cs.stonybrook.edu","/courses219");
         //All objects acquired from Observable lists that are linked with tables
@@ -115,7 +116,7 @@ public class TestSave {
         data.setFriday("4/22/2012");
         
         try{
-        saveData(data, "/Users/benjaminzhuo/NetBeansProjects/jsonsavefiles/SiteSaveTest.json");
+        saveData(data, "/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/work/SiteSaveTest.json");
         }
         catch(IOException e){
             e.printStackTrace();
@@ -127,28 +128,6 @@ public class TestSave {
 	// GET THE DATA
 	CourseSiteGeneratorData dataManager = (CourseSiteGeneratorData)data;
 
-        
-      	    
-	JsonObject courseStyleJson = Json.createObjectBuilder()
-		    .add(JSON_PAGESTYLE_BANNER, dataManager.getBannerPath())
-		    .add(JSON_PAGESTYLE_LEFTFOOTER, dataManager.getLeftFooterPath())
-                    .add(JSON_PAGESTYLE_RIGHTFOOTER, dataManager.getRightFooterPath())
-                    .add(JSON_PAGESTYLE_STYLESHEET, dataManager.getStylesheet())
-                   
-                .build();
-	
-        JsonObject courseInfoJson = Json.createObjectBuilder()
-		    .add(JSON_COURSE_SUBJECT, dataManager.getCourseInfo().getSubject())
-		    .add(JSON_COURSE_NUMBER, dataManager.getCourseInfo().getNumber())
-                    .add(JSON_COURSE_SEMESTER, dataManager.getCourseInfo().getSemester())
-                    .add(JSON_COURSE_YEAR, dataManager.getCourseInfo().getYear())
-                    .add(JSON_COURSE_TITLE, dataManager.getCourseInfo().getTitle())
-                    .add(JSON_COURSE_INSTRUCTORNAME, dataManager.getCourseInfo().getInstructorName())
-                    .add(JSON_COURSE_INSTRUCTORHOME, dataManager.getCourseInfo().getInstructorHome())
-                    .add(JSON_COURSE_EXPORT, dataManager.getCourseInfo().getDirectory())
-                .build();
-
-        
         // NOW BUILD THE TA JSON OBJCTS TO SAVE
 	JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
 	ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
@@ -336,7 +315,8 @@ public class TestSave {
             String day = jsonOfficeHours.getString(JSON_DAY);
             String time = jsonOfficeHours.getString(JSON_TIME);
             String name = jsonOfficeHours.getString(JSON_NAME);
-         // dataManager.addOfficeHoursReservation(day, time, name);
+            TimeSlot testTimeSlot = new TimeSlot(day,time,name);
+            dataManager.addTestTimeSlot(testTimeSlot);
         }
         
         // NOW LOAD ALL THE RECITATIONS

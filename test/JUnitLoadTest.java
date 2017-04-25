@@ -11,6 +11,7 @@ import csg.data.Schedule;
 import csg.data.Student;
 import csg.data.TeachingAssistant;
 import csg.data.Team;
+import csg.file.TimeSlot;
 import csg.test_bed.TestSave;
 import djf.components.AppDataComponent;
 import static djf.settings.AppStartupConstants.APP_PROPERTIES_FILE_NAME;
@@ -48,7 +49,7 @@ public class JUnitLoadTest {
         CourseSiteGeneratorApp app = new CourseSiteGeneratorApp();
         app.loadProperties(APP_PROPERTIES_FILE_NAME);
         CourseSiteGeneratorData data = new CourseSiteGeneratorData(app);
-        String filePath = "/Users/benjaminzhuo/NetBeansProjects/jsonsavefiles/SiteSaveTest.json";
+        String filePath = "/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/work/SiteSaveTest.json";
        
         TestSave.loadData(data, filePath);
         
@@ -70,7 +71,16 @@ public class JUnitLoadTest {
         }
         
         //TEST IF THE TIMESLOTS WERE LOADED PROPERLY
-        
+        ObservableList <TimeSlot> testTimeSlots = FXCollections.observableArrayList();
+       // TimeSlotdata.addTestTimeSlot("MONDAY","10_00am","Dan");
+        TimeSlot testTimeSlot = new TimeSlot("MONDAY","10_00am","Dan");
+        testTimeSlots.add(testTimeSlot);
+        for(int i = 0; i < testTimeSlots.size();i++)
+        {
+            assertEquals(testTimeSlots.get(i).getDay(), ((TimeSlot)data.getTestOfficeHours().get(i)).getDay());
+            assertEquals(testTimeSlots.get(i).getTime(), ((TimeSlot)data.getTestOfficeHours().get(i)).getTime());
+            assertEquals(testTimeSlots.get(i).getName(), ((TimeSlot)data.getTestOfficeHours().get(i)).getName());
+        }
         //TEST IF THE RECITATIONS WERE LOADED PROPERLY
         ObservableList <Recitation> testRecitations = FXCollections.observableArrayList();
         Recitation testRecitation = new Recitation("RO2", "McKenna","Wed 3:30pm-4:23pm","Old CS 2114","Jane Doe", "Joe Schmo");
@@ -102,7 +112,7 @@ public class JUnitLoadTest {
          
         }
         
-        //TEST IF THE SCHEDULE ITEMS WERE LOADED PROPERLY
+        //TEST IF THE TEAMS WERE LOADED PROPERLY
         
         ObservableList <Team> testTeams = FXCollections.observableArrayList();
         Team testTeam = new Team("Atomic Comic","552211","ffffff","atomic.com");
@@ -115,7 +125,7 @@ public class JUnitLoadTest {
            assertEquals(testTeams.get(i).getLink(), ((Team)data.getTeams().get(i)).getLink());
         }
         
-        //TEST IF THE SCHEDULE ITEMS WERE LOADED PROPERLY
+        //TEST IF THE STUDENTS WERE LOADED PROPERLY
         
         ObservableList <Student> testStudents = FXCollections.observableArrayList();
         Student testStudent = new Student("Jane","Doe","Atomic Comic","Data Designer");

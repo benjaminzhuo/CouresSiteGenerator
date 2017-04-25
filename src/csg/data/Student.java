@@ -5,34 +5,37 @@
  */
 package csg.data;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author benjaminzhuo
  */
 public class Student {
     
-    protected String firstName;
-    protected String lastName;
-    protected String team;
-    protected String role;
+    private final StringProperty firstName;
+    private final StringProperty lastName;
+    private final StringProperty team;
+    private final StringProperty role;
     public Student(String initFirstName, String initLastName, String initTeam, String initRole){
-        firstName = initFirstName;
-        lastName = initLastName;
-        team = initTeam;
-        role = initRole;
+        firstName = new SimpleStringProperty(initFirstName);
+        lastName = new SimpleStringProperty(initLastName);
+        team = new SimpleStringProperty(initTeam);
+        role = new SimpleStringProperty(initRole);
     }
     
     public String getFirstName(){
-        return firstName;
+        return firstName.get();
     }
     public String getLastName(){
-        return lastName;
+        return lastName.get();
     }
     public String getTeam(){
-        return team;
+        return team.get();
     }
     public String getRole(){
-        return role;
+        return role.get();
     }
 }
 

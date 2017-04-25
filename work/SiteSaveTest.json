@@ -1,0 +1,69 @@
+
+{
+    "course_subject":"CSE",
+    "course_number":"219,",
+    "course_semester":"Fall",
+    "course_year":"2017",
+    "course_title":"CS",
+    "course_instructorname":"McKenna",
+    "course_instructorhome":"www.cs.stonybrook.edu",
+    "course_export":"/courses219",
+    "pagestyle_banner":"/file/yale.png",
+    "pagestyle_leftfooter":"/file/yale.png",
+    "pagestyle_rightfooter":"/file/yale.png",
+    "pagestyle_stylesheet":"sea_wolf.css",
+    "startHour":"9",
+    "endHour":"20",
+    "undergrad_tas":[
+        {
+            "name":"Dan",
+            "email":"dan@gmail.com"
+        }
+    ],
+    "officeHours":[
+        {
+            "day":"MONDAY",
+            "time":"10_00am",
+            "name":"Dan"
+        }
+    ],
+    "recitation_items":[
+        {
+            "recitation_section":"RO2",
+            "recitation_instructor":"McKenna",
+            "recitation_daytime":"Wed 3:30pm-4:23pm",
+            "recitation_location":"Old CS 2114",
+            "recitation_ta":"Jane Doe",
+            "recitation_secondta":"Joe Schmo"
+        }
+    ],
+    "schedules":[
+        {
+            "schedule_type":"Holiday",
+            "schedule_date":"2/9/207",
+            "schedule_time":"3:00pm",
+            "schedule_title":"SNOWDAY",
+            "schedule_topic":"Event Programming",
+            "schedule_link":"asdfa.com",
+            "schedule_criteria":"criteria"
+        }
+    ],
+    "teams":[
+        {
+            "team_name":"Atomic Comic",
+            "team_color":"552211",
+            "team_textcolor":"ffffff",
+            "team_link":"atomic.com"
+        }
+    ],
+    "students":[
+        {
+            "student_firstname":"Jane",
+            "student_lastname":"Doe",
+            "student_team":"Atomic Comic",
+            "student_role":"Data Designer"
+        }
+    ],
+    "starting_monday":"4/22/2012",
+    "starting_friday":"4/22/2012"
+}
