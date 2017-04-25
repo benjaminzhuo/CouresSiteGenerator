@@ -120,7 +120,6 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
         dataManager.setFriday(friday);
         dataManager.showDates();
         
-       
         // LOAD THE COURSE INFO
         
         String subject = json.getString(JSON_COURSE_SUBJECT);

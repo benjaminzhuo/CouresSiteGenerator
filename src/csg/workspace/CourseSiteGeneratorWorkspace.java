@@ -59,6 +59,7 @@ import javafx.scene.layout.FlowPane;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 /**
@@ -102,6 +103,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Label exportDirectoryLinkLabel;
     Button exportChangeButton;
     
+    
     //Site Template Section
     Label siteTemplateLabel;
     Label siteTemplateInfoLabel;
@@ -119,9 +121,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Label bannerSchoolImageLabel;
     Label leftFooterImageLabel;
     Label rightFooterImageLabel;
-    ImageView bannerImage;
-    ImageView leftFooterImage;
-    ImageView rightFooterImage;
+    
     
     Button bannerChange;
     Button leftFooterChange;
@@ -432,9 +432,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         sitePages.getColumns().add(scriptColumn);
         ObservableList<SitePage> sitePageData = data.getSitePages();
         sitePages.setItems(sitePageData);
-        useColumn.setCellValueFactory(
-                new PropertyValueFactory<SitePage, String>("use")
-        );
+        
         navbarTitleColumn.setCellValueFactory(
                 new PropertyValueFactory<SitePage, String>("navbarTitle")
         );
@@ -444,7 +442,11 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         scriptColumn.setCellValueFactory(
                 new PropertyValueFactory<SitePage, String>("script")
         );
-       
+        useColumn.setCellValueFactory(
+                new PropertyValueFactory<SitePage, Boolean>("active")
+        );
+        useColumn.setCellFactory(column -> new CheckBoxTableCell());
+        sitePages.setEditable(true);
        
         //Page Style Section
         pageStylePane = new GridPane();
@@ -463,7 +465,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         leftFooterChange = new Button();
         leftFooterChange.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_LEFTBUTTON_TEXT.toString()));
         pageStylePane.add(leftFooterChange, 2, 2);
-       
+        
         pageStylePane.add(leftFooterImageLabel, 0, 2);
         rightFooterImageLabel = new Label();
         rightFooterImageLabel.setText(props.getProperty(CourseSiteGeneratorProp.PAGESTYLE_RIGHTFOOTERLABEL_TEXT.toString()));
@@ -885,7 +887,12 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("email")
         );
-       // taTable.getColumns().add(gradCheckList);
+        gradCheckList.setCellValueFactory(
+                new PropertyValueFactory<TeachingAssistant, Boolean>("active")
+        );
+        gradCheckList.setCellFactory(column -> new CheckBoxTableCell());
+        taTable.setEditable(true);
+        taTable.getColumns().add(gradCheckList);
         taTable.getColumns().add(nameColumn);
         taTable.getColumns().add(emailColumn);
 
@@ -1097,20 +1104,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        return scheduleItemsLabel;
    }
    
-   public void setBannerImage(String path)
-   {
-       bannerImage.setImage(new Image(path));
-   }
-   
-   public void setLeftFooterImage(String path)
-   {
-       leftFooterImage.setImage(new Image(path));
-   }
-   
-   public void setRightFooterImage(String path)
-   {
-       rightFooterImage.setImage(new Image(path));
-   }
+  
 
     public VBox getSchedulePagePane(){
         return schedulePagePane;

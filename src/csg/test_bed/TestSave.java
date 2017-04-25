@@ -94,6 +94,9 @@ public class TestSave {
     static final String JSON_SCHEDULE = "schedules";
     static final String JSON_MONDAY = "starting_monday";
     static final String JSON_FRIDAY = "starting_friday";
+    static final String JSON_LEFTFOOTER_PATH = "leftfooter_path";
+    static final String JSON_RIGHTFOOTER_PATH = "rightfooter_path";
+    static final String JSON_BANNERFOOTER_PATH = "bannerfooter_path";
     public static void main(String[] args){
       
         
@@ -102,16 +105,22 @@ public class TestSave {
         CourseSiteGeneratorData data = new CourseSiteGeneratorData(app);
         //CourseSiteGeneratorFiles files = new CourseSiteGeneratorFiles(app);
         
-        
+        //data.setBannerPath("/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png");
+        //data.setLeftFooterPath("/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png");
+        //data.setRightFooterPath("/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png");
         data.addTestTimeSlot("MONDAY","10_00am","Dan");
         data.addTA("Dan","dan@gmail.com");
         data.setCourseInfo("CSE","219,","Fall","2017","CS","McKenna","www.cs.stonybrook.edu","/courses219");
         //All objects acquired from Observable lists that are linked with tables
-        data.addPageStyle("/file/yale.png", "/file/yale.png", "/file/yale.png", "sea_wolf.css");
+        data.addPageStyle("/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png"
+                , "/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png"
+                , "/Users/benjaminzhuo/NetBeansProjects/CourseSiteGenerator/images/sbu.png", "sea_wolf.css");
         data.addRecitation("RO2", "McKenna","Wed 3:30pm-4:23pm","Old CS 2114","Jane Doe", "Joe Schmo");
         data.addScheduleItem("Holiday","2/9/207","3:00pm","SNOWDAY","Event Programming","asdfa.com","criteria");
         data.addTeam("Atomic Comic","552211","ffffff","atomic.com");
+        data.addTeam("yolo","5zzdf1","fzsfdf","asdfasf.com");
         data.addStudent("Jane","Doe","Atomic Comic","Data Designer");
+        data.addStudent("Jimmy","apple","sadfc","designer");
         data.setMonday("4/22/2012");
         data.setFriday("4/22/2012");
         

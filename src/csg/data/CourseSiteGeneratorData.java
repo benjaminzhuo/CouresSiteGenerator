@@ -26,9 +26,9 @@ import properties_manager.PropertiesManager;
 public class CourseSiteGeneratorData implements AppDataComponent
 {
    
-    String bannerPath;
-    String leftFooterPath;
-    String rightFooterPath;
+    String bannerPath="";
+    String leftFooterPath="";
+    String rightFooterPath="";
     String styleSheet;
     // WE'LL NEED ACCESS TO THE APP TO NOTIFY THE GUI WHEN DATA CHANGES
     CourseSiteGeneratorApp app;
@@ -169,6 +169,16 @@ public class CourseSiteGeneratorData implements AppDataComponent
         leftFooterPath = b;
         rightFooterPath = c;
         styleSheet = d;
+    }
+    
+    public void setBannerPath(String path){
+        bannerPath = path;
+    }
+    public void setLeftFooterPath(String path){
+        leftFooterPath = path;
+    }
+    public void setRightFooterPath(String path){
+        rightFooterPath = path;
     }
     
     public String getBannerPath(){
