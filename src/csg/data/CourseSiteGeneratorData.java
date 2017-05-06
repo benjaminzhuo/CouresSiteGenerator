@@ -653,5 +653,9 @@ public class CourseSiteGeneratorData implements AppDataComponent
             cellProp.setValue(cellText);
         }
     }
+
+    public boolean containsRecitation(String section, String instructor, String dayAndTime, String location, TeachingAssistant firstTA, TeachingAssistant secondTA) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

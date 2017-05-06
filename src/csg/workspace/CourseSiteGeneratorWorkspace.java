@@ -157,7 +157,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     TextField locationTextField;
     ComboBox firstTAComboBox;
     ComboBox secondTAComboBox;
-    Button recitationAddUpdateButton;
+    Button recitationAddButton;
+    Button recitationUpdateButton;
     Button recitationClearButton;
     ////////////////////////////////Schedule///////////////////////////////////
     
@@ -256,6 +257,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Label tasHeaderLabel;
 
     // FOR THE TA TABLE
+    ObservableList<TeachingAssistant> tableData;
     TableView<TeachingAssistant> taTable;
     TableColumn<TeachingAssistant, String> nameColumn;
     TableColumn<TeachingAssistant, String> emailColumn;
@@ -577,11 +579,15 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         recitationDataPane.add(firstTAComboBox, 1, 7);
         recitationDataPane.add(secondTAComboBox, 1, 8); 
         
-        recitationAddUpdateButton = new Button();
-        recitationAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_ADDEDITBUTTON_TEXT.toString()));
+        recitationAddButton = new Button();
+        
+        recitationAddButton.setText(props.getProperty(CourseSiteGeneratorProp.ADD_BUTTON_TEXT.toString()));
+       
         recitationClearButton = new Button();
         recitationClearButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_CLEARBUTTON_TEXT.toString()));
-        recitationDataPane.add(recitationAddUpdateButton, 0, 9);
+        recitationUpdateButton = new Button(props.getProperty(CourseSiteGeneratorProp.RECITATION_EDITBUTTON_TEXT.toString()));
+        
+        recitationDataPane.add(recitationAddButton, 0, 9);
         recitationDataPane.add(recitationClearButton, 1, 9);
         
         ObservableList<Recitation> recitationTableData = data.getRecitations();
@@ -595,6 +601,13 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        recitationPagePane.prefWidthProperty().bind(tabPane.widthProperty());
        recitationTab.setContent(recitationScrollPane);
        //courseTab.setContent(courseDetailsPane);
+       
+        String sectionPromptText = props.getProperty(CourseSiteGeneratorProp.COURSE_PROMPT_TEXT.toString());
+        String locationPromptText = props.getProperty(CourseSiteGeneratorProp.EMAIL_PROMPT_TEXT.toString());
+        String instructorPromptText = props.getProperty(CourseSiteGeneratorProp.START_HOUR_PROMPT_TEXT.toString());
+        String dayAndTimePromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
+        String firstTAPromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
+        String secondTAPromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
        
        //////////////////////////////////SCHEDULE/////////////////////////////////////
        schedulePagePane = new VBox();
@@ -873,8 +886,10 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         
         
-        ObservableList<TeachingAssistant> tableData = data.getTeachingAssistants();
+        tableData = data.getTeachingAssistants();
         taTable.setItems(tableData);
+        firstTAComboBox.setItems(tableData);
+        secondTAComboBox.setItems(tableData);
         String nameColumnText = props.getProperty(CourseSiteGeneratorProp.NAME_COLUMN_TEXT.toString());
         String emailColumnText = props.getProperty(CourseSiteGeneratorProp.EMAIL_COLUMN_TEXT.toString());
         nameColumn = new TableColumn(nameColumnText);
@@ -906,6 +921,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         String clearButtonText = props.getProperty(CourseSiteGeneratorProp.CLEAR_BUTTON_TEXT.toString());
         String changeTimeButtonText = props.getProperty(CourseSiteGeneratorProp.CHANGE_TIME_BUTTON_TEXT.toString());
 
+       
         changeTimeButton = new Button(changeTimeButtonText);
         newStartTime = new ComboBox();
         newEndTime = new ComboBox();
@@ -994,6 +1010,42 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
          //NOW LET'S SETUP THE EVENT HANDLING
          
         controller = new CourseSiteGeneratorController(app);
+        // CONTROLS FOR ADDING RECITATIONS
+        
+       /*  TextField sectionTextField;
+    TextField instructorTextField;
+    TextField dayAndTimeTextField;
+    TextField locationTextField;
+    ComboBox firstTAComboBox;
+    ComboBox secondTAComboBox;
+    Button recitationAddUpdateButton;
+    Button recitationClearButton;*/
+       
+        recitationAddButton.setOnAction(e -> {
+            controller.handleAddRecitation();
+        });
+        recitationClearButton.setOnAction(e -> {
+            dayAndTimeTextField.clear();
+            firstTAComboBox.getSelectionModel().clearSelection();
+            secondTAComboBox.getSelectionModel().clearSelection();
+            sectionTextField.clear();
+            instructorTextField.clear();
+            locationTextField.clear();
+            
+            dayAndTimeTextField.setPromptText(namePromptText);
+            locationTextField.setPromptText(namePromptText);
+            locationTextField.setPromptText(namePromptText);
+            locationTextField.setPromptText(namePromptText);
+            locationTextField.setPromptText(namePromptText);
+            locationTextField.setPromptText(namePromptText);
+            emailTextField.setPromptText(emailPromptText);
+
+        });
+        
+        
+        
+        
+        
         
         // CONTROLS FOR ADDING TAs
         nameTextField.setOnAction(e -> {
@@ -1034,7 +1086,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             emailTextField.setPromptText(emailPromptText);
         });
 
-        sPane.setOnKeyPressed(e -> {
+        tabPane.setOnKeyPressed(e -> {
             if (e.isControlDown() && e.getCode() == (KeyCode.Y)) {
                 System.out.println("Workspace Control Y");
                 controller.handleReDoTransaction();
@@ -1104,6 +1156,14 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        return scheduleItemsLabel;
    }
    
+   
+   public ComboBox getRecitationFirstTABox(){
+       return firstTAComboBox;
+   }
+   
+   public ComboBox getRecitationSecondTABox(){
+       return secondTAComboBox;
+   }
   
 
     public VBox getSchedulePagePane(){
@@ -1441,6 +1501,25 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         // SO IT CAN MANAGE ALL CHANGES
         dataComponent.setCellProperty(col, row, cellLabel.textProperty());
     }
+
+    public TextField getRecitationSectionTextField() {
+        return sectionTextField;
+    }
+
+    public TextField getRecitationInstructorTextField() {
+        return instructorTextField;
+    }
+
+    public TextField getRecitationDayTimeTextField() {
+        return dayAndTimeTextField;
+    }
+
+    public TextField getRecitationLocationTextField() {
+        return locationTextField;
+    }
+
+
+    
 
 
     

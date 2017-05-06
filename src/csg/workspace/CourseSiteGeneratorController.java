@@ -25,6 +25,7 @@ import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_CELL;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE;
 import csg.workspace.CourseSiteGeneratorWorkspace;
+import javafx.scene.control.ComboBox;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -474,5 +475,81 @@ public class CourseSiteGeneratorController {
             }
         }
         return milTime;
+    }
+
+    public void handleAddRecitation() {
+        // WE'LL NEED THE WORKSPACE TO RETRIEVE THE USER INPUT VALUES
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        TextField sectionTextField = workspace.getRecitationSectionTextField();
+        TextField instructorTextField = workspace.getRecitationInstructorTextField();
+        TextField dayAndTimeTextField = workspace.getRecitationDayTimeTextField();
+        TextField locationTextField = workspace.getRecitationLocationTextField();
+        ComboBox firstTAComboBox = workspace.getRecitationFirstTABox();
+        ComboBox secondTAComboBox = workspace.getRecitationSecondTABox();
+        String section = sectionTextField.getText();
+        String instructor = instructorTextField.getText();
+        String dayAndTime = dayAndTimeTextField.getText();
+        String location = locationTextField.getText();
+        TeachingAssistant firstTA = (TeachingAssistant)firstTAComboBox.getValue();
+        String firstTAName = ((TeachingAssistant)firstTAComboBox.getValue()).getName();
+        TeachingAssistant secondTA = (TeachingAssistant)secondTAComboBox.getValue();
+        String secondTAName = ((TeachingAssistant)secondTAComboBox.getValue()).getName();
+        
+       
+
+        // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+
+        // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        // DID THE USER NEGLECT TO PROVIDE A TA NAME?
+        if (section.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_COURSE_TITLE), props.getProperty(MISSING_RECITATION_COURSE_MESSAGE));
+        } // DID THE USER NEGLECT TO PROVIDE A TA EMAIL?
+        else if (instructor.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_INSTRUCTOR_TITLE), props.getProperty(MISSING_RECITATION_INSTRUCTOR_MESSAGE));
+        } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
+        else if (dayAndTime.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_DAYTIME_TITLE), props.getProperty(MISSING_RECITATION_DAYTIME_MESSAGE));
+        } // DOES
+        else if (location.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_LOCATION_TITLE), props.getProperty(MISSING_RECITATION_LOCATION_MESSAGE));
+        } // DOES
+        else if (firstTAComboBox.getSelectionModel().isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_FIRSTTA_TITLE), props.getProperty(MISSING_RECITATION_FIRSTTA_MESSAGE));
+        }
+        else if (secondTAComboBox.getSelectionModel().isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_RECITATION_SECONDTA_TITLE), props.getProperty(MISSING_RECITATION_SECONDTA_MESSAGE));
+        }
+        else if (data.containsRecitation(section)) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(RECITATION_NOT_UNIQUE_TITLE), props.getProperty(RECITATION_NOT_UNIQUE_MESSAGE));
+        } // **********Check the TA Email Address for correct format 
+         // EVERYTHING IS FINE, ADD A NEW TA
+        else {
+            // ADD THE NEW TA TO THE DATA
+            //data.addTA(name, email);
+            jTPS_Transaction transaction1 = new AddRecitation_Transaction(section, instructor, dayAndTime, location, firstTAName, secondTAName, data);
+
+            jTPS.addTransaction(transaction1);
+            //jTPS.doTransaction();
+            // CLEAR THE TEXT FIELDS
+            sectionTextField.setText("");
+            instructorTextField.setText("");
+            dayAndTimeTextField.setText("");
+            locationTextField.setText("");
+
+            // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
+            sectionTextField.requestFocus();
+            // WE'VE CHANGED STUFF
+            markWorkAsEdited();
+        }
     }
 }
