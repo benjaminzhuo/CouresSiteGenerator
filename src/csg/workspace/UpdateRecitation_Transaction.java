@@ -12,13 +12,15 @@ import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import csg.data.TeachingAssistant;
+import javafx.scene.control.TableView;
 
 /**
  *
  * @author khurr
  */
-public class AddRecitation_Transaction implements jTPS_Transaction {
+public class UpdateRecitation_Transaction implements jTPS_Transaction {
 
+    private Recitation oldRecitation;
     private String section;
     private String instructor;
     private String dayAndTime;
@@ -26,8 +28,10 @@ public class AddRecitation_Transaction implements jTPS_Transaction {
     private String firstTA;
     private String secondTA;
     private CourseSiteGeneratorData data;
+    private TableView recitationTable;
 
-    public AddRecitation_Transaction(String initSection, String initInstructor, String initDayAndTime, String initLocation, String initFirstTA, String initSecondTA, CourseSiteGeneratorData taData) {
+    public UpdateRecitation_Transaction(TableView recitationTable, String initSection, String initInstructor, String initDayAndTime, String initLocation, String initFirstTA, String initSecondTA, CourseSiteGeneratorData taData) {
+        this.recitationTable=recitationTable;
         section = initSection;
         instructor = initInstructor;
         dayAndTime = initDayAndTime;
@@ -35,13 +39,16 @@ public class AddRecitation_Transaction implements jTPS_Transaction {
         firstTA = initFirstTA;
         secondTA = initSecondTA;
         data = taData;
+        oldRecitation = (Recitation)recitationTable.getSelectionModel().getSelectedItem();
+        System.out.println("old rec" + oldRecitation.getSection()+" " + oldRecitation.getDayTime());
     }
 
     @Override
     public void doTransaction() {  //Control Y 
+        String removeSection = ((Recitation)recitationTable.getSelectionModel().getSelectedItem()).getSection();
+        data.removeRecitation(removeSection);
         data.addRecitation(section, instructor, dayAndTime, location, firstTA, secondTA);
-        //Collections.sort(data.getTeachingAssistants());
-        System.out.println("doRecitationTransaction");
+      
     }
 
     @Override
@@ -55,7 +62,9 @@ public class AddRecitation_Transaction implements jTPS_Transaction {
             }
 
         }
-        
+        data.addRecitation(oldRecitation.getSection(),oldRecitation.getInstructor(),oldRecitation.getDayTime(),oldRecitation.getLocation(),oldRecitation.getFirstTA(),oldRecitation.getSecondTA());
+        // data.removeTA(taName);
+
     }
 
 }

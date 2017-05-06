@@ -46,8 +46,6 @@ public class AddTA_Transaction implements jTPS_Transaction {
             }
 
         }
-        // data.removeTA(taName);
-
     }
 
 }

@@ -33,19 +33,19 @@
             "recitation_instructor":"McKenna",
             "recitation_daytime":"Wed 3:30pm-4:23pm",
             "recitation_location":"Old CS 2114",
-            "recitation_ta":"Jane Doe",
-            "recitation_secondta":"Joe Schmo"
+            "recitation_ta":"Dan",
+            "recitation_secondta":"Dan"
         }
     ],
     "schedules":[
         {
-            "schedule_type":"Holiday",
-            "schedule_date":"2/9/207",
-            "schedule_time":"3:00pm",
-            "schedule_title":"SNOWDAY",
-            "schedule_topic":"Event Programming",
-            "schedule_link":"asdfa.com",
-            "schedule_criteria":"criteria"
+            "schedule_type":"Lecture",
+            "schedule_date":"2017-05-25",
+            "schedule_time":"asdf",
+            "schedule_title":"asdf",
+            "schedule_topic":"asdf",
+            "schedule_link":"asdf",
+            "schedule_criteria":"adsf"
         }
     ],
     "teams":[

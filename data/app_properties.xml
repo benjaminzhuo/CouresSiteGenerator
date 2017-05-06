@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    This XML file allows us to easily customize the look and language used
-    in our program's user interface. Note that this properties file is only
-    for the standard controls for an app from the Desktop Java Framework, so
-    it would not include things initialized for the workspace, which is
-    customizable.
--->
+ This XML file allows us to easily customize the look and language used
+ in our program's user interface. Note that this properties file is only
+ for the standard controls for an app from the Desktop Java Framework, so
+ it would not include things initialized for the workspace, which is
+ customizable.
+ -->
 <properties>
     <property_list>
         <property name="APP_TITLE"	    value="Course Site Generator"></property>
-	<property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
-	<property name="APP_PATH_CSS"	    value="style/"></property>
-	<property name="APP_CSS"	    value="csg_style.css"></property>
-    
-    
+        <property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
+        <property name="APP_PATH_CSS"	    value="style/"></property>
+        <property name="APP_CSS"	    value="csg_style.css"></property>
+        
+        
         <property name="GRID_BUTTON_TEXT"	value="-"></property>
         <!-- PROGRAM ICON FILES -->
         <property name="NEW_ICON"	    value="New.png"></property>
         <property name="LOAD_ICON"	    value="Load.png"></property>
         <property name="SAVE_ICON"	    value="Save.png"></property>
-		<property name="SAVE_AS_ICON"	value="SaveAs.png"></property>
-        <property name="EXIT_ICON"      value="Exit.png"></property> 
-		<property name="EXPORT_ICON"	value="Export.png"></property>
-		<property name="UNDO_ICON"	value="Undo.png"></property>
-		<property name="REDO_ICON"	value="Redo.png"></property>
-		<property name="ABOUT_ICON"	value="About.png"></property>
-    
-
+        <property name="SAVE_AS_ICON"	value="SaveAs.png"></property>
+        <property name="EXIT_ICON"      value="Exit.png"></property>
+        <property name="EXPORT_ICON"	value="Export.png"></property>
+        <property name="UNDO_ICON"	value="Undo.png"></property>
+        <property name="REDO_ICON"	value="Redo.png"></property>
+        <property name="ABOUT_ICON"	value="About.png"></property>
+        
+        
         
         <!-- TOOLTIPS FOR BUTTONS -->
         <property name="NEW_TOOLTIP"		value="Build a new TA Grid"></property>
         <property name="LOAD_TOOLTIP"		value="Load an existing TA Grid"></property>
         <property name="SAVE_TOOLTIP"		value="Save the current TA Grid"></property>
-		<property name="SAVE_AS_TOOLTIP"	value="Save the current TA Grid in a new file"></property>
+        <property name="SAVE_AS_TOOLTIP"	value="Save the current TA Grid in a new file"></property>
         <property name="EXIT_TOOLTIP"		value="Exit the Application"></property>
-		<property name="EXPORT_TOOLTIP"		value="Export the current TA Grid"></property>
-		<property name="UNDO_TOOLTIP"		value="Undo"></property>
-		<property name="REDO_TOOLTIP"		value="Redo"></property>
-		<property name="ABOUT_TOOLTIP"		value="About Course Site Generator"></property>
+        <property name="EXPORT_TOOLTIP"		value="Export the current TA Grid"></property>
+        <property name="UNDO_TOOLTIP"		value="Undo"></property>
+        <property name="REDO_TOOLTIP"		value="Redo"></property>
+        <property name="ABOUT_TOOLTIP"		value="About Course Site Generator"></property>
         
         <!-- ERROR MESSAGES -->
         <property name="CLOSE_BUTTON_TEXT"              value="Close"></property>
-
+        
         <property name="NEW_ERROR_MESSAGE"              value="An error occured creating New work."></property>
         <property name="NEW_ERROR_TITLE"		value="New Work Error"></property>
         <property name="LOAD_ERROR_MESSAGE"             value="An error occured loading work."></property>
         <property name="LOAD_ERROR_TITLE"		value="Load Work Error"></property>
         <property name="SAVE_ERROR_MESSAGE"             value="An error occured saving work."></property>
         <property name="SAVE_ERROR_TITLE"		value="Save Work Error"></property>
-        <property name="PROPERTIES_LOAD_ERROR_MESSAGE"	value="An error occured loading a properties file."></property>	
+        <property name="PROPERTIES_LOAD_ERROR_MESSAGE"	value="An error occured loading a properties file."></property>
         <property name="PROPERTIES_LOAD_ERROR_TITLE"	value="Properties File Loading Error"></property>
-		<property name="EMAIL_ADDRESS_ERROR"	value="Invalid Email Address"></property>
-		<property name="EMAIL_ADDRESS_MESSAGE"	value="You must enter a valid email address"></property>
-		<property name="START_HOUR_ERROR"	value="Invalid Start Hour"></property>
-		<property name="START_HOUR_MESSAGE"		value="Please pick a start hour before the current end time"></property>
-		<property name="END_HOUR_ERROR"	value="Invalid End Hour"></property>
-		<property name="END_HOUR_MESSAGE"		value="Please pick a end hour after the current start time"></property>
-		<property name="EXPORT_ERROR_TITLE"		value="Export Work Error"></property>
-		<property name="EXPORT_ERROR_MESSAGE"	value="An error occured exporting work."></property>
-	
+        <property name="EMAIL_ADDRESS_ERROR"	value="Invalid Email Address"></property>
+        <property name="EMAIL_ADDRESS_MESSAGE"	value="You must enter a valid email address"></property>
+        <property name="START_HOUR_ERROR"	value="Invalid Start Hour"></property>
+        <property name="START_HOUR_MESSAGE"		value="Please pick a start hour before the current end time"></property>
+        <property name="END_HOUR_ERROR"	value="Invalid End Hour"></property>
+        <property name="END_HOUR_MESSAGE"		value="Please pick a end hour after the current start time"></property>
+        <property name="EXPORT_ERROR_TITLE"		value="Export Work Error"></property>
+        <property name="EXPORT_ERROR_MESSAGE"	value="An error occured exporting work."></property>
+        
         <!-- VERIFICATION MESSAGES -->
-	
+        
         <property name="NEW_COMPLETED_MESSAGE"		value="New Work Ready for Editing"></property>
         <property name="NEW_COMPLETED_TITLE"		value="New Work Created"></property>
         <property name="LOAD_COMPLETED_MESSAGE"		value="File Loading Completed and ready for editing"></property>
@@ -69,19 +69,19 @@
         <property name="SAVE_COMPLETED_TITLE"		value="Saving Completed"></property>
         <property name="SAVE_UNSAVED_WORK_MESSAGE"	value="Would you like to save your unsaved work first?"></property>
         <property name="SAVE_UNSAVED_WORK_TITLE"	value="Save unsaved work?"></property>
-	
+        
         <property name="NEW_CREATED_MESSAGE"		value="New Work Created but not yet Saved"></property>
         <property name="WORK_LOADED_MESSAGE"		value="The Work has been Loaded"></property>
         <property name="WORK_SAVED_MESSAGE"		value="The Work has been Saved"></property>
         <property name="SAVE_UNSAVED_WORK_MESSAGE"	value="Do you want to save your unsaved work first?"></property>
-	<property name="SAVE_WORK_TITLE"		value="Save your work"></property>
-	<property name="LOAD_WORK_TITLE"		value="Select work file to load"></property>
-	<property name="WORK_FILE_EXT"			value=".json"></property>
-	<property name="WORK_FILE_EXT_DESC"		value="TA Office Hours"></property>
-	<property name="UPDATING_HOURS_TITLE"			value="Updating Hours"></property>
-	<property name="UPDATING_HOURS_MESSAGE"		value="Updating the hours might delete some current TA cells"></property>
-
-        <!-- WORKSPACE CONTROLS STUFF -->        
+        <property name="SAVE_WORK_TITLE"		value="Save your work"></property>
+        <property name="LOAD_WORK_TITLE"		value="Select work file to load"></property>
+        <property name="WORK_FILE_EXT"			value=".json"></property>
+        <property name="WORK_FILE_EXT_DESC"		value="TA Office Hours"></property>
+        <property name="UPDATING_HOURS_TITLE"			value="Updating Hours"></property>
+        <property name="UPDATING_HOURS_MESSAGE"		value="Updating the hours might delete some current TA cells"></property>
+        
+        <!-- WORKSPACE CONTROLS STUFF -->
         <property name="TAS_HEADER_TEXT"                value="Teaching Assistants"></property>
         <property name="NAME_COLUMN_TEXT"               value="Name"></property>
         <property name="EMAIL_COLUMN_TEXT"              value="Email"></property>
@@ -100,7 +100,7 @@
         <property name="RECITATION_TAB_HEADER_TEXT"                value="Recitation Data"></property>
         <property name="PROJECT_TAB_HEADER_TEXT"                value="Project Data"></property>
         <property name="SCHEDULE_TAB_HEADER_TEXT"                value="Schedule Data"></property>
-
+        
         
         <!-- WORKSPACE COURSE DETAILS CONTROLS STUFF -->
         <property name="COURSEINFO_HEADER_TEXT"                value="Course Info"></property>
@@ -135,7 +135,7 @@
         <property name="PAGESTYLE_NOTE_TEXT" value="New stylesheets may be placed in work/css to be selectable"></property>
         
         <!-- WORKSPACE TA DATA CONTROLS STUFF -->
-          
+        
         <!-- WORKSPACE RECITATION DATA CONTROLS STUFF -->
         
         <property name="RECITATION_LABEL_TEXT"                value="Recitation"></property>
@@ -152,9 +152,16 @@
         <property name="RECITATION_LOCATIONLABEL_TEXT"                value="Location: "></property>
         <property name="RECITATION_FIRSTTALABEL_TEXT"                value="Supervising TA"></property>
         <property name="RECITATION_SECONDTALABEL_TEXT"                value="Supervising TA"></property>
-        <property name="RECITATION_ADDEDITBUTTON_TEXT"                value="Add/Update"></property>
+        <property name="RECITATION_EDITBUTTON_TEXT"                value="Edit"></property>
         <property name="RECITATION_CLEARBUTTON_TEXT"                value="Clear"></property>
-           
+        <property name="RECITATION_ADDBUTTON_TEXT"                value="Add/Edit"></property>
+        <property name="SECTION_PROMPT_TEXT"                value="Section"></property>
+        <property name="LOCATION_PROMPT_TEXT"                value="Location"></property>
+        <property name="INSTRUCTOR_PROMPT_TEXT"                value="Instructor"></property>
+        <property name="DAYANDTIME_PROMPT_TEXT"                value="Day and Time"></property>
+        <property name="FIRSTTA_PROMPT_TEXT"                value="Pick TA"></property>
+        <property name="SECONDTA_PROMPT_TEXT"                value="TA"></property>
+        
         <!-- WORKSPACE SCHEDULE DATA CONTROLS STUFF -->
         
         
@@ -178,8 +185,8 @@
         <property name="SCHEDULEITEM_ADDUPDATEBUTTON_TEXT"                value="Add/Update"></property>
         <property name="SCHEDULEITEM_CLEARBUTTON_TEXT"                value="Clear"></property>
         
-          <!-- WORKSPACE PROJECTS DATA CONTROLS STUFF -->
-          
+        <!-- WORKSPACE PROJECTS DATA CONTROLS STUFF -->
+        
         <property name="PROJECTS_HEADER_TEXT"                value="Projects"></property>
         <property name="TEAMS_TEAMSLABEL_TEXT"                value="Teams"></property>
         <property name="TEAMS_NAMECOLUMN_TEXT"                value="Name "></property>
@@ -206,18 +213,36 @@
         <property name="STUDENTS_ADDUPDATEBUTTON_TEXT"                value="Add/Update"></property>
         <property name="STUDENTS_CLEARBUTTON_TEXT"                value="Clear"></property>
         
-
+        
         
         <!-- WORKSPACE ERROR MESSAGES -->
         <property name="NO_UPDATE_TITLE"                 value="No Change"></property>
         <property name="NO_UPDATE_MESSAGE"               value="No Data Updated"></property>
         <property name="INVALID_TIME_INPUT_TITLE"               value="Invalid Time"></property>
         <property name="INVALID_TIME_INPUT_MESSAGE"               value="Invalid Time Selected"></property>
-         <property name="UPDATE_TIME_TITLE"          value="Update Time "></property>
-          <property name="UPDATE_TIME_MESSAGE"        value="Are you sure you want to continue? Updating Time may delete TA's from Grid."></property>
-
-         <property name="INVALID_TA_EMAIL_TITLE"          value="Invalid Email Format"></property>
-           <property name="INVALID_TA_EMAIL_MESSAGE"        value="You Must Use A Correct Email Format"></property>
+        <property name="UPDATE_TIME_TITLE"          value="Update Time "></property>
+        <property name="UPDATE_TIME_MESSAGE"        value="Are you sure you want to continue? Updating Time may delete TA's from Grid."></property>
+        <property name="MISSING_RECITATION_INFO_TITLE"          value="Missing Recitation Info"></property>
+        <property name="MISSING_RECITATION_INFO_MESSAGE"          value="You must provide recitation information"></property>
+        <property name="MISSING_RECITATION_SECTION_TITLE"          value="Missing Section"></property>
+        <property name="MISSING_RECITATION_SECTION_MESSAGE"        value="You must provide a section"></property>
+        <property name="MISSING_RECITATION_INSTRUCTOR_TITLE"          value="Missing Instructor"></property>
+        <property name="MISSING_RECITATION_INSTRUCTOR_MESSAGE"        value="You must provide a Instructor Name"></property>
+        <property name="MISSING_RECITATION_DAYTIME_TITLE"          value="Missing Day and Time"></property>
+        <property name="MISSING_RECITATION_DAYTIME_MESSAGE"        value="You must provide a day and time"></property>
+        <property name="MISSING_RECITATION_LOCATION_TITLE"          value="Missing Location"></property>
+        <property name="MISSING_RECITATION_LOCATION_MESSAGE"        value="You must provide a location"></property>
+        <property name="MISSING_RECITATION_FIRSTTA_TITLE"          value="Missing First TA"></property>
+        <property name="MISSING_RECITATION_FIRSTTA_MESSAGE"        value="You must provide a TA"></property>
+        <property name="MISSING_RECITATION_SECONDTA_TITLE"          value="Missing Second TA"></property>
+        <property name="MISSING_RECITATION_SECONDTA_MESSAGE"        value="You must provide a second TA"></property>
+        <property name="RECITATION_NOT_UNIQUE_TITLE"     value="Recitation Not Unique"></property>
+        <property name="RECITATION_NOT_UNIQUE_MESSAGE"   value="Recitation info not unique"></property>
+        
+        
+        
+        <property name="INVALID_TA_EMAIL_TITLE"          value="Invalid Email Format"></property>
+        <property name="INVALID_TA_EMAIL_MESSAGE"        value="You Must Use A Correct Email Format"></property>
         <property name="MISSING_TA_NAME_TITLE"          value="Missing TA Name"></property>
         <property name="MISSING_TA_NAME_MESSAGE"        value="You must provide a TA Name"></property>
         <property name="MISSING_TA_EMAIL_TITLE"         value="Missing TA Email"></property>

@@ -19,13 +19,19 @@ import csg.workspace.jTPS_Transaction;
 import properties_manager.PropertiesManager;
 import csg.CourseSiteGeneratorApp;
 import csg.data.CourseSiteGeneratorData;
+import csg.data.Recitation;
+import csg.data.Schedule;
 import csg.data.TeachingAssistant;
 import csg.style.CourseSiteGeneratorStyle;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_CELL;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN;
 import static csg.style.CourseSiteGeneratorStyle.CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE;
 import csg.workspace.CourseSiteGeneratorWorkspace;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -137,26 +143,84 @@ public class CourseSiteGeneratorController {
                 jTPS_Transaction transaction1 = new DeleteTA_Transaction(ta, data, officeHours);
                 jTPS.addTransaction(transaction1);
 
-                /*data.removeTA(taName);
-
-                // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
-               
-                for (Label label : labels.values()) {
-                    if (label.getText().equals(taName)
-                            || (label.getText().contains(taName + "\n"))
-                            || (label.getText().contains("\n" + taName))) {
-                        data.removeTAFromCell(label.textProperty(), taName);
-                    }
-                } */
-                // WE'VE CHANGED STUFF
+                
                 markWorkAsEdited();
             }
         }
 
     }
+    public void handleRecitationKeyPress(KeyCode code) {
+        // DID THE USER PRESS THE DELETE KEY?
 
+        if (code == KeyCode.DELETE || code == KeyCode.BACK_SPACE) {
+            // GET THE TABLE
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TableView recitationTable = workspace.getRecitationTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+           Object selectedItem = recitationTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Recitation rec = (Recitation) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteRecitation_Transaction(rec, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+        }
+
+    }
+    public void handleScheduleKeyPress(KeyCode code) {
+        // DID THE USER PRESS THE DELETE KEY?
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        if (code == KeyCode.DELETE || code == KeyCode.BACK_SPACE) {
+            TableView scheduleTable = workspace.getScheduleTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+            Object selectedItem = scheduleTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Schedule sched = (Schedule) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteSchedule_Transaction(sched, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+        }
+
+    }
+    public void handleDeleteRecitation(){
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TableView recitationTable = workspace.getRecitationTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+            Object selectedItem = recitationTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Recitation rec = (Recitation) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteRecitation_Transaction(rec, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+    }
+     public void handleDeleteSchedule(){
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TableView scheduleTable = workspace.getScheduleTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+            Object selectedItem = scheduleTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Schedule sched = (Schedule) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteSchedule_Transaction(sched, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+    }
+    
     public void handleUndoTransaction() {
-        System.out.println("Transaction Control Z");
         jTPS.undoTransaction();
         markWorkAsEdited();
     }
@@ -207,14 +271,9 @@ public class CourseSiteGeneratorController {
         Object selectedItem = taTable.getSelectionModel().getSelectedItem();
 
         if (selectedItem != null) {
-            //selectedItem = taTable.getSelectionModel().getSelectedItem();
+           
             TeachingAssistant ta = (TeachingAssistant) selectedItem;
-            // workspace.nameTextField.clear();
-            //workspace.emailTextField.clear(); 
-            System.out.println("TA CLICKED");
-            System.out.println(ta.getName());
-            // addBox.getChildren().remove(workspace.addButton); 
-            // addBox.getChildren().remove(workspace.clearButton1); 
+        
             addBox.getChildren().add(workspace.nameTextField);
             addBox.getChildren().add(workspace.emailTextField);
             addBox.getChildren().add(workspace.updateTaButton);
@@ -227,11 +286,67 @@ public class CourseSiteGeneratorController {
             // SET TextField To TA NAME 
             workspace.nameTextField.setText(taName);
             workspace.emailTextField.setText(taEmail);
-            // workspace.updateTaButton.setOnAction(e -> {
-            //handleUpdateTA(taName,taEmail,ta);
+           
+        }
+    }
+    public void handleRecitationClicked() {
+        // GET THE TABLE
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        TableView recitationTable = workspace.getRecitationTable();
 
-            // });
-            //markWorkAsEdited();   
+        // IS A TA SELECTED IN THE TABLE?
+        Object selectedItem = recitationTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+           
+            Recitation rec = (Recitation) selectedItem;
+        
+           
+            // GET THE TA
+            String section = rec.getSection();
+            String instructor = rec.getInstructor();
+            String dayTime = rec.getDayTime();
+            String location = rec.getLocation();
+            String firstTAName = rec.getFirstTA();
+            String secondTAName = rec.getSecondTA();
+            CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+
+            // SET TextField To TA NAME 
+            workspace.sectionTextField.setText(section);
+            workspace.instructorTextField.setText(instructor);
+            workspace.dayAndTimeTextField.setText(dayTime);
+            workspace.locationTextField.setText(location);
+            workspace.firstTAComboBox.setValue(data.getTA(firstTAName));
+            workspace.secondTAComboBox.setValue(data.getTA(secondTAName));
+            workspace.updateable = true;
+        }
+    }
+    public void handleScheduleClicked() {
+        // GET THE TABLE
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        TableView scheduleTable = workspace.getScheduleTable();
+
+        // IS A TA SELECTED IN THE TABLE?
+        Object selectedItem = scheduleTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+           
+            Schedule sched = (Schedule) selectedItem;
+        
+           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            
+            CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+            LocalDate localDate = LocalDate.parse(sched.getDate(), formatter);
+            // SET TextField To TA NAME 
+            workspace.typeComboBox.setValue(sched.getType());
+            workspace.scheduleDate.setValue(localDate);
+            workspace.scheduleTimeTextField.setText(sched.getTime());
+            workspace.scheduleTitleTextField.setText(sched.getTitle());
+            workspace.scheduleTopicTextField.setText(sched.getTopic());
+            workspace.scheduleLinkTextField.setText(sched.getLink());
+            workspace.scheduleCriteriaTextField.setText(sched.getCriteria());
+            
+            
         }
     }
 
@@ -275,12 +390,6 @@ public class CourseSiteGeneratorController {
                 emailTextField.setText(email);
                 jTPS.addTransaction(transaction2);
 
-                //jTPS.doTransaction();
-                /*data.getTA(orgName).setName(name);
-                handleUpdateTaGrid(orgName, name);
-                ta.setName(name);                        // MOVED TO TRANSACTION CASE 
-                taTable.refresh();
-                 */
                 markWorkAsEdited();
             }
             if (!orgEmail.equalsIgnoreCase(email)) {   //case if only email is changed 
@@ -477,79 +586,197 @@ public class CourseSiteGeneratorController {
         return milTime;
     }
 
-    public void handleAddRecitation() {
+    public void handleAddRecitation(boolean update) {
         // WE'LL NEED THE WORKSPACE TO RETRIEVE THE USER INPUT VALUES
         CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
-        TextField sectionTextField = workspace.getRecitationSectionTextField();
-        TextField instructorTextField = workspace.getRecitationInstructorTextField();
-        TextField dayAndTimeTextField = workspace.getRecitationDayTimeTextField();
-        TextField locationTextField = workspace.getRecitationLocationTextField();
-        ComboBox firstTAComboBox = workspace.getRecitationFirstTABox();
-        ComboBox secondTAComboBox = workspace.getRecitationSecondTABox();
-        String section = sectionTextField.getText();
-        String instructor = instructorTextField.getText();
-        String dayAndTime = dayAndTimeTextField.getText();
-        String location = locationTextField.getText();
-        TeachingAssistant firstTA = (TeachingAssistant)firstTAComboBox.getValue();
-        String firstTAName = ((TeachingAssistant)firstTAComboBox.getValue()).getName();
-        TeachingAssistant secondTA = (TeachingAssistant)secondTAComboBox.getValue();
-        String secondTAName = ((TeachingAssistant)secondTAComboBox.getValue()).getName();
+        TableView recitationTable = workspace.getRecitationTable();
+      
+            //CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TextField sectionTextField = workspace.getRecitationSectionTextField();
+            TextField instructorTextField = workspace.getRecitationInstructorTextField();
+            TextField dayAndTimeTextField = workspace.getRecitationDayTimeTextField();
+            TextField locationTextField = workspace.getRecitationLocationTextField();
+            ComboBox firstTAComboBox = workspace.getRecitationFirstTABox();
+            ComboBox secondTAComboBox = workspace.getRecitationSecondTABox();
+            String section = sectionTextField.getText();
+            String instructor = instructorTextField.getText();
+            String dayAndTime = dayAndTimeTextField.getText();
+            String location = locationTextField.getText();
+            String firstTAName = ((TeachingAssistant)firstTAComboBox.getValue()).getName();
+            String secondTAName = ((TeachingAssistant)secondTAComboBox.getValue()).getName();
         
        
 
         // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
-        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+            CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
 
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
 
-        // DID THE USER NEGLECT TO PROVIDE A TA NAME?
-        if (section.isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_COURSE_TITLE), props.getProperty(MISSING_RECITATION_COURSE_MESSAGE));
-        } // DID THE USER NEGLECT TO PROVIDE A TA EMAIL?
-        else if (instructor.isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_INSTRUCTOR_TITLE), props.getProperty(MISSING_RECITATION_INSTRUCTOR_MESSAGE));
-        } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
-        else if (dayAndTime.isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_DAYTIME_TITLE), props.getProperty(MISSING_RECITATION_DAYTIME_MESSAGE));
-        } // DOES
-        else if (location.isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_LOCATION_TITLE), props.getProperty(MISSING_RECITATION_LOCATION_MESSAGE));
-        } // DOES
-        else if (firstTAComboBox.getSelectionModel().isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_FIRSTTA_TITLE), props.getProperty(MISSING_RECITATION_FIRSTTA_MESSAGE));
-        }
-        else if (secondTAComboBox.getSelectionModel().isEmpty()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(MISSING_RECITATION_SECONDTA_TITLE), props.getProperty(MISSING_RECITATION_SECONDTA_MESSAGE));
-        }
-        else if (data.containsRecitation(section)) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(RECITATION_NOT_UNIQUE_TITLE), props.getProperty(RECITATION_NOT_UNIQUE_MESSAGE));
-        } // **********Check the TA Email Address for correct format 
-         // EVERYTHING IS FINE, ADD A NEW TA
-        else {
-            // ADD THE NEW TA TO THE DATA
-            //data.addTA(name, email);
-            jTPS_Transaction transaction1 = new AddRecitation_Transaction(section, instructor, dayAndTime, location, firstTAName, secondTAName, data);
+       if(!update){
+            System.out.println("new recitation");
+            if (section.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_SECTION_TITLE), props.getProperty(MISSING_RECITATION_SECTION_MESSAGE));
+            } 
+            else if (instructor.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_INSTRUCTOR_TITLE), props.getProperty(MISSING_RECITATION_INSTRUCTOR_MESSAGE));
+            } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
+            else if (dayAndTime.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_DAYTIME_TITLE), props.getProperty(MISSING_RECITATION_DAYTIME_MESSAGE));
+            } // DOES
+            else if (location.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_LOCATION_TITLE), props.getProperty(MISSING_RECITATION_LOCATION_MESSAGE));
+            } // DOES
+            else if (firstTAComboBox.getSelectionModel().isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_FIRSTTA_TITLE), props.getProperty(MISSING_RECITATION_FIRSTTA_MESSAGE));
+            }
+            else if (secondTAComboBox.getSelectionModel().isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_SECONDTA_TITLE), props.getProperty(MISSING_RECITATION_SECONDTA_MESSAGE));
+            }
+            else if (data.containsRecitation(section)) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(RECITATION_NOT_UNIQUE_TITLE), props.getProperty(RECITATION_NOT_UNIQUE_MESSAGE));
+            } 
+            else {
+                
+                jTPS_Transaction transaction1 = new AddRecitation_Transaction(section, instructor, dayAndTime, location, firstTAName, secondTAName, data);
 
-            jTPS.addTransaction(transaction1);
-            //jTPS.doTransaction();
-            // CLEAR THE TEXT FIELDS
-            sectionTextField.setText("");
-            instructorTextField.setText("");
-            dayAndTimeTextField.setText("");
-            locationTextField.setText("");
+                jTPS.addTransaction(transaction1);
+                sectionTextField.setText("");
+                instructorTextField.setText("");
+                dayAndTimeTextField.setText("");
+                locationTextField.setText("");
+                sectionTextField.requestFocus();
+                markWorkAsEdited();
+            }
+       }
+        
+       else if(update){
+     System.out.println("update recitation");
+            if (section.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_SECTION_TITLE), props.getProperty(MISSING_RECITATION_SECTION_MESSAGE));
+            } 
+            else if (instructor.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_INSTRUCTOR_TITLE), props.getProperty(MISSING_RECITATION_INSTRUCTOR_MESSAGE));
+            } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
+            else if (dayAndTime.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_DAYTIME_TITLE), props.getProperty(MISSING_RECITATION_DAYTIME_MESSAGE));
+            } // DOES
+            else if (location.isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_LOCATION_TITLE), props.getProperty(MISSING_RECITATION_LOCATION_MESSAGE));
+            } // DOES
+            else if (firstTAComboBox.getSelectionModel().isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_FIRSTTA_TITLE), props.getProperty(MISSING_RECITATION_FIRSTTA_MESSAGE));
+            }
+            else if (secondTAComboBox.getSelectionModel().isEmpty()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(MISSING_RECITATION_SECONDTA_TITLE), props.getProperty(MISSING_RECITATION_SECONDTA_MESSAGE));
+            }
+            //else if (data.containsRecitation(section)) {
+             //   AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            //    dialog.show(props.getProperty(RECITATION_NOT_UNIQUE_TITLE), props.getProperty(RECITATION_NOT_UNIQUE_MESSAGE));
+           // } 
+            else {
+                
+                jTPS_Transaction transaction1 = new UpdateRecitation_Transaction(recitationTable, section, instructor, dayAndTime, location, firstTAName, secondTAName, data);
 
-            // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
-            sectionTextField.requestFocus();
-            // WE'VE CHANGED STUFF
-            markWorkAsEdited();
+                jTPS.addTransaction(transaction1);
+                System.out.println("updateable");
+                //jTPS.doTransaction();
+                // CLEAR THE TEXT FIELDS
+                sectionTextField.setText("");
+                instructorTextField.setText("");
+                dayAndTimeTextField.setText("");
+                locationTextField.setText("");
+
+                // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
+                sectionTextField.requestFocus();
+                // WE'VE CHANGED STUFF
+                markWorkAsEdited();
+            }
+            
         }
     }
+    public void handleAddTeam(boolean update){
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+        TextField nameTextField = workspace.getTeamNameTextField();
+        ColorPicker teamColorPicker = workspace.getTeamColorPicker();
+        ColorPicker teamTextColorPicker = workspace.getTeamTextColorPicker();
+        TextField teamLinkTextField = workspace.getTeamLinkTextField();
+        
+        String name = nameTextField.getText();
+        String color = teamColorPicker.getId();
+        String textColor = teamTextColorPicker.getId();
+        String link = teamLinkTextField.getText();
+        
+        
+        if(!update){
+            TableView table = workspace.getScheduleTable();
+            jTPS_Transaction transaction1 = new AddTeam_Transaction(name, color, textColor, link, data);
+            jTPS.addTransaction(transaction1);
+            table.refresh();
+        }
+        else if(update){
+           
+        }
+        
+    }
+    public void handleAddSchedule(boolean update) {
+        
+        CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+        CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+        ComboBox typeComboBox = workspace.getScheduleTypeComboBox();
+        DatePicker datePicker = workspace.getScheduleDatePicker();
+        TextField timeTextField = workspace.getScheduleTimeTextField();
+        TextField titleTextField = workspace.getScheduleTitleTextField();
+        TextField topicTextField = workspace.getScheduleTopicTextField();
+        TextField linkTextField = workspace.getScheduleLinkTextField();
+        TextField criteriaTextField = workspace.getScheduleCriteriaTextField();
+        
+        String type = (String)typeComboBox.getSelectionModel().getSelectedItem();
+        String time = timeTextField.getText();
+        String title = titleTextField.getText();
+        String topic = topicTextField.getText();
+        String link = linkTextField.getText();
+        String criteria = criteriaTextField.getText();
+        String date = workspace.getScheduleDatePicker().getValue().toString();
+        if(!update){
+            TableView table = workspace.getScheduleTable();
+            jTPS_Transaction transaction1 = new AddSchedule_Transaction(type,date,time,title,topic,link,criteria, data);
+            jTPS.addTransaction(transaction1);
+            table.refresh();
+        }
+        else if(update){
+            System.out.println("UPDATING SCHEDULE");
+            TableView table = workspace.getScheduleTable();
+            Schedule selectedSchedule = (Schedule)table.getSelectionModel().getSelectedItem();
+            String removeDate = selectedSchedule.getDate();
+            //data.removeSchedule(selectedSchedule.getDate());
+           // data.addScheduleItem(type,date,time,title,topic,link,criteria);
+            table.refresh();
+            jTPS_Transaction transaction1 = new UpdateSchedule_Transaction(selectedSchedule, removeDate,type,date,time,title,topic,link,criteria, data);
+            jTPS.addTransaction(transaction1);
+        }
+        timeTextField.setText("");
+        titleTextField.setText("");
+        topicTextField.setText("");
+        linkTextField.setText("");
+        criteriaTextField.setText("");
+        typeComboBox.getSelectionModel().clearSelection();
+        datePicker.setValue(null);
+        markWorkAsEdited();
+    }
+        
 }

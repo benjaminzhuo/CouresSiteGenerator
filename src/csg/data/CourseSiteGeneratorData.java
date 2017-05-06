@@ -144,7 +144,14 @@ public class CourseSiteGeneratorData implements AppDataComponent
     public void addTestTimeSlot(TimeSlot a){
         testOfficeHours.add(a);
     }
-    
+    public Schedule getSchedule(String date){
+        for (Schedule sched : scheduleItems) {
+            if (sched.getDate().equals(date)) {
+                return sched;
+            }
+        }
+        return null;
+    }
     public ObservableList<Schedule> getScheduleItems(){
         return scheduleItems;
     }
@@ -228,7 +235,14 @@ public class CourseSiteGeneratorData implements AppDataComponent
     public ObservableList getTeachingAssistants() {
         return teachingAssistants;
     }
-    
+    public Recitation getRecitation(String section){
+        for (Recitation rec : recitations) {
+            if (rec.getSection().equals(section)) {
+                return rec;
+            }
+        }
+        return null;
+    }
     public ObservableList getRecitations() {
         return recitations;
     }
@@ -492,9 +506,12 @@ public class CourseSiteGeneratorData implements AppDataComponent
         }
         return false;
     }
-    
+    public void addScheduleObject(Schedule sched){
+        scheduleItems.add(sched);
+    }
     public void addScheduleItem(String initType, String initDate, String initTime, String initTitle, String initTopic, String initLink, String initCriteria)
     {
+        System.out.println("constructing and adding new item");
         Schedule scheduleItem = new Schedule(initType, initDate, initTime, initTitle, initTopic, initLink, initCriteria);
         scheduleItems.add(scheduleItem);
     }
@@ -533,7 +550,24 @@ public class CourseSiteGeneratorData implements AppDataComponent
         // SORT THE TAS
         //Collections.sort(recitations);
     }
-
+    
+    public void removeRecitation(String section){
+        for(Recitation rec : recitations){
+            if(section.equals(rec.getSection())){
+                recitations.remove(rec);
+                return;
+            }
+        }
+    }
+    public void removeSchedule(String date){
+        for(Schedule sched : scheduleItems){
+            if(date.equals(sched.getDate())){
+                scheduleItems.remove(sched);
+                return;
+            }
+        }
+    }      
+    
     public void removeTA(String name) {
         for (TeachingAssistant ta : teachingAssistants) {
             if (name.equals(ta.getName())) {
@@ -656,6 +690,10 @@ public class CourseSiteGeneratorData implements AppDataComponent
 
     public boolean containsRecitation(String section, String instructor, String dayAndTime, String location, TeachingAssistant firstTA, TeachingAssistant secondTA) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void addRecitation(Recitation oldRecitation) {
+        recitations.add(oldRecitation);
     }
     
 }

@@ -78,6 +78,14 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Tab scheduleTab;
     Tab courseTab;
     
+    
+    boolean recitationUpdate;
+    boolean schedSelected;
+    boolean teamSelected;
+    boolean studentSelected;
+    
+    
+    
     //COURSE DETAILS PAGE
     ScrollPane courseScrollPane;
     GridPane courseInfoPane;
@@ -160,6 +168,8 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     Button recitationAddButton;
     Button recitationUpdateButton;
     Button recitationClearButton;
+    String oldSection;
+    Boolean updateable;
     ////////////////////////////////Schedule///////////////////////////////////
     
     Button scheduleItemGridButton;
@@ -173,6 +183,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
     TableColumn typeColumn;
     TableColumn dateColumn;
     TableColumn titleColumn;
+    TableColumn linkColumn;
+    TableColumn timeColumn;
+    TableColumn criteriaColumn;
     TableColumn topicColumn;
     TableView scheduleItemsTable;
     Label scheduleAddEditLabel;
@@ -581,7 +594,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         recitationAddButton = new Button();
         
-        recitationAddButton.setText(props.getProperty(CourseSiteGeneratorProp.ADD_BUTTON_TEXT.toString()));
+        recitationAddButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_ADDBUTTON_TEXT.toString()));
        
         recitationClearButton = new Button();
         recitationClearButton.setText(props.getProperty(CourseSiteGeneratorProp.RECITATION_CLEARBUTTON_TEXT.toString()));
@@ -602,12 +615,12 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        recitationTab.setContent(recitationScrollPane);
        //courseTab.setContent(courseDetailsPane);
        
-        String sectionPromptText = props.getProperty(CourseSiteGeneratorProp.COURSE_PROMPT_TEXT.toString());
-        String locationPromptText = props.getProperty(CourseSiteGeneratorProp.EMAIL_PROMPT_TEXT.toString());
-        String instructorPromptText = props.getProperty(CourseSiteGeneratorProp.START_HOUR_PROMPT_TEXT.toString());
-        String dayAndTimePromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
-        String firstTAPromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
-        String secondTAPromptText = props.getProperty(CourseSiteGeneratorProp.END_HOUR_PROMPT_TEXT.toString());
+        String sectionPromptText = props.getProperty(CourseSiteGeneratorProp.SECTION_PROMPT_TEXT.toString());
+        String locationPromptText = props.getProperty(CourseSiteGeneratorProp.LOCATION_PROMPT_TEXT.toString());
+        String instructorPromptText = props.getProperty(CourseSiteGeneratorProp.INSTRUCTOR_PROMPT_TEXT.toString());
+        String dayAndTimePromptText = props.getProperty(CourseSiteGeneratorProp.DAYANDTIME_PROMPT_TEXT.toString());
+        String firstTAPromptText = props.getProperty(CourseSiteGeneratorProp.FIRSTTA_PROMPT_TEXT.toString());
+        String secondTAPromptText = props.getProperty(CourseSiteGeneratorProp.SECONDTA_PROMPT_TEXT.toString());
        
        //////////////////////////////////SCHEDULE/////////////////////////////////////
        schedulePagePane = new VBox();
@@ -640,11 +653,17 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        typeColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TYPECOLUMN_TEXT.toString()));
        dateColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_DATECOLUMN_TEXT.toString()));
        titleColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TITLECOLUMN_TEXT.toString()));
+       timeColumn = new TableColumn("Time");
        topicColumn = new TableColumn(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TOPICCOLUMN_TEXT.toString()));
+       criteriaColumn = new TableColumn("Criteria");
+       linkColumn = new TableColumn("Link");
        scheduleItemsTable.getColumns().add(typeColumn);
        scheduleItemsTable.getColumns().add(dateColumn);
+       scheduleItemsTable.getColumns().add(timeColumn);
        scheduleItemsTable.getColumns().add(titleColumn);
        scheduleItemsTable.getColumns().add(topicColumn);
+       scheduleItemsTable.getColumns().add(criteriaColumn);
+       scheduleItemsTable.getColumns().add(linkColumn);
        
        typeColumn.setCellValueFactory(
                 new PropertyValueFactory<Schedule, String>("type")
@@ -655,10 +674,18 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        titleColumn.setCellValueFactory(
                 new PropertyValueFactory<Schedule, String>("title")
         );
+       timeColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("time")
+        );
        topicColumn.setCellValueFactory(
                 new PropertyValueFactory<Schedule, String>("topic")
         );
-       
+       linkColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("link")
+        );
+       criteriaColumn.setCellValueFactory(
+                new PropertyValueFactory<Schedule, String>("criteria")
+        );
        
        
        
@@ -671,6 +698,13 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        typeLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_TYPELABEL_TEXT.toString()));
        dateLabel = new Label();
        typeComboBox = new ComboBox();
+       typeComboBox.getItems().addAll(
+        "Holiday",
+        "Lecture",
+        "Recitation",
+        "HW",
+        "Reference"
+        );
        scheduleItemsPane.add(scheduleAddEditLabel, 0, 2);
        dateLabel.setText(props.getProperty(CourseSiteGeneratorProp.SCHEDULEITEM_DATELABEL_TEXT.toString()));
        timeLabel = new Label();
@@ -1012,17 +1046,30 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         controller = new CourseSiteGeneratorController(app);
         // CONTROLS FOR ADDING RECITATIONS
         
-       /*  TextField sectionTextField;
-    TextField instructorTextField;
-    TextField dayAndTimeTextField;
-    TextField locationTextField;
-    ComboBox firstTAComboBox;
-    ComboBox secondTAComboBox;
-    Button recitationAddUpdateButton;
-    Button recitationClearButton;*/
+    
        
+        dayAndTimeTextField.setPromptText(dayAndTimePromptText);
+        firstTAComboBox.getSelectionModel().clearSelection();
+        secondTAComboBox.getSelectionModel().clearSelection();
+        locationTextField.setPromptText(locationPromptText);
+        sectionTextField.setPromptText(sectionPromptText);
+        instructorTextField.setPromptText(instructorPromptText);
+        recitationUpdate = false;
+        
         recitationAddButton.setOnAction(e -> {
-            controller.handleAddRecitation();
+            if(!recitations.getSelectionModel().isEmpty())
+             {
+                recitationUpdate = true;
+                System.out.println(recitationUpdate);
+             }
+            else{
+                recitationUpdate = false;
+            }
+            controller.handleAddRecitation(recitationUpdate);
+        });
+        recitations.setOnMousePressed(e -> {
+            addBox.getChildren().clear();
+            controller.handleRecitationClicked();
         });
         recitationClearButton.setOnAction(e -> {
             dayAndTimeTextField.clear();
@@ -1031,15 +1078,62 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             sectionTextField.clear();
             instructorTextField.clear();
             locationTextField.clear();
+            dayAndTimeTextField.setPromptText(dayAndTimePromptText);
+            locationTextField.setPromptText(locationPromptText);
+            sectionTextField.setPromptText(sectionPromptText);
+            instructorTextField.setPromptText(instructorPromptText);
+            recitations.getSelectionModel().clearSelection();
+        });
+        recitationGridButton.setOnAction(e -> {
+            controller.handleDeleteRecitation();
+        });
+        recitations.setOnKeyPressed(e -> {
+            controller.handleRecitationKeyPress(e.getCode());
+        });
+        scheduleItemsTable.setOnKeyPressed(e -> {
+            controller.handleScheduleKeyPress(e.getCode());
+        });
+        scheduleItemsTable.setOnMouseClicked(e -> {
+            controller.handleScheduleClicked();
+        });
+        scheduleItemGridButton.setOnAction(e -> {
+            controller.handleDeleteSchedule();
+        });
+        scheduleAddUpdateButton.setOnAction(e -> {
+            if(scheduleItemsTable.getSelectionModel().isEmpty()){
+                schedSelected = false;
+            }
+            else{
+                schedSelected = true;
+            }
+            controller.handleAddSchedule(schedSelected);
+        });
+        scheduleClearButton.setOnAction(e -> {
+            scheduleTimeTextField.clear();
+            scheduleTitleTextField.clear();
+            scheduleTopicTextField.clear();
+            scheduleLinkTextField.clear();
+            scheduleCriteriaTextField.clear();
+            scheduleDate.setValue(null);
+            typeComboBox.getSelectionModel().clearSelection();
+            scheduleItemsTable.getSelectionModel().clearSelection();
             
-            dayAndTimeTextField.setPromptText(namePromptText);
-            locationTextField.setPromptText(namePromptText);
-            locationTextField.setPromptText(namePromptText);
-            locationTextField.setPromptText(namePromptText);
-            locationTextField.setPromptText(namePromptText);
-            locationTextField.setPromptText(namePromptText);
-            emailTextField.setPromptText(emailPromptText);
-
+        });
+        mondayDate.setOnAction(e -> {
+            data.setMonday(mondayDate.getValue().toString());
+        });
+        fridayDate.setOnAction(e -> {
+            data.setFriday(fridayDate.getValue().toString());
+        });
+        
+        teamsAddUpdateButton.setOnAction(e -> {
+            if(teamsTable.getSelectionModel().isEmpty()){
+                teamSelected = false;
+            }
+            else{
+                teamSelected = true;
+            }
+            controller.handleAddTeam(teamSelected);
         });
         
         
@@ -1104,7 +1198,6 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         taTable.setOnMousePressed(e -> {
             addBox.getChildren().clear();
             controller.handleTaClicked(gui.getAppPane(), addBox);
-            System.out.println("Clicked TA");
         });
         
    }
@@ -1156,6 +1249,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        return scheduleItemsLabel;
    }
    
+   public TableView getRecitationTable(){
+       return recitations;
+   }
    
    public ComboBox getRecitationFirstTABox(){
        return firstTAComboBox;
@@ -1516,6 +1612,59 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
 
     public TextField getRecitationLocationTextField() {
         return locationTextField;
+    }
+    
+    public String getOldSection(){
+        return oldSection;
+    }
+
+    public TableView getScheduleTable() {
+        return scheduleItemsTable;
+    }
+
+    public DatePicker getScheduleDatePicker() {
+       
+        return scheduleDate;
+    }
+
+    public TextField getScheduleTimeTextField() {
+        return scheduleTimeTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getScheduleTitleTextField() {
+        return scheduleTitleTextField;
+    }
+
+    public TextField getScheduleTopicTextField() {
+        return scheduleTopicTextField;//To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getScheduleLinkTextField() {
+        return scheduleLinkTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getScheduleCriteriaTextField() {
+        return scheduleCriteriaTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ComboBox getScheduleTypeComboBox() {
+        return typeComboBox; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getTeamNameTextField() {
+        return teamsNameTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ColorPicker getTeamColorPicker() {
+        return teamsColorColorPicker; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ColorPicker getTeamTextColorPicker() {
+        return teamsTextColorPicker; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getTeamLinkTextField() {
+        return teamsLinkTextField; //To change body of generated methods, choose Tools | Templates.
     }
 
 
