@@ -67,7 +67,7 @@ public class UpdateStudent_Transaction implements jTPS_Transaction {
 
     @Override
     public void undoTransaction() {  //Control Z 
-        data.removeTeam(newFirstName);
+        data.removeStudent(newFirstName);
         data.addStudent(firstName, lastName, team, role);
     }
 

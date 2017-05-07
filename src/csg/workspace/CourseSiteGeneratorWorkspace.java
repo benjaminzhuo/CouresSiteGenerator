@@ -502,9 +502,6 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
         
         
         courseDetailsPane = new VBox();
-       // courseInfoPane.setAlignment(Pos.CENTER);
-       // siteTemplatePane.setAlignment(Pos.CENTER);
-        //pageStylePane.setAlignment(Pos.CENTER);
         courseDetailsPane.getChildren().add(courseInfoPane);
         courseDetailsPane.getChildren().add(siteTemplatePane);
         courseDetailsPane.getChildren().add(pageStylePane);
@@ -1111,7 +1108,7 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             }
             controller.handleAddSchedule(schedSelected);
         });
-        scheduleClearButton.setOnAction(e -> {
+            scheduleClearButton.setOnAction(e -> {
             scheduleTimeTextField.clear();
             scheduleTitleTextField.clear();
             scheduleTopicTextField.clear();
@@ -1123,9 +1120,11 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             
         });
         mondayDate.setOnAction(e -> {
+            
             data.setMonday(mondayDate.getValue().toString());
         });
         fridayDate.setOnAction(e -> {
+            
             data.setFriday(fridayDate.getValue().toString());
         });
         
@@ -1175,7 +1174,12 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             }
             controller.handleAddStudent(studentSelected);
         });
-        
+        studentsGridButton.setOnAction(e -> {
+            controller.handleDeleteStudent();
+        });
+        studentsTable.setOnKeyPressed(e -> {
+            controller.handleStudentKeyPress(e.getCode());
+        });
         
         
         // CONTROLS FOR ADDING TAs

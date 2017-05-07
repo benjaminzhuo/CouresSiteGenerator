@@ -30,6 +30,9 @@ import csg.data.Student;
 import csg.file.TimeSlot;
 import csg.data.TeachingAssistant;
 import csg.data.Team;
+import java.io.File;
+import org.apache.commons.io.FileUtils;
+
 
 
 /**
@@ -52,13 +55,13 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
     static final String JSON_NAME = "name";
     static final String JSON_UNDERGRAD_TAS = "undergrad_tas";
     static final String JSON_EMAIL = "email";
-    static final String JSON_RECITATION_ITEMS = "recitation_items";
-    static final String JSON_RECITATION_SECTION = "recitation_section";
+    static final String JSON_RECITATION_ITEMS = "recitations";
+    static final String JSON_RECITATION_SECTION = "section";
     static final String JSON_RECITATION_INSTRUCTOR = "recitation_instructor";
-    static final String JSON_RECITATION_DAYTIME = "recitation_daytime";
-    static final String JSON_RECITATION_LOCATION = "recitation_location";
-    static final String JSON_RECITATION_TA = "recitation_ta";
-    static final String JSON_RECITATION_SECOND_TA = "recitation_secondta";
+    static final String JSON_RECITATION_DAYTIME = "day_time";
+    static final String JSON_RECITATION_LOCATION = "location";
+    static final String JSON_RECITATION_TA = "ta_1";
+    static final String JSON_RECITATION_SECOND_TA = "ta_2";
     static final String JSON_TEAM_NAME = "team_name";
     static final String JSON_TEAM_COLOR = "team_color";
     static final String JSON_TEAM_TEXTCOLOR = "team_textcolor";
@@ -357,20 +360,10 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
 	pw.close();
     }
     
-    // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
-    // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION
-
-    @Override
-    public void importData(AppDataComponent data, String filePath) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void exportData(AppDataComponent data, String filePath) throws IOException {
-        // GET THE DATA
+    public void saveOfficeHoursData(AppDataComponent data, String filePath) throws IOException {
 	CourseSiteGeneratorData dataManager = (CourseSiteGeneratorData)data;
 
-	// NOW BUILD THE TA JSON OBJCTS TO SAVE
+        // NOW BUILD THE TA JSON OBJCTS TO SAVE
 	JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
 	ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
 	for (TeachingAssistant ta : tas) {	    
@@ -381,7 +374,70 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
 	}
 	JsonArray undergradTAsArray = taArrayBuilder.build();
 
+        
+        /*
+	// NOW BUILD THE RECITATION JSON OBJCTS TO SAVE
+	JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Recitation> recitations = dataManager.getRecitations();
+	for (Recitation recitation : recitations) {	    
+            
+	    JsonObject recitationJson = Json.createObjectBuilder()
+		    .add(JSON_RECITATION_SECTION, recitation.getSection())
+		    .add(JSON_RECITATION_INSTRUCTOR, recitation.getInstructor())
+                    .add(JSON_RECITATION_DAYTIME, recitation.getDayTime())
+                    .add(JSON_RECITATION_LOCATION, recitation.getLocation())
+                    .add(JSON_RECITATION_TA, recitation.getFirstTA())
+                    .add(JSON_RECITATION_SECOND_TA, recitation.getSecondTA()).build();
+	    recitationsArrayBuilder.add(recitationJson);
+	}
+	JsonArray recitationItemsArray = recitationsArrayBuilder.build();
+
+        
+        JsonArrayBuilder scheduleArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Schedule> schedules = dataManager.getScheduleItems();
+	for (Schedule schedule : schedules) {	    
+            
+	    JsonObject scheduleJson = Json.createObjectBuilder()
+		    .add(JSON_SCHEDULE_TYPE, schedule.getType())
+		    .add(JSON_SCHEDULE_DATE, schedule.getDate())
+                    .add(JSON_SCHEDULE_TIME, schedule.getTime())
+                    .add(JSON_SCHEDULE_TITLE, schedule.getTitle())
+                    .add(JSON_SCHEDULE_TOPIC, schedule.getTopic())
+                    .add(JSON_SCHEDULE_LINK, schedule.getLink())
+                    .add(JSON_SCHEDULE_CRITERIA, schedule.getCriteria()).build();
+	    scheduleArrayBuilder.add(scheduleJson);
+	}
+	JsonArray scheduleItemsArray = scheduleArrayBuilder.build();
+        
+        // NOW BUILD THE TEAMS JSON OBJCTS TO SAVE
+	JsonArrayBuilder teamsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Team> teams = dataManager.getTeams();
+	for (Team team : teams) {	    
+            
+	    JsonObject teamsJson = Json.createObjectBuilder()
+		    .add(JSON_TEAM_NAME, team.getName())
+		    .add(JSON_TEAM_COLOR, team.getColor())
+                    .add(JSON_TEAM_TEXTCOLOR, team.getTextColor())
+                    .add(JSON_TEAM_LINK, team.getLink()).build();
+	    teamsArrayBuilder.add(teamsJson);
+	}
+	JsonArray teamsArray = teamsArrayBuilder.build();
+        
+        JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Student> students = dataManager.getStudents();
+	for (Student student : students) {	    
+            
+	    JsonObject studentsJson = Json.createObjectBuilder()
+		    .add(JSON_STUDENT_FIRSTNAME, student.getFirstName())
+		    .add(JSON_STUDENT_LASTNAME, student.getLastName())
+                    .add(JSON_STUDENT_TEAM, student.getTeam())
+                    .add(JSON_STUDENT_ROLE, student.getRole()).build();
+	    studentsArrayBuilder.add(studentsJson);
+	}
+	JsonArray studentsArray = studentsArrayBuilder.build();
+        */
 	// NOW BUILD THE TIME SLOT JSON OBJCTS TO SAVE
+        
 	JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
 	ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
 	for (TimeSlot ts : officeHours) {	    
@@ -395,10 +451,28 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
         
 	// THEN PUT IT ALL TOGETHER IN A JsonObject
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
-		.add(JSON_START_HOUR, "" + dataManager.getStartHour())
-		.add(JSON_END_HOUR, "" + dataManager.getEndHour())
+               // .add(JSON_COURSE_SUBJECT,"" + dataManager.getCourseInfo().getSubject())
+              //  .add(JSON_COURSE_NUMBER,"" + dataManager.getCourseInfo().getNumber())
+              //  .add(JSON_COURSE_SEMESTER,"" + dataManager.getCourseInfo().getSemester())
+              //  .add(JSON_COURSE_YEAR,"" + dataManager.getCourseInfo().getYear())
+              //  .add(JSON_COURSE_TITLE,"" + dataManager.getCourseInfo().getTitle())
+              //  .add(JSON_COURSE_INSTRUCTORNAME,"" + dataManager.getCourseInfo().getInstructorName())
+             //   .add(JSON_COURSE_INSTRUCTORHOME,"" + dataManager.getCourseInfo().getInstructorHome())
+             //   .add(JSON_COURSE_EXPORT,"" + dataManager.getCourseInfo().getDirectory())
+             //   .add(JSON_PAGESTYLE_BANNER,""+ dataManager.getBannerPath())
+             ////   .add(JSON_PAGESTYLE_LEFTFOOTER,""+ dataManager.getLeftFooterPath())
+             //   .add(JSON_PAGESTYLE_RIGHTFOOTER,""+ dataManager.getRightFooterPath())
+             //   .add(JSON_PAGESTYLE_STYLESHEET,""+ dataManager.getStylesheet())
+		//.add(JSON_START_HOUR, "" + dataManager.getStartHour())
+		//.add(JSON_END_HOUR, "" + dataManager.getEndHour())
                 .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
                 .add(JSON_OFFICE_HOURS, timeSlotsArray)
+             //   .add(JSON_RECITATION_ITEMS, recitationItemsArray)
+              //  .add(JSON_SCHEDULE, scheduleItemsArray)
+             // //  .add(JSON_TEAMS, teamsArray)
+             //   .add(JSON_STUDENTS, studentsArray)
+             //   .add(JSON_MONDAY, dataManager.getMonday())
+             //   .add(JSON_FRIDAY, dataManager.getFriday())
 		.build();
 	
 	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
@@ -418,6 +492,157 @@ public class CourseSiteGeneratorFiles implements AppFileComponent {
 	PrintWriter pw = new PrintWriter(filePath);
 	pw.write(prettyPrinted);
 	pw.close();
+    }
+    public void saveRecitationsData(AppDataComponent data, String filePath) throws IOException {
+	CourseSiteGeneratorData dataManager = (CourseSiteGeneratorData)data;
+
+        // NOW BUILD THE TA JSON OBJCTS TO SAVE
+	/*JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
+	ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
+	for (TeachingAssistant ta : tas) {	    
+	    JsonObject taJson = Json.createObjectBuilder()
+		    .add(JSON_NAME, ta.getName())
+		    .add(JSON_EMAIL, ta.getEmail()).build();
+	    taArrayBuilder.add(taJson);
+	}
+	JsonArray undergradTAsArray = taArrayBuilder.build();
+
+        
+        */
+	// NOW BUILD THE RECITATION JSON OBJCTS TO SAVE
+	JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Recitation> recitations = dataManager.getRecitations();
+	for (Recitation recitation : recitations) {	    
+            
+	    JsonObject recitationJson = Json.createObjectBuilder()
+		    .add(JSON_RECITATION_SECTION, recitation.getSection())
+		    .add(JSON_RECITATION_INSTRUCTOR, recitation.getInstructor())
+                    .add(JSON_RECITATION_DAYTIME, recitation.getDayTime())
+                    .add(JSON_RECITATION_LOCATION, recitation.getLocation())
+                    .add(JSON_RECITATION_TA, recitation.getFirstTA())
+                    .add(JSON_RECITATION_SECOND_TA, recitation.getSecondTA()).build();
+	    recitationsArrayBuilder.add(recitationJson);
+	}
+	JsonArray recitationItemsArray = recitationsArrayBuilder.build();
+
+        /*
+        JsonArrayBuilder scheduleArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Schedule> schedules = dataManager.getScheduleItems();
+	for (Schedule schedule : schedules) {	    
+            
+	    JsonObject scheduleJson = Json.createObjectBuilder()
+		    .add(JSON_SCHEDULE_TYPE, schedule.getType())
+		    .add(JSON_SCHEDULE_DATE, schedule.getDate())
+                    .add(JSON_SCHEDULE_TIME, schedule.getTime())
+                    .add(JSON_SCHEDULE_TITLE, schedule.getTitle())
+                    .add(JSON_SCHEDULE_TOPIC, schedule.getTopic())
+                    .add(JSON_SCHEDULE_LINK, schedule.getLink())
+                    .add(JSON_SCHEDULE_CRITERIA, schedule.getCriteria()).build();
+	    scheduleArrayBuilder.add(scheduleJson);
+	}
+	JsonArray scheduleItemsArray = scheduleArrayBuilder.build();
+        
+        // NOW BUILD THE TEAMS JSON OBJCTS TO SAVE
+	JsonArrayBuilder teamsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Team> teams = dataManager.getTeams();
+	for (Team team : teams) {	    
+            
+	    JsonObject teamsJson = Json.createObjectBuilder()
+		    .add(JSON_TEAM_NAME, team.getName())
+		    .add(JSON_TEAM_COLOR, team.getColor())
+                    .add(JSON_TEAM_TEXTCOLOR, team.getTextColor())
+                    .add(JSON_TEAM_LINK, team.getLink()).build();
+	    teamsArrayBuilder.add(teamsJson);
+	}
+	JsonArray teamsArray = teamsArrayBuilder.build();
+        
+        JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+	ObservableList<Student> students = dataManager.getStudents();
+	for (Student student : students) {	    
+            
+	    JsonObject studentsJson = Json.createObjectBuilder()
+		    .add(JSON_STUDENT_FIRSTNAME, student.getFirstName())
+		    .add(JSON_STUDENT_LASTNAME, student.getLastName())
+                    .add(JSON_STUDENT_TEAM, student.getTeam())
+                    .add(JSON_STUDENT_ROLE, student.getRole()).build();
+	    studentsArrayBuilder.add(studentsJson);
+	}
+	JsonArray studentsArray = studentsArrayBuilder.build();
+        */
+	// NOW BUILD THE TIME SLOT JSON OBJCTS TO SAVE
+        /*
+	JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
+	ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
+	for (TimeSlot ts : officeHours) {	    
+	    JsonObject tsJson = Json.createObjectBuilder()
+		    .add(JSON_DAY, ts.getDay())
+		    .add(JSON_TIME, ts.getTime())
+		    .add(JSON_NAME, ts.getName()).build();
+	    timeSlotArrayBuilder.add(tsJson);
+	}
+	JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
+        */
+	// THEN PUT IT ALL TOGETHER IN A JsonObject
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+               // .add(JSON_COURSE_SUBJECT,"" + dataManager.getCourseInfo().getSubject())
+              //  .add(JSON_COURSE_NUMBER,"" + dataManager.getCourseInfo().getNumber())
+              //  .add(JSON_COURSE_SEMESTER,"" + dataManager.getCourseInfo().getSemester())
+              //  .add(JSON_COURSE_YEAR,"" + dataManager.getCourseInfo().getYear())
+              //  .add(JSON_COURSE_TITLE,"" + dataManager.getCourseInfo().getTitle())
+              //  .add(JSON_COURSE_INSTRUCTORNAME,"" + dataManager.getCourseInfo().getInstructorName())
+             //   .add(JSON_COURSE_INSTRUCTORHOME,"" + dataManager.getCourseInfo().getInstructorHome())
+             //   .add(JSON_COURSE_EXPORT,"" + dataManager.getCourseInfo().getDirectory())
+             //   .add(JSON_PAGESTYLE_BANNER,""+ dataManager.getBannerPath())
+             ////   .add(JSON_PAGESTYLE_LEFTFOOTER,""+ dataManager.getLeftFooterPath())
+             //   .add(JSON_PAGESTYLE_RIGHTFOOTER,""+ dataManager.getRightFooterPath())
+             //   .add(JSON_PAGESTYLE_STYLESHEET,""+ dataManager.getStylesheet())
+		//.add(JSON_START_HOUR, "" + dataManager.getStartHour())
+		//.add(JSON_END_HOUR, "" + dataManager.getEndHour())
+               // .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
+              //  .add(JSON_OFFICE_HOURS, timeSlotsArray)
+                 .add(JSON_RECITATION_ITEMS, recitationItemsArray)
+              //  .add(JSON_SCHEDULE, scheduleItemsArray)
+             // //  .add(JSON_TEAMS, teamsArray)
+             //   .add(JSON_STUDENTS, studentsArray)
+             //   .add(JSON_MONDAY, dataManager.getMonday())
+             //   .add(JSON_FRIDAY, dataManager.getFriday())
+		.build();
+	
+	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(dataManagerJSO);
+	jsonWriter.close();
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(dataManagerJSO);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
+    }
+    
+    // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
+    // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION
+
+    @Override
+    public void importData(AppDataComponent data, String filePath) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void exportData(AppDataComponent data, String filePath) throws IOException {
+        
+        File exportDir = new File(System.getProperty("user.dir")+"/CourseSiteGeneratorTester/public_html");
+        File selectedDir = new File(filePath);
+        FileUtils.copyDirectoryToDirectory(exportDir, selectedDir);
+        saveOfficeHoursData(data, filePath + "/public_html/js/OfficeHoursGridData.json");
+        saveRecitationsData(data, filePath + "/public_html/js/Recitations.json");
     
     }
 }

@@ -247,7 +247,7 @@ public class CourseSiteGeneratorController {
     }
 
     public void handleReDoTransaction() {
-        System.out.println("Transaction crlt y");
+       
         jTPS.doTransaction();
         markWorkAsEdited();
     }
@@ -270,15 +270,6 @@ public class CourseSiteGeneratorController {
             // GET THE TA
             jTPS_Transaction transaction = new ToggleTa_Transaction(selectedItem, app, pane);
             jTPS.addTransaction(transaction);
-
-            /*TeachingAssistant ta = (TeachingAssistant) selectedItem;
-            String taName = ta.getName();
-            TAData data = (TAData) app.getDataComponent();
-            String cellKey = pane.getId();
-
-            // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL
-            data.toggleTAOfficeHours(cellKey, taName);*/
-            // WE'VE CHANGED STUFF
             markWorkAsEdited();
         }
     }
@@ -322,7 +313,6 @@ public class CourseSiteGeneratorController {
            
             Recitation rec = (Recitation) selectedItem;
         
-           
             // GET THE TA
             String section = rec.getSection();
             String instructor = rec.getInstructor();
@@ -380,11 +370,11 @@ public class CourseSiteGeneratorController {
         if (selectedItem != null) {
            
             Student student = (Student) selectedItem;
-        
+            
             CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
             workspace.studentsFirstNameTextField.setText(student.getFirstName());
             workspace.studentsLastNameTextField.setText(student.getLastName());
-            workspace.studentsTeamComboBox.setValue(student.getTeam());
+            workspace.studentsTeamComboBox.setValue(workspace.studentsTeamComboBox.getValue());
             workspace.studentsRoleTextField.setText(student.getRole());
             
         }
@@ -856,7 +846,36 @@ public class CourseSiteGeneratorController {
         markWorkAsEdited();
     }
     public void handleDeleteStudent(){
-        
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TableView studentTable = workspace.getStudentsTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+            Object selectedItem = studentTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Student student = (Student) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteStudent_Transaction(student, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+    }
+    public void handleStudentKeyPress(KeyCode code){
+        if (code == KeyCode.DELETE || code == KeyCode.BACK_SPACE) {
+            CourseSiteGeneratorWorkspace workspace = (CourseSiteGeneratorWorkspace) app.getWorkspaceComponent();
+            TableView studentTable = workspace.getStudentsTable();
+
+            // IS A TA SELECTED IN THE TABLE?
+            Object selectedItem = studentTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Student student = (Student) selectedItem;
+                CourseSiteGeneratorData data = (CourseSiteGeneratorData) app.getDataComponent();
+              //  HashMap<String, StringProperty> officeHours = data.getOfficeHours();
+                jTPS_Transaction transaction1 = new DeleteStudent_Transaction(student, data);
+                jTPS.addTransaction(transaction1);
+                markWorkAsEdited();
+            }
+        }
     }
     public void handleAddStudent(boolean update){
         
@@ -869,7 +888,8 @@ public class CourseSiteGeneratorController {
         
         String firstName = studentFirstNameTextField.getText();
         String lastName = studentLastNameTextField.getText();
-        String team = studentTeamComboBox.getSelectionModel().getSelectedItem().toString();
+        Team teamItem = (Team)studentTeamComboBox.getSelectionModel().getSelectedItem();
+        String team = teamItem.getName();
         String role = studentRoleTextField.getText();
         
         
