@@ -62,6 +62,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 /**
  *
  * @author benjaminzhuo
@@ -879,7 +880,9 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
        studentsRoleLabel.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ROLELABEL_TEXT.toString()));
        studentsFirstNameTextField = new TextField();
        studentsLastNameTextField = new TextField();
+       ObservableList teamData = data.getTeams();
        studentsTeamComboBox = new ComboBox();
+       studentsTeamComboBox.setItems(teamData);
        studentsRoleTextField = new TextField();
        studentsAddUpdateButton = new Button();
        studentsAddUpdateButton.setText(props.getProperty(CourseSiteGeneratorProp.STUDENTS_ADDUPDATEBUTTON_TEXT.toString()));
@@ -1135,9 +1138,43 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
             }
             controller.handleAddTeam(teamSelected);
         });
+        teamsGridButton.setOnAction(e  -> {
+            controller.handleDeleteTeam();
+        });
+        teamsTable.setOnKeyPressed(e -> {
+            controller.handleTeamKeyPress(e.getCode());
+        });
+        teamsClearButton.setOnAction(e->{
+            teamsNameTextField.clear();
+            teamsLinkTextField.clear();
+            teamsColorColorPicker.setValue(null);
+            teamsTextColorPicker.setValue(null);
+            teamsTable.getSelectionModel().clearSelection();
+        });
+       studentsClearButton.setOnAction(e -> {
+            studentsFirstNameTextField.clear();
+            studentsLastNameTextField.clear();
+            studentsRoleTextField.clear();
+            studentsTeamComboBox.setValue(null);
+            studentsRoleTextField.clear();
+            studentsTable.getSelectionModel().clearSelection();
+        });
+        studentsTable.setOnMousePressed(e->{
+            controller.handleStudentsClicked();
+        });
+        teamsTable.setOnMousePressed(e->{
+            controller.handleTeamsClicked();
+        });
         
-        
-        
+        studentsAddUpdateButton.setOnAction(e -> {
+            if(studentsTable.getSelectionModel().isEmpty()){
+                studentSelected = false;
+            }
+            else{
+                studentSelected = true;
+            }
+            controller.handleAddStudent(studentSelected);
+        });
         
         
         
@@ -1665,6 +1702,30 @@ public class CourseSiteGeneratorWorkspace extends AppWorkspaceComponent{
 
     public TextField getTeamLinkTextField() {
         return teamsLinkTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TableView getTeamsTable() {
+        return teamsTable; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getStudentFirstNameTextField() {
+        return studentsFirstNameTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getStudentLastNameTextField() {
+        return studentsLastNameTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ComboBox getStudentTeamComboBox() {
+        return studentsTeamComboBox; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TextField getStudentRoleTextField() {
+        return studentsRoleTextField; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TableView getStudentsTable() {
+        return studentsTable; //To change body of generated methods, choose Tools | Templates.
     }
 
 

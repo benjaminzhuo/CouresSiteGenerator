@@ -41,11 +41,11 @@
         {
             "schedule_type":"Lecture",
             "schedule_date":"2017-05-25",
-            "schedule_time":"asdf",
-            "schedule_title":"asdf",
-            "schedule_topic":"asdf",
-            "schedule_link":"asdf",
-            "schedule_criteria":"adsf"
+            "schedule_time":"3:30",
+            "schedule_title":"Title",
+            "schedule_topic":"Topic",
+            "schedule_link":"Link",
+            "schedule_criteria":"Criteria"
         }
     ],
     "teams":[
@@ -56,10 +56,10 @@
             "team_link":"atomic.com"
         },
         {
-            "team_name":"yolo",
-            "team_color":"5zzdf1",
-            "team_textcolor":"fzsfdf",
-            "team_link":"asdfasf.com"
+            "team_name":"asdf",
+            "team_color":"0xe6b3e6ff",
+            "team_textcolor":"0xb380b3ff",
+            "team_link":"asdf"
         }
     ],
     "students":[
@@ -73,7 +73,19 @@
             "student_firstname":"Jimmy",
             "student_lastname":"apple",
             "student_team":"sadfc",
+            "student_role":"designersd"
+        },
+        {
+            "student_firstname":"Jimmy",
+            "student_lastname":"apple",
+            "student_team":"sadfc",
             "student_role":"designer"
+        },
+        {
+            "student_firstname":"Jimmy",
+            "student_lastname":"apple",
+            "student_team":"sadfc",
+            "student_role":"designersd"
         }
     ],
     "starting_monday":"4/22/2012",

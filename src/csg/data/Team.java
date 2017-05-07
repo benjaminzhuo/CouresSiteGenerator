@@ -38,4 +38,7 @@ public class Team {
     public String getLink(){
         return link.get();
     }
+    public String toString(){
+        return name.getValue();
+    }
 }

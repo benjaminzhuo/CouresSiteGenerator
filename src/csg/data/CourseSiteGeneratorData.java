@@ -695,5 +695,23 @@ public class CourseSiteGeneratorData implements AppDataComponent
     public void addRecitation(Recitation oldRecitation) {
         recitations.add(oldRecitation);
     }
+
+    public void removeTeam(String name) {
+         for(Team team : teams){
+            if(name.equals(team.getName())){
+                teams.remove(team);
+                return;
+            }
+        }//To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void removeStudent(String firstName) {
+        for(Student student : students){
+            if(firstName.equals(student.getFirstName())){
+                students.remove(student);
+                return;
+            }
+        } //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
